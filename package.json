@@ -18,7 +18,9 @@
   "homepage": "https://github.com/BrunoJusta/fmc_tour#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-swagger-generator": "^1.1.17",
     "express-validator": "^6.7.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.16"
