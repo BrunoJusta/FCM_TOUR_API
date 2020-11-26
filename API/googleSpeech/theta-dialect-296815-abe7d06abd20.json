@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "theta-dialect-296815",
+  "private_key_id": "abe7d06abd20f6cbc3f6f0b89b504d9284911362",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDsrln+8prTzEjE\nA1vVucJj/gKcepXOiLAchSq8aLKXI5yEn0Vza5O5JcdCHlrN1/Xa97ZhJY4LfgSv\neg8lZRpXGrSzCpvrvVMr2ZZp9BM1zZFnBWd67/2GkdR9Vzr68coeqbixs3k7Mgm/\nM5RQMGiesJz786bAaNk8wJXkPysSrhRb0ZJsUtmAYmK0GBWz+oCYgo3sje8kG8Do\n2R/jxmuzdG29sIesfcMJWtRhaXIJzLtUiF/nC5sDXzRA11zaT5gbECIrjPZmRYd+\n8uW0/n7bEGJaT5UrNH758EV6Xhiti15hV7q+iH2UNbZtkONQ5AS+ulNcEzqdRpgM\n9j7zgKNXAgMBAAECggEAL0HSw1Zydpaj8stO41o/R5LYt6C8V6wwKcmnEk5/VjEs\nl8hraBPTP5Uc94UzEUWtF8b9GeGTPpUvX1AqRQeuXjT9XoBgSI4ZVLiR0V8EFOqS\nPTU1h7TydJOaj1pC8wcjGcM+lvCkZJ7lllE4rFg2E3VlKuNn6KQmt/wmEZhRQ92u\n8rHc9IXD4C9pMpePEFnLst+5pCYKB+47DInk2xIaOrJki/J/ASM0AlXzKtNU0P4o\npAhimCGXgLm8QwegpE3YV1PmRu2gqIlrSPP5adNryoHYmwmF6acJN54/eGBAT3hD\nIDIyXKropF8n4tdoH+DLNpG5gWsEEWHXjjKFR/kYNQKBgQD4fAtpq1LMNxmWagQx\nLEDZD1PqLJnlZf9S0+lYlnDdp/MDQX0teJ/2/dwpXT+b4785xJOGtVqkEIM4S1Ru\nB80B9BpqOsLsQp4bzCXRcVYdeId9me1/IUk1+t8GPYcGvCp8NdzfbXb+oLqYegNu\n6VUXzJs22MZvzlQiwHycGM8LwwKBgQDz1upZV6pOdCcIkJwA8Dekr6BQWj0Gx4Ga\nkHFoxXIrrFD2OzqaBD6TVEM2zYgwbbH+m/9Sf4WFXaIL93hQ9vKYZgxA97n049N7\nQ4mgWAbXVeJYmZD9qzZm/AGfrJfTtOVi2boYVBrt5porUrvUuvWuiltxtbILSsll\nNPVJ3oLU3QKBgEzYr/7iCR02/SbTarB6ayO15dHKMV4MiUXoW4YWIJmsUy9ylW/2\nmiIcqHXybLWdXYpUDPvgIkQTB0HlqhrNNs2f3Ht16MqAX71hCWEYl/VNTTm+3QAw\nHyAekdKwPI4Mq2b2kXRXujFNK+fz9BPc/X/6uxXfPJ9fRA3rUZ5E3eNZAoGASHDa\n4nwG3pPnXMYJcsXq4gRDLlwAsVjoChFLgALYrlzdGKnz+Pm11XM9HLTm9uw/6xJR\nQiMcecidccytc/BJljkK/uoZ1sUwePhRlM9SCPs86XGF/7azzNilatiNqpmdZEam\n4L9r2K2fs6s6njKE9run+xotsOkg9+5JyQ5P9AkCgYEAjGtAelZW839GUP2TEeO3\nH04VpmNcDgCfcJ9phSaEdM16nNYoTybhSUCksLHwh7vb7siT6rYqYVbMMyUYs1Ch\nFN08zWQK6TpJ5BxLViQS9gcmCxlFpcl1pUti4Jj4kgey8TA+LMueyXqnuexWsFpv\n4XKrS5o0Cl/b6mn3RYanaDc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "text2speech@theta-dialect-296815.iam.gserviceaccount.com",
+  "client_id": "118129990487372012865",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/text2speech%40theta-dialect-296815.iam.gserviceaccount.com"
+}
