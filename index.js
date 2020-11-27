@@ -5,7 +5,8 @@ const port = 3000;
 const mongoose = require('mongoose');
 const salas = require('./routes/rooms')
 const user = require('./routes/users.js')
-const utilities = require('./utilities/utilities.js')
+const museum = require('./routes/museum.js')
+const utilities = require('./utilities/utilities.js');
 
 
 app.use(express.json());
@@ -43,6 +44,7 @@ app.use(auth)
 
 app.use('/salas', salas)
 app.use('/', user)
+app.use('/museum', museum)
 
 app.listen(port, () => {
     console.log("Servidor a correr na porta " + port)
