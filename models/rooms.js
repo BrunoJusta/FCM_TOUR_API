@@ -1,10 +1,3 @@
-/**
- * @typedef Room
- * @property {Number} piso.require
- * @property {Number} número.require
- * @property {Number} lotação.require
- * @property {Boolean} ocupada.require
- */
 
 const mongoose = require('mongoose');
 

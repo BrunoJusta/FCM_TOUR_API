@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 const login = (req, res) => {
 
-    user.find({username: req.body.username}, function (err, user) {
+    user.find({email: req.body.email}, function (err, user) {
         if (err) {
             res.status(400).send(err); 
         }
@@ -13,7 +13,7 @@ const login = (req, res) => {
 
             bcrypt.compare(req.body.password, user[0].password).then(function(result) {
                 if(result) {
-                    utilities.generateToken({user: req.body.username}, (token) => {
+                    utilities.generateToken({user: req.body.email}, (token) => {
                         res.status(200).json(token); 
                     })
                 } else {
@@ -33,9 +33,9 @@ const register = (req, res) => {
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(req.body.password, salt, function(err, hash) {
             
-            const userToCreate = new user({ username: req.body.username, password: hash });
+            const userToCreate = new user({ username: req.body.username, password: hash, email: req.body.email, points: 0, img: "" });
 
-            user.find({username: req.body.username}, function (err, user) {
+            user.find({email: req.body.email}, function (err, user) {
                 if (err) {
                     res.status(400).send(err); 
                 }

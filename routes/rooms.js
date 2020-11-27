@@ -6,12 +6,7 @@ const { body, validationResult, param} = require('express-validator');
 
 
 router.route('/')
-/**
-     * @route GET /salas
-     * @group salas
-     * @returns {object} 200 - An array of Rooms info
-     * @returns {Error} 400 - Unexpected error
-     */
+
     .get( function (req, res) {
         const errors = validationResult(req); 
         if (errors.isEmpty()) {
@@ -20,13 +15,7 @@ router.route('/')
             res.status(404).json({errors: errors.array()})
         }
     })
-    /**
-     * @route POST /salas
-     * @group salas
-     * @param {object} object.body - Room's Credentials - eg. {"piso":"3", "número":"34"}
-     * @returns {object} 200 - Room Created
-     * @returns {Error} 400 - Unexpected error
-     */
+   
     .post([body('piso').notEmpty().isNumeric().escape(), body('número').notEmpty().isNumeric().escape()],
         function (req, res) {
             const errors = validationResult(req); 
