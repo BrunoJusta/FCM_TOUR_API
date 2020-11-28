@@ -7,8 +7,15 @@ const {
     param
 } = require('express-validator');
 
-router.route('/musica')
-
+router.route('/cupertinos')
+    /**
+     * @route GET /cupertinos
+     * @group Cupertinos
+     * @returns {object} 200 - An array of music info
+     * @returns {Error} 400 - Unexpected error
+     * @returns {Error} 401 - Invalid Token
+     * @security Bearer
+     */
     .get(function (req, res) {
         const errors = validationResult(req);
         if (errors.isEmpty()) {
@@ -19,5 +26,7 @@ router.route('/musica')
             })
         }
     })
+
+
 
 module.exports = router;

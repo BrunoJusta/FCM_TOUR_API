@@ -49,7 +49,7 @@ app.use(express.json());
 app.use(auth)
 app.use('/salas', salas)
 app.use('/', user)
-app.use('/museum', museum)
+app.use('/museu', museum)
 app.use('/musica', music)
 app.use('/utilizadores', user)
 
