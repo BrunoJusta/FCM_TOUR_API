@@ -9,8 +9,8 @@ const {
 
 router.route('/cupertinos')
     /**
-     * @route GET /cupertinos
-     * @group Cupertinos
+     * @route GET /musica
+     * @group Musics
      * @returns {object} 200 - An array of music info
      * @returns {Error} 400 - Unexpected error
      * @returns {Error} 401 - Invalid Token
@@ -19,7 +19,7 @@ router.route('/cupertinos')
     .get(function (req, res) {
         const errors = validationResult(req);
         if (errors.isEmpty()) {
-            controller.getMusic(req, res);
+            controller.getCupertinos(req, res);
         } else {
             res.status(404).json({
                 errors: errors.array()
@@ -27,6 +27,25 @@ router.route('/cupertinos')
         }
     })
 
+    router.route('/ciclos')
+    /**
+     * @route GET /musica
+     * @group Musics
+     * @returns {object} 200 - An array of music info
+     * @returns {Error} 400 - Unexpected error
+     * @returns {Error} 401 - Invalid Token
+     * @security Bearer
+     */
+    .get(function (req, res) {
+        const errors = validationResult(req);
+        if (errors.isEmpty()) {
+            controller.getCiclos(req, res);
+        } else {
+            res.status(404).json({
+                errors: errors.array()
+            })
+        }
+    })
 
 
 module.exports = router;

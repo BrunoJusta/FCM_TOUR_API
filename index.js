@@ -19,8 +19,7 @@ expressSwagger(options);
 
 
 const auth = function(req, res, next) {
-    let exceptions = ['/login', '/register']; 
-    if(exceptions.indexOf(req.url) >= 0) {
+     if(utilities.exceptions.indexOf(req.url) >= 0) {
         next(); 
     } else {
         utilities.validateToken(req.headers.authorization, (result) => {

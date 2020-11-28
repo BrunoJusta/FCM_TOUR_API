@@ -1,14 +1,25 @@
 const music = require("../models/music.js"); 
 
 
-const getMusic = (req, res) => {
-    music.find(function (err, result) {
+const getCupertinos = (req, res) => {
+    music.find({music}, function (err, result) {
         if (err) {
             res.status(400).send(err); 
         }
-        res.status(200).json(result); 
+        res.status(200).json(result[0].cupertinos); 
+    })
+}
+
+const getCiclos = (req, res) => {
+    music.find({music}, function (err, result) {
+        if (err) {
+            res.status(400).send(err); 
+        }
+        res.status(200).json(result[0].ciclos); 
     })
 }
 
 
-exports.getMusic = getMusic; 
+exports.getCupertinos = getCupertinos;
+exports.getCiclos = getCiclos; 
+

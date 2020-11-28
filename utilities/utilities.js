@@ -22,5 +22,8 @@ const validateToken = (token, callback) => {
     })
 }
 
+const exceptions = ['/login', '/register', '/museu', '/musica', '/musica/cupertinos']
+
 exports.generateToken = generateToken
 exports.validateToken = validateToken
+exports.exceptions = exceptions
