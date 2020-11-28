@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const rouletteSchema = new mongoose.Schema({
-    prizes:Object,
+    prizes:Array,
     items: Array,
 })
 
-const rouletteSchema = mongoose.model('roulette', rouletteSchema)
+const roulette = mongoose.model('roulette', rouletteSchema)
 
 module.exports = roulette; 
