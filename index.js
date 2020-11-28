@@ -6,10 +6,16 @@ const mongoose = require('mongoose');
 const salas = require('./routes/rooms')
 const user = require('./routes/users.js')
 const museum = require('./routes/museum.js')
+const music = require('./routes/music.js')
 const utilities = require('./utilities/utilities.js');
 
 
-app.use(express.json());
+
+// Swagger
+const expressSwagger = require('express-swagger-generator')(app); 
+const options = require('./swagger_conf'); 
+expressSwagger(options); 
+
 
 
 const auth = function(req, res, next) {
@@ -39,12 +45,15 @@ db.once('open', function () {
 })
 db.on('error', console.error.bind(console, "connection error: "))
 
-
+app.use(express.json());
 app.use(auth)
-
 app.use('/salas', salas)
 app.use('/', user)
 app.use('/museum', museum)
+app.use('/musica', music)
+app.use('/utilizadores', user)
+
+
 
 app.listen(port, () => {
     console.log("Servidor a correr na porta " + port)

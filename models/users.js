@@ -1,3 +1,12 @@
+/**
+ * @typedef User
+ * @property {string} username.required
+ * @property {string} password.required
+ * @property {string} email.required
+ * @property {string} points.required
+ * @property {string} img.required
+ * 
+ */
 
 const mongoose = require('mongoose');
 

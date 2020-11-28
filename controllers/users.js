@@ -55,5 +55,17 @@ const register = (req, res) => {
     });
 } 
 
+
+const getUsers = (req, res) => {
+    user.find(function (err, result) {
+        if (err) {
+            res.status(400).send(err); 
+        }
+        res.status(200).json(result); 
+    })
+}
+
+
 exports.login = login; 
 exports.register = register; 
+exports.getUsers = getUsers;
