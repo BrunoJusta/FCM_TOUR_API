@@ -2,7 +2,7 @@ const museum = require("../models/museum.js");
 
 
 const getMuseum = (req, res) => {
-    museum.find(function (err, rooms) {
+    museum.find({museum}, function (err, rooms) {
         if (err) {
             res.status(400).send(err); 
         }
@@ -10,7 +10,7 @@ const getMuseum = (req, res) => {
     })
 }
 
-const addMuseum = (req, res) =>{
+/*const addMuseum = (req, res) =>{
     const newMuseum = new museum({
         description: req.body.description,
         cover: req.body.cover,
@@ -25,6 +25,5 @@ const addMuseum = (req, res) =>{
         }
         res.status(200).json(museum)
     })
-}
+}*/
 exports.getMuseum = getMuseum; 
-exports.addMuseum = addMuseum;
