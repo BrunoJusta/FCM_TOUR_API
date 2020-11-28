@@ -7,9 +7,7 @@ const {
     param
 } = require('express-validator');
 
-router.route('/museum')
-
-    .get(function (req, res) {
+router.get('/museum', function (req, res) {
         const errors = validationResult(req);
         if (errors.isEmpty()) {
             controller.getMuseum(req, res);
