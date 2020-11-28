@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const museumSchema = new mongoose.Schema({
-    desccription: String,
+    description: String,
     cover: String,
     temporary: Array,
     permanent: Array,
