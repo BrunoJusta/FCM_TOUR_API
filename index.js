@@ -7,6 +7,7 @@ const salas = require('./routes/rooms')
 const user = require('./routes/users.js')
 const museum = require('./routes/museum.js')
 const music = require('./routes/music.js')
+const roulette = require('./routes/roulette.js')
 const utilities = require('./utilities/utilities.js');
 
 
@@ -51,6 +52,7 @@ app.use('/', user)
 app.use('/museu', museum)
 app.use('/musica', music)
 app.use('/utilizadores', user)
+app.use('/roleta', roulette)
 
 
 
