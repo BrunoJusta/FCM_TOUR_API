@@ -18,7 +18,7 @@ router.get('/', function (req, res) {
     function (req, res){
         const errors =  validationResult(req);
         if (errors.isEmpty()){
-            controller.createRoom(req, res);
+            controller.createMuseum(req, res);
         }else{
             res.status(404).jsom({errors: errors.array()})
         }
