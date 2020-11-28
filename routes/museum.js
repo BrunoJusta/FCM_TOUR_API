@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/museum.js')
-const { body, validationResult, param} = require('express-validator');
+const { body, validationResult} = require('express-validator');
 
-router.get('/museum', function (req, res) {
+router.get('/', function (req, res) {
         const errors = validationResult(req);
         if (errors.isEmpty()) {
             controller.getMuseum(req, res);
@@ -14,7 +14,7 @@ router.get('/museum', function (req, res) {
         }
     })
 
-    router.post('/museum', [body('description').notEmpty().escape(),body('cover').notEmpty().escape()],
+    router.post('/', [body('description').notEmpty().escape(),body('cover').notEmpty().escape()],
     function (req, res){
         const errors =  validationResult(req);
         if (errors.isEmpty()){
