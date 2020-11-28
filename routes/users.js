@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const controller = require('../controllers/users.js')
 const { validationResult, body } = require('express-validator')
+const utilities = require('../utilities/utilities.js')
 
 /**
  * @route POST /login
@@ -13,6 +14,37 @@ const { validationResult, body } = require('express-validator')
 router.post('/login',  function (req, res) {
     controller.login(req, res); 
 })
+
+router.get('/', function(req, res) {
+    res.send(utilities.urlGoogle)
+})
+
+router.get('/login', function(req, res) {
+    utilities.getTokens(req.query.code, (error, tokens) => {
+        if(error){
+            res.status(400).send(error)
+        }else{
+            utilities.getUserInfo(tokens.access_token, (error, user_info) => {
+                if(error){
+                    res.status(400).send(error)
+                }
+                else{
+                    utilities.validateTokenGoogle(tokens.id_token, (error, validToken) =>{
+                        if(error){
+                         res.status(400).send(error)
+                            
+                        }
+                        else{
+                            res.status(200).send({tokens:tokens, user: user_info, validToken: validToken})
+                        }
+                    })
+                }
+            })
+        }
+    })
+})
+
+
 
 /**
  * @route POST /register
