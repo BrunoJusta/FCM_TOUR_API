@@ -18,6 +18,7 @@ const getPoints = (req, res) => {
         numbers = []
         probs = []
         total = []
+        let nTimes;
 
         for (let index = 0; index < points[0].prizes.length; index++) {
            let n = parseInt(points[0].prizes[index].value)
@@ -25,12 +26,14 @@ const getPoints = (req, res) => {
         numbers.push(n);
         probs.push(p);
         }
-        for (let index = 0; index < numbers.length; index++) {
-            for (let j = 0; j < probs[j]; j++) {
-               total.push(numbers[index])
+            for (let j = 0; j < probs.length; j++) {
+                nTimes = probs[j]
+                for (let k = 0; k < nTimes; k++) {
+                    total.push(numbers[j])  
+                }    
             }
-        }
-        res.status(200).json(total); 
+        let award = total[Math.floor(total.length * Math.random())];
+        res.status(200).json(award); 
 
     })
 }
