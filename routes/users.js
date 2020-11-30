@@ -1,7 +1,10 @@
 const express = require('express')
 const router = express.Router();
 const controller = require('../controllers/users.js')
-const { validationResult, body } = require('express-validator')
+const {
+    validationResult,
+    body
+} = require('express-validator')
 const utilities = require('../utilities/utilities.js')
 
 /**
@@ -11,31 +14,33 @@ const utilities = require('../utilities/utilities.js')
  * @returns {object} 200 - Bearer Token
  * @returns {Error} 400 - Unexpected error
  */
-router.post('/login',  function (req, res) {
-    controller.login(req, res); 
+router.post('/login', function (req, res) {
+    controller.login(req, res);
 })
 
-router.get('/', function(req, res) {
-    res.send(utilities.urlGoogle)
+router.get('/', function (req, res) {
+    res.send(utilities.urlGoogle())
 })
 
-router.get('/login', function(req, res) {
+router.get('/login', function (req, res) {
     utilities.getTokens(req.query.code, (error, tokens) => {
-        if(error){
+        if (error) {
             res.status(400).send(error)
-        }else{
+        } else {
             utilities.getUserInfo(tokens.access_token, (error, user_info) => {
-                if(error){
+                if (error) {
                     res.status(400).send(error)
-                }
-                else{
-                    utilities.validateTokenGoogle(tokens.id_token, (error, validToken) =>{
-                        if(error){
-                         res.status(400).send(error)
-                            
-                        }
-                        else{
-                            res.status(200).send({tokens:tokens, user: user_info, validToken: validToken})
+                } else {
+                    utilities.validateTokenGoogle(tokens.id_token, (error, validToken) => {
+                        if (error) {
+                            res.status(400).send(error)
+
+                        } else {
+                            res.status(200).send({
+                                tokens: tokens,
+                                user: user_info,
+                                validToken: validToken
+                            })
                         }
                     })
                 }
@@ -56,16 +61,18 @@ router.get('/login', function(req, res) {
  * @security Bearer
  */
 router.post('/register', [
-    body('username').notEmpty().escape(), 
+    body('username').notEmpty().escape(),
     body('password').notEmpty().escape(),
     body('email').notEmpty().escape(),
 
-],  function (req, res) {
-    const errors = validationResult(req); 
+], function (req, res) {
+    const errors = validationResult(req);
     if (errors.isEmpty()) {
-        controller.register(req, res); 
+        controller.register(req, res);
     } else {
-        res.status(404).json({errors: errors.array()})
+        res.status(404).json({
+            errors: errors.array()
+        })
     }
 })
 
@@ -79,11 +86,13 @@ router.post('/register', [
  * @security Bearer
  */
 router.get('/utilizadores', function (req, res) {
-    const errors = validationResult(req); 
+    const errors = validationResult(req);
     if (errors.isEmpty()) {
-        controller.getUsers(req, res); 
+        controller.getUsers(req, res);
     } else {
-        res.status(404).json({errors: errors.array()})
+        res.status(404).json({
+            errors: errors.array()
+        })
     }
 })
 
