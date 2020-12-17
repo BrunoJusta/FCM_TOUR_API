@@ -9,7 +9,7 @@ const getMuseum = (req, res) => {
             res.status(400).send(err); 
         }
         else{
-        speech.Text2Speech(rooms[0].description, "museu")
+        speech.speeching(rooms[0].description, "museu")
         console.log(rooms[0].description)
         res.status(200).json(rooms); 
 
