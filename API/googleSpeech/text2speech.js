@@ -23,13 +23,13 @@ function speeching(txt, name){
             "languageCode": "pt-PT",
             "name": "pt-PT-Wavenet-A"
         },
-        "outputFileName": name + ".mp3"
+        "outputFileName": "./API/googleSpeech/" + name + ".mp3"
     };
     
     let data = JSON.stringify(json);
-    fs.writeFileSync('setting.json', data);
+    fs.writeFileSync('./API/googleSpeech/setting.json', data);
     
-    const YourSetting = fs.readFileSync('setting.json');
+    const YourSetting = fs.readFileSync('./API/googleSpeech/setting.json');
     async function Text2Speech(YourSetting) {
         const [response] = await client.synthesizeSpeech(JSON.parse(YourSetting));
         const writeFile = util.promisify(fs.writeFile);
