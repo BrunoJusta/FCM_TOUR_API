@@ -62,6 +62,7 @@ const urlGoogle = () => {
 const getTokens = (code, callback) =>{
     const auth = createConnection();
     auth.getToken(code).then(tokens =>{
+        console.log(tokens)
         if(!tokens.tokens){
 return callback(true, "Error")
         }else{

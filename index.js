@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.port || 3000;
 const mongoose = require('mongoose');
 const salas = require('./routes/rooms')
 const user = require('./routes/users.js')
@@ -11,8 +11,18 @@ const roulette = require('./routes/roulette.js')
 const tower = require('./routes/tower.js')
 const library = require('./routes/library.js')
 const utilities = require('./utilities/utilities.js');
+const firebase = require('firebase');
 
-
+// FireBase
+var app = firebase.initializeApp({
+    apiKey: "AIzaSyDecuyoFEMMyqc_YLX_5b-oM_btYI9HEQc",
+    authDomain: "fcmtour-347cf.firebaseapp.com",
+    projectId: "fcmtour-347cf",
+    storageBucket: "fcmtour-347cf.appspot.com",
+    messagingSenderId: "993641904076",
+    appId: "1:993641904076:web:8cb25caa29f05e50034f69",
+    measurementId: "G-FV1C9VGR6T"
+  })
 
 // Swagger
 const expressSwagger = require('express-swagger-generator')(app); 
@@ -22,7 +32,8 @@ expressSwagger(options);
 
 
 const auth = function(req, res, next) {
-     if(utilities.exceptions.indexOf(req.url) >= 0) {
+    console.log(req.url)
+     if(utilities.exceptions.indexOf(req.url) >= 0 || req.url.indexOf('login?code') != -1)  {
         next(); 
     } else {
         utilities.validateToken(req.headers.authorization, (result) => {

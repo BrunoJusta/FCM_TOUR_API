@@ -23,6 +23,7 @@ router.get('/', function (req, res) {
 })
 
 router.get('/login', function (req, res) {
+    console.log("ok")
     utilities.getTokens(req.query.code, (error, tokens) => {
         if (error) {
             res.status(400).send(error)
