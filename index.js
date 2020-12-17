@@ -14,15 +14,15 @@ const utilities = require('./utilities/utilities.js');
 const firebase = require('firebase');
 
 // FireBase
-app = firebase.initializeApp({
-    apiKey: "AIzaSyDecuyoFEMMyqc_YLX_5b-oM_btYI9HEQc",
-    authDomain: "fcmtour-347cf.firebaseapp.com",
-    projectId: "fcmtour-347cf",
-    storageBucket: "fcmtour-347cf.appspot.com",
-    messagingSenderId: "993641904076",
-    appId: "1:993641904076:web:8cb25caa29f05e50034f69",
-    measurementId: "G-FV1C9VGR6T"
-  })
+//app = firebase.initializeApp({
+  //  apiKey: "AIzaSyDecuyoFEMMyqc_YLX_5b-oM_btYI9HEQc",
+    //authDomain: "fcmtour-347cf.firebaseapp.com",
+    //projectId: "fcmtour-347cf",
+    //storageBucket: "fcmtour-347cf.appspot.com",
+    //messagingSenderId: "993641904076",
+    //appId: "1:993641904076:web:8cb25caa29f05e50034f69",
+    //measurementId: "G-FV1C9VGR6T"
+  //})
 
 // Swagger
 const expressSwagger = require('express-swagger-generator')(app); 
