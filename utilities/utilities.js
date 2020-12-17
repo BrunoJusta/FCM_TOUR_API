@@ -106,7 +106,7 @@ const validateTokenGoogle = (token, callback) => {
     })
 }
 
-const exceptions = ['/','/login', '/register', '/museu', '/musica', '/musica/cupertinos', '/roleta', '/roleta/girar']
+const exceptions = ['/','/login', '/torre', '/register', '/museu', '/musica', '/musica/cupertinos', '/roleta', '/roleta/girar']
 
 exports.generateToken = generateToken
 exports.validateToken = validateToken

@@ -1,4 +1,6 @@
 const museum = require("../models/museum.js"); 
+const speech = require("../API/googleSpeech/text2speech.js"); 
+
 
 
 const getMuseum = (req, res) => {
@@ -6,7 +8,11 @@ const getMuseum = (req, res) => {
         if (err) {
             res.status(400).send(err); 
         }
+        else{
         res.status(200).json(rooms); 
+        speech.Text2Speech(rooms[0].description, "museu")
+
+        }
     })
 }
 
