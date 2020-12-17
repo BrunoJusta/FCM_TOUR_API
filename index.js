@@ -14,7 +14,7 @@ const utilities = require('./utilities/utilities.js');
 const firebase = require('firebase');
 
 // FireBase
-var app = firebase.initializeApp({
+app = firebase.initializeApp({
     apiKey: "AIzaSyDecuyoFEMMyqc_YLX_5b-oM_btYI9HEQc",
     authDomain: "fcmtour-347cf.firebaseapp.com",
     projectId: "fcmtour-347cf",
