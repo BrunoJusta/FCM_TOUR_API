@@ -3,7 +3,7 @@ const fs = require('fs');
 const util = require('util');
 const send = require('./firebase.js');
 const projectId = 'theta-dialect-296815'
-const keyFilename = './API/Theta.json'
+const keyFilename = './API/theta.json'
 const client = new textToSpeech.TextToSpeechClient({
     projectId,
     keyFilename
@@ -30,16 +30,15 @@ function speeching(txt, name){
     
     let data = JSON.stringify(json);
     fs.writeFileSync('setting.json', data);
-    
+    console.log(txt)
     const YourSetting = fs.readFileSync('setting.json');
     async function Text2Speech(YourSetting) {
+
         const [response] = await client.synthesizeSpeech(JSON.parse(YourSetting));
         const writeFile = util.promisify(fs.writeFile);
         await writeFile(JSON.parse(YourSetting).outputFileName, response.audioContent, 'binary');
         console.log(`Audio content written to file: ${JSON.parse(YourSetting).outputFileName}`);
-
-        let filename =  name + ".mp3"
-        send.send(filename)
+        send.send(name)
     } 
 
     Text2Speech(YourSetting);

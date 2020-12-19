@@ -1,37 +1,67 @@
 
-const {Storage} = require('@google-cloud/storage');
+const uuid = require('uuid-v4');
+const tower = require('../models/tower.js')
 
-const express = require('express')
+function send(name){
 
-const app = new express()
+  console.log(name)
+  const {Storage} = require('@google-cloud/storage');
 
-
-const storage = new Storage({
-  keyFilename: "./fcmtour-347cf-firebase-adminsdk-qmqn9-d61fffd41e.json"
-});
-
-let bucketName = "fcmtour-347cf.appspot.com"
-let file_name = "./museu.mp3";
-
-const uploadFile = async()  => {
-  await storage.bucket(bucketName).upload(file_name, {
-    gzip:true,
-    metadata:{
-      cacheControl: 'public, max-age=31536000',
-    },
+  const storage = new Storage({
+    keyFilename: "./API/fcmtour-347cf-firebase-adminsdk-qmqn9-d61fffd41e.json"
   });
+  
+  let bucketName = "fcmtour-347cf.appspot.com"
+  let file_name = name + ".mp3";
+  
+   const uploadFile = async()  => {
+    await storage.bucket(bucketName).upload(file_name, {
+      gzip:true,
+      metadata:{
+        contentType: 'audio/mpeg',
+        metadata:{
+          firebaseStorageDownloadTokens: uuid()
+        }
+      
+      },
+      
+    });
+    
+  }
+  
+  uploadFile();
 
-  console.log("lets goooooo")
+  let Url = "https://firebasestorage.googleapis.com/v0/b/" + bucketName + "/o/" + file_name + "?alt=media"
 
+  let collection = name
 
+  tower.findOne({tower}, function (err, result) {
+    if (err) {
+        res.status(400).send(err); 
+    }
+    if(result){
+      for(let i=0; i<result.rooms.length; i++){
+        let name2 = result.rooms[i].name
+       
 
+        if(name == name2){
+          result.rooms[i].audio = Url
+      console.log(result.rooms[i].audio)
+      result.save()
+         
+        } 
+        
+        console.log(result.save() )
+
+    }
+
+  
+    }
+})
 }
 
 
-uploadFile();
-
-app.listen(8088, () => {console.log('server running')})
-
+exports.send = send
 
 
 
@@ -89,4 +119,4 @@ app.listen(8088, () => {console.log('server running')})
 }
 
 
-exports.send = send */
+ */
