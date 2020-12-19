@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "hardy-rhythm-244122",
+  "private_key_id": "0b4ab0d4691cfcba326754543d466f419908bb3e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCrUta0EzICFSxV\nF8KViDTBpCGKsNo57tpDb7dZj/0lO2mLqsATg0Kr5yvRyMkG/wZI4EcKj76N51gE\nJKdrvgfj0wTsf5dQGfuf7XMG5iIiFcZ8e3QYxMjMv1kri9e65VToE7RPxiobuGij\nFGFlg8h7lDKk6niy0IyEbNchfvqc61f8CBFgX9nHxjAwNvDzGx1Ts/2CCsSyFbOA\npVJfDyp3zPoGJWOE0GRCifO/A3ckMrQQ92hn4eYPSbmTUGikmQ+o59nn7km5byrp\n7hI7JK8qQ8YMFg1G4vNnTZxroQ/i/gIkn7XQ3ak168tT+FYKvmTEI7WMA14RxSlv\n2xa9utTjAgMBAAECggEAC07VbbSn+VaNGDS68C8O+bUBTcEsi48GCFYdrk4AXG5r\nzKnW3F2D5LVxFqX/tsmAZbD/9LoreVGgD+3yFadzp92WwUa5UF0sAZCk+1CXR36p\nHNryfRayq5OkVBPP3RMj+TQhE57gdUyaWMvl6H277tmHmjZWWcnFbJGD2unMVYJg\ntpNn3TZ6gbnC4y7LpLkmVBuMpyaDXWepz/KEm58fIekbS2H0HIku7VZKMtvmNIhS\nWdzzt5aS+zEU6ueEs6Pw9P6Pbc2aGjfFzKpKAO1/76X/XdrttfnO55xI5JZPjbEr\nfmwjUUSrKRs3PeGURfkFo0GX2pdfm0K4iDEJ/BoZWQKBgQDj7DiEJyMeENSz/H1w\n2v2/ym3kABjKPGs/gNBYPaCnmSNe0XvM2Iko4ANdqpCUQrcgr5rANvCQ7LXfPp6o\nIeI+e4AtrxTZyXHigdCiiKEmm+bqe2khkObxGIqxX1LQR5y6U/KiqIcelIGU9BBl\n/AzVKJd+UiouYxt6fevDOh9KXwKBgQDAbbSJ7pbD3p5bnbK+hRSQYLPB9M6TtJgN\n9CxgDYXxJJnfHgVKdR+NiaHHMRtLLDe4kyzIv6HRZBFzFFaOgzBhWP3AhQOouRiQ\nhe/x+5LFWLp2X46WFKn9h1PsPUGshU1JLkOW0Ao2F9CnqYnehtWlNlBRQUWni/aI\ne3BuLUvL/QKBgQCjesiiyWuf4hSesKjM7NZ63Vhq5ELjs+h9GQjXcgSskePT28+/\ng0UGI39mjLO9FAlEEZCe9Aki+hYNdV3ZXMxpYq3ylpUPDTV5cQFTw0pLZiF/6Frk\n74kmPyMjzCqbJ/Jbl2D+mICqR3yWeWTVsa8GqWHYAlktAnswJeeYFTViYwKBgQCj\nWT1lzXx8PzFskjzW0D+5o+1UW401A5wEVF+LFk+6eZiJN4HESBKF4uzLG9uQf7O5\nYm4k58/k4S6S4xPrHGBoctPNptyJUL8SiDA82ZMpJX372HhA3L/E8SkDpKhoXCxU\nUAqeLnJMowDEIv5fQVSBT870exU2+nBIQYkabicmvQKBgCJD8zynoUWk3eOU1JYt\nCGm2dGkolUxGmF+STp3x7bLAFROOtbX9tyrX1gWXQkE6E4W61/a0LQIWM/nE1dnV\nobfkUkvOfrDBS0SkMT+7VB5qaOuqArYL5Aa5FMnpjrsGo8Eo1SZdRaJTr+3KIdvW\n+Dclpb9CLd3VSw0VK6/jQMPp\n-----END PRIVATE KEY-----\n",
+  "client_email": "fcmtour@hardy-rhythm-244122.iam.gserviceaccount.com",
+  "client_id": "103815700834796097124",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fcmtour%40hardy-rhythm-244122.iam.gserviceaccount.com"
+}

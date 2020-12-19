@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000 ;
 const mongoose = require('mongoose');
 const salas = require('./routes/rooms')
 const user = require('./routes/users.js')
@@ -11,7 +11,9 @@ const roulette = require('./routes/roulette.js')
 const tower = require('./routes/tower.js')
 const library = require('./routes/library.js')
 const utilities = require('./utilities/utilities.js');
-const firebase = require('firebase');
+
+
+
 
 // FireBase
 //app = firebase.initializeApp({
@@ -23,6 +25,7 @@ const firebase = require('firebase');
     //appId: "1:993641904076:web:8cb25caa29f05e50034f69",
     //measurementId: "G-FV1C9VGR6T"
   //})
+  
 
 // Swagger
 const expressSwagger = require('express-swagger-generator')(app); 
@@ -60,6 +63,8 @@ db.on('error', console.error.bind(console, "connection error: "))
 
 app.use(express.json());
 app.use(auth)
+
+
 app.use('/salas', salas)
 app.use('/', user)
 app.use('/museu', museum)
@@ -68,6 +73,7 @@ app.use('/utilizadores', user)
 app.use('/torre', tower)
 app.use('/roleta', roulette)
 app.use('/livraria', library)
+
 
 
 

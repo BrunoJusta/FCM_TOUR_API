@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
   },
   "repository": {
     "type": "git",
@@ -18,15 +22,20 @@
   },
   "homepage": "https://github.com/BrunoJusta/fmc_tour#readme",
   "dependencies": {
+    "@google-cloud/storage": "^5.7.0",
     "@google-cloud/text-to-speech": "^3.1.2",
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-swagger-generator": "^1.1.17",
     "express-validator": "^6.7.0",
-    "firebase": "^8.1.2",
+    "firebase": "^8.2.1",
+    "firebase-admin": "^9.4.2",
+    "firebase-functions": "^3.13.0",
     "googleapis": "^65.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.10.17"
+    "mongoose": "^5.10.17",
+    "multer": "^1.4.2",
+    "nodemon": "^2.0.6"
   }
 }
