@@ -9,11 +9,34 @@ const getMuseum = (req, res) => {
             res.status(400).send(err); 
         }
         else{
-        speech.speeching(rooms[0].description, "museu")
-        console.log(rooms[0].description)
-        res.status(200).json(rooms); 
+            speech.speeching(rooms[0].description, "museu").then(result => {
+                if(result) {
+                    
+                    museum.findOne({museum}, function (err, rooms) {
+                        if (err) {
+                            res.status(400).send(err); 
+                        }
+                        if(rooms){
+                            console.log(rooms)
 
+                            rooms.audio = result
+                            rooms.markModified("audio")
+                            rooms.save();
+                            console.log(rooms.audio)
+                            res.status(200).json({rooms: rooms, savedURL: result})
 
+                        }
+                    })
+                   
+                } else {
+                    res.status(400).send("Error"); 
+                }
+        
+            }).catch(error => {
+                if(error) {
+                    res.status(400).send("Error"); 
+                }
+            })
         }
     })
 }

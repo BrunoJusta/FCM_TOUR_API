@@ -1,18 +1,18 @@
 const textToSpeech = require('@google-cloud/text-to-speech');
-const fs = require('fs');
-const util = require('util');
-const send = require('./firebase.js');
 const projectId = 'theta-dialect-296815'
+const uuid = require('uuid-v4');
 const keyFilename = './API/theta.json'
+const keyFilename2 = './API/fcmtour-347cf-firebase-adminsdk-qmqn9-d61fffd41e.json'
+const {Storage} = require('@google-cloud/storage');
 const client = new textToSpeech.TextToSpeechClient({
     projectId,
     keyFilename
 });
 
 
-function speeching(txt, name){
+async function speeching(txt, name){
 
-    let json = {
+    let YourSetting = JSON.stringify({
         "audioConfig": {
             "audioEncoding": "LINEAR16",
             "pitch": 0,
@@ -26,22 +26,46 @@ function speeching(txt, name){
             "name": "pt-PT-Wavenet-A"
         },
         "outputFileName": name + ".mp3"
-    };
+    });
     
-    let data = JSON.stringify(json);
-    fs.writeFileSync('setting.json', data);
-    console.log(txt)
-    const YourSetting = fs.readFileSync('setting.json');
     async function Text2Speech(YourSetting) {
-
         const [response] = await client.synthesizeSpeech(JSON.parse(YourSetting));
-        const writeFile = util.promisify(fs.writeFile);
-        await writeFile(JSON.parse(YourSetting).outputFileName, response.audioContent, 'binary');
-        console.log(`Audio content written to file: ${JSON.parse(YourSetting).outputFileName}`);
-        send.send(name)
+
+        
+        const storage = new Storage({
+            projectId: 'fcmtour-347cf',
+            keyFilename: keyFilename2
+        }); 
+        
+        let bucketName = "fcmtour-347cf.appspot.com"
+        const bucket = storage.bucket(bucketName);
+        var file = bucket.file('Audio/' + name + ".mp3");
+
+        let link = "https://firebasestorage.googleapis.com/v0/b/" + bucketName + "/o/" + 'Audio%2F' + name + ".mp3" + "?alt=media DUMMY"
+        const options = { 
+            metadata: {
+              contentType: 'audio/mpeg',
+              metadata: {
+                source: 'Google Text-to-Speech'
+              },
+              metadata:{
+                firebaseStorageDownloadTokens: uuid()
+              }
+            }
+        };
+
+        return await file.save(response.audioContent, options)
+        .then(response2 => {
+          console.log(response2)
+          return link; 
+        })
+        .catch((error) => {
+          console.error(error);
+          return null;
+        });
     } 
 
-    Text2Speech(YourSetting);
+    return await Text2Speech(YourSetting);
     
 }
 

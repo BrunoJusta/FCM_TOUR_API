@@ -31,7 +31,7 @@ function send(name){
   
   uploadFile();
 
-  let Url = "https://firebasestorage.googleapis.com/v0/b/" + bucketName + "/o/" + file_name + "?alt=media"
+  let Url = "https://firebasestorage.googleapis.com/v0/b/" + bucketName + "/o/" + file_name + "?alt=mediaDUMMY"
 
   let collection = name
 
