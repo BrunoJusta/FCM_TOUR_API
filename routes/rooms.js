@@ -5,7 +5,7 @@ const { body, validationResult, param} = require('express-validator');
 
 
 
-router.route('/')
+router.route('/salas')
 
     .get( function (req, res) {
         const errors = validationResult(req); 
@@ -16,20 +16,9 @@ router.route('/')
         }
     })
    
-    .post([body('piso').notEmpty().isNumeric().escape(), body('número').notEmpty().isNumeric().escape()],
-        function (req, res) {
-            const errors = validationResult(req); 
-            if (errors.isEmpty()) {
-                controller.createRoom(req, res); 
-            } else {
-                res.status(404).json({errors: errors.array()})
-            }
-        })
 
-
-
-router.get('/:numero', [
-    param('numero').notEmpty().escape(),
+router.get('/salas/:number', [
+    param('number').notEmpty().escape(),
 ], function (req, res) {
     const errors = validationResult(req); 
     if (errors.isEmpty()) {
@@ -39,29 +28,7 @@ router.get('/:numero', [
     }
 })
 
-router.delete('/:numero',  [
-    param('numero').notEmpty().escape(),
-], function (req, res) {
-    const errors = validationResult(req); 
-    if (errors.isEmpty()) {
-        controller.deleteRoom(req, res); 
-    } else {
-        res.status(404).json({errors: errors.array()})
-    }
 
-})
-
-router.put('/:numero',  [
-    param('numero').notEmpty().escape(), body('lotação').notEmpty().isNumeric().escape()
-], function (req, res) {
-    const errors = validationResult(req); 
-    if (errors.isEmpty()) {
-        controller.edit(req, res); 
-    } else {
-        res.status(404).json({errors: errors.array()})
-    }
-
-})
 
 module.exports = router;
 

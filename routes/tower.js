@@ -18,8 +18,8 @@ router.get('/', function (req, res) {
 })
 
 
-router.get('/:id', [
-    param('id')], function (req, res) {
+router.get('/:number', [
+    param('number')], function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         controller.getTowerRoomsByID(req, res);

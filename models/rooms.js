@@ -2,12 +2,13 @@
 const mongoose = require('mongoose');
 
 const roomSchema = new mongoose.Schema({
-    piso: Number,
-    número: Number,
-    lotação: Number,
-    ocupada: Boolean
+    number: String,
+    name: String,
+    description: String,
+    audio: String,
+    imgs: Array
 })
 
-const room = mongoose.model('salas_ocupadas', roomSchema)
+const room = mongoose.model('rooms', roomSchema)
 
 module.exports = room; 
