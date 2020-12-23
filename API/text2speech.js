@@ -41,7 +41,8 @@ async function speeching(txt, name){
         const bucket = storage.bucket(bucketName);
         var file = bucket.file('Audio/' + name + ".mp3");
 
-        let link = "https://firebasestorage.googleapis.com/v0/b/" + bucketName + "/o/" + 'Audio%2F' + name + ".mp3" + "?alt=media DUMMY"
+        let link = "https://firebasestorage.googleapis.com/v0/b/" + bucketName + "/o/" + 'Audio%2F' + name + ".mp3" + "?alt=media"
+
         const options = { 
             metadata: {
               contentType: 'audio/mpeg',

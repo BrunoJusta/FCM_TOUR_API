@@ -5,7 +5,8 @@ const museumSchema = new mongoose.Schema({
     cover: String,
     temporary: Array,
     permanent: Array,
-    artists: Object
+    artists: Object,
+    audio: String
 })
 
 const museum = mongoose.model('museum', museumSchema)

@@ -22,7 +22,6 @@ const getMuseum = (req, res) => {
                             rooms.audio = result
                             rooms.markModified("audio")
                             rooms.save();
-                            console.log(rooms.audio)
                             res.status(200).json({rooms: rooms, savedURL: result})
 
                         }
