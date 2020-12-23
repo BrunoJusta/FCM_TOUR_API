@@ -23,7 +23,6 @@ router.get('/', function (req, res) {
 })
 
 router.get('/login', function (req, res) {
-    console.log("ok")
     utilities.getTokens(req.query.code, (error, tokens) => {
         if (error) {
             res.status(400).send(error)
@@ -37,11 +36,14 @@ router.get('/login', function (req, res) {
                             res.status(400).send(error)
 
                         } else {
-                            res.status(200).send({
+
+                            controller.loginGoogle(validToken, res)
+
+                           /*  res.status(200).send({
                                 tokens: tokens,
                                 user: user_info,
                                 validToken: validToken
-                            })
+                            }) */
                         }
                     })
                 }
