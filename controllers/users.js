@@ -117,41 +117,6 @@ const getUsers = (req, res) => {
     })
 }
 
-/* const loginFacebook = (profile, res) => {
-    users.find({
-        email: profile.email
-    }, function (err, user) {
-        if (err) {
-            res.status(400).send(err);
-        }
-        if (user.length > 0) {
-            utilities.generateToken({
-                user: req.body.email
-            }, (token) => {
-                res.status(200).json(token);
-            })
-        } else if (user.length == 0) {
-
-            const userToCreate = new users({
-                username: profile.first_name + " " + profile.last_name,
-                password: "",
-                email: profile.email,
-                points: 0,
-                img: ""
-            });
-
-            userToCreate.save(function (err, newUser) {
-                if (err) {
-                    res.status(400).send(err);
-                }
-                res.status(200).json("Registered User");
-            })
-        } else {
-            res.status(401).send("Not Authorized");
-        }
-    })
-} */
-
 //------------------------------------FACEBOOK------------------------------------
 
 passport.serializeUser(function (user, done) {
