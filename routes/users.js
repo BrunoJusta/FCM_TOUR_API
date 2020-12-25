@@ -6,6 +6,7 @@ const {
     body
 } = require('express-validator')
 const utilities = require('../utilities/utilities.js')
+const passport = require('passport')
 
 /**
  * @route POST /login
@@ -39,11 +40,11 @@ router.get('/login', function (req, res) {
 
                             controller.loginGoogle(validToken, res)
 
-                           /*  res.status(200).send({
-                                tokens: tokens,
-                                user: user_info,
-                                validToken: validToken
-                            }) */
+                            /*  res.status(200).send({
+                                 tokens: tokens,
+                                 user: user_info,
+                                 validToken: validToken
+                             }) */
                         }
                     })
                 }
@@ -51,6 +52,25 @@ router.get('/login', function (req, res) {
         }
     })
 })
+
+//------------------------------------FACEBOOK------------------------------------
+
+router.get('/auth/facebook', passport.authenticate("facebook"));
+
+router.get('/auth/facebook/callback', passport.authenticate("facebook", {
+    successRedirect: "/",
+    failureRedirect: "/fail"
+}));
+
+router.get("/fail", (req, res) => {
+    res.send("Failed Attempt");
+})
+
+router.get('/', (req, res) => {
+    res.send("Success");
+})
+
+//------------------------------------FACEBOOK------------------------------------
 
 
 

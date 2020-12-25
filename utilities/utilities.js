@@ -1,21 +1,25 @@
 var jwt = require('jsonwebtoken');
-const {google} = require('googleapis');
+const {
+    google
+} = require('googleapis');
 
 const generateToken = (user_info, callback) => {
-    let secret = process.env.SECRET; 
+    let secret = process.env.SECRET;
     let token = jwt.sign({
         data: user_info,
-    }, secret, {expiresIn: '24h'});
-    return callback(token); 
+    }, secret, {
+        expiresIn: '24h'
+    });
+    return callback(token);
 }
 
 const validateToken = (token, callback) => {
-    if(!token) {
-        return callback(false); 
+    if (!token) {
+        return callback(false);
     }
-    let secret = process.env.SECRET; 
-    jwt.verify(token.replace('Bearer ', ''), secret, function(error, decoded) {
-        if(error) {
+    let secret = process.env.SECRET;
+    jwt.verify(token.replace('Bearer ', ''), secret, function (error, decoded) {
+        if (error) {
             return callback(false);
         } else {
             return callback(true)
@@ -59,13 +63,13 @@ const urlGoogle = () => {
     return url;
 }
 
-const getTokens = (code, callback) =>{
+const getTokens = (code, callback) => {
     const auth = createConnection();
-    auth.getToken(code).then(tokens =>{
+    auth.getToken(code).then(tokens => {
         console.log(tokens)
-        if(!tokens.tokens){
-return callback(true, "Error")
-        }else{
+        if (!tokens.tokens) {
+            return callback(true, "Error")
+        } else {
             return callback(false, tokens.tokens)
         }
     })
@@ -73,14 +77,16 @@ return callback(true, "Error")
 
 const getUserInfo = (access_token, callback) => {
     let client = new google.auth.OAuth2(googleConfig.clinetId)
-    client.setCredentials({access_token: access_token})
+    client.setCredentials({
+        access_token: access_token
+    })
     var oauth2 = google.oauth2({
         auth: client,
         version: 'v2'
     })
     oauth2.userinfo.get(
-        function(err, result){
-            if(err){
+        function (err, result) {
+            if (err) {
                 return callback(true, err)
             } else {
                 return callback(false, result.data)
@@ -98,7 +104,7 @@ const validateTokenGoogle = (token, callback) => {
         })
 
         let payload = ticket.getPayload();
-        return callback(false,payload)
+        return callback(false, payload)
     }
 
     verify().catch(error => {
@@ -106,7 +112,10 @@ const validateTokenGoogle = (token, callback) => {
     })
 }
 
-const exceptions = ['/','/login', '/torre',  '/register', '/museu', '/musica', '/musica/cupertinos', '/roleta', '/roleta/girar']
+
+
+
+const exceptions = ['/', '/login', '/auth/facebook', '/auth/facebook/callback', '/torre', '/register', '/museu', '/musica', '/musica/cupertinos', '/roleta', '/roleta/girar']
 
 
 
