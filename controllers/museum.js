@@ -17,8 +17,7 @@ const getMuseum = (req, res) => {
                             res.status(400).send(err); 
                         }
                         if(rooms){
-                            console.log(rooms)
-
+                            
                             rooms.audio = result
                             rooms.markModified("audio")
                             rooms.save();
