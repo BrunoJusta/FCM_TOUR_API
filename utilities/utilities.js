@@ -29,7 +29,7 @@ const validateToken = (token, callback) => {
 
 
 const googleConfig = {
-    clinetId: '817455743730-8aptanrqdh06q6aje2jhdp7i30l38mo8.apps.googleusercontent.com',
+    clientId: '817455743730-8aptanrqdh06q6aje2jhdp7i30l38mo8.apps.googleusercontent.com',
     clientSecret: 'DJP8a958Jg1nlbNf1V3EpV5T',
     redirect: 'http://localhost:3000/login'
 }
@@ -42,7 +42,7 @@ const defaultScope = [
 
 const createConnection = () => {
     return new google.auth.OAuth2(
-        googleConfig.clinetId,
+        googleConfig.clientId,
         googleConfig.clientSecret,
         googleConfig.redirect
     );
@@ -76,7 +76,7 @@ const getTokens = (code, callback) => {
 }
 
 const getUserInfo = (access_token, callback) => {
-    let client = new google.auth.OAuth2(googleConfig.clinetId)
+    let client = new google.auth.OAuth2(googleConfig.clientId)
     client.setCredentials({
         access_token: access_token
     })
@@ -95,11 +95,11 @@ const getUserInfo = (access_token, callback) => {
 }
 
 const validateTokenGoogle = (token, callback) => {
-    let client = new google.auth.OAuth2(googleConfig.clinetId)
+    let client = new google.auth.OAuth2(googleConfig.clientId)
     async function verify() {
         let ticket = await client.verifyIdToken({
             idToken: token,
-            audience: googleConfig.clinetId
+            audience: googleConfig.clientId
 
         })
 
