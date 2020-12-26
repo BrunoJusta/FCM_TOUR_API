@@ -1,48 +1,55 @@
-const room = require("../models/rooms.js"); 
-const speech = require("../API/text2speech.js"); 
+const room = require("../models/rooms.js");
+const speech = require("../API/text2speech.js");
 
 
 const getRooms = (req, res) => {
     room.find(function (err, rooms) {
         if (err) {
-            res.status(400).send(err); 
+            res.status(400).send(err);
         }
-        res.status(200).json(rooms); 
+        res.status(200).json(rooms);
     })
 }
 
 
 
 const getRoomsByNumber = (req, res) => {
-    room.find({number: req.params.number}, function (err, rooms) {
+    room.find({
+        number: req.params.number
+    }, function (err, rooms) {
         if (err) {
-            res.status(400).send(err); 
-        }else{
+            res.status(400).send(err);
+        } else {
             speech.speeching(rooms[0].description, rooms[0].name).then(result => {
-                if(result) {
-                    
-                    room.findOne({room}, function (err, rooms) {
+                if (result) {
+
+                    room.findOne({
+                        room
+                    }, function (err, rooms) {
                         if (err) {
-                            res.status(400).send(err); 
+                            res.status(400).send(err);
                         }
-                        if(rooms){
+                        if (rooms) {
                             console.log(rooms)
 
                             rooms.audio = result
                             rooms.markModified("audio")
                             rooms.save();
-                            res.status(200).json({rooms: rooms, savedURL: result})
+                            res.status(200).json({
+                                rooms: rooms,
+                                savedURL: result
+                            })
 
                         }
                     })
-                   
+
                 } else {
-                    res.status(400).send("Error"); 
+                    res.status(400).send("Error");
                 }
-        
+
             }).catch(error => {
-                if(error) {
-                    res.status(400).send("Error"); 
+                if (error) {
+                    res.status(400).send("Error");
                 }
             })
         }
@@ -54,8 +61,5 @@ const getRoomsByNumber = (req, res) => {
 
 
 
-exports.getRoomsByNumber = getRoomsByNumber; 
-exports.getRooms = getRooms; 
-
-
-
+exports.getRoomsByNumber = getRoomsByNumber;
+exports.getRooms = getRooms;

@@ -18,28 +18,30 @@ router.get('/', function (req, res) {
     }
 })
 
-router.get('/temporary/:name',[
+router.get('/temporary/:name', [
     param('name').notEmpty().escape()
-], function(req, res){
+], function (req, res) {
     const erros = validationResult(req);
-    if(erros.isEmpty()){
+    if (erros.isEmpty()) {
         controller.getTempByName(req, res);
-    }
-    else{
-        res.status(404).json({errors: erros.array()})
+    } else {
+        res.status(404).json({
+            errors: erros.array()
+        })
     }
 })
 
-/*router.post('/', [body('description').notEmpty().escape(), body('cover').notEmpty().escape()],
-    function (req, res) {
-        const errors = validationResult(req);
-        if (errors.isEmpty()) {
-            controller.addMuseum(req, res);
-        } else {
-            res.status(404).jsom({
-                errors: errors.array()
-            })
-        }
-    })*/
+router.get('/artists/:id', [
+    param('id').notEmpty().isString().escape(),
+], function (req, res) {
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
+        controller.getArtistsById(req, res);
+    } else {
+        res.status(404).json({
+            errors: errors.array()
+        })
+    }
+})
 
 module.exports = router;
