@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require('../controllers/users.js')
 const {
     validationResult,
-    body
+    body, param
 } = require('express-validator')
 const utilities = require('../utilities/utilities.js')
 const passport = require('passport')
@@ -118,5 +118,21 @@ router.get('/utilizadores', function (req, res) {
         })
     }
 })
+
+
+router.put('/profile/:email', [
+    param('email').notEmpty().escape(),
+], function(req, res){
+    const erros = validationResult(req);
+    if(erros.isEmpty()){
+        controller.editImage(req, res);
+    }
+    else{
+        res.status(404).json({errors: erros.array()})
+    }
+})
+
+
+
 
 module.exports = router

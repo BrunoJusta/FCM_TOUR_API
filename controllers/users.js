@@ -1,5 +1,7 @@
 const utilities = require('../utilities/utilities.js')
 const users = require("../models/users.js");
+const firebase = require("../API/firebase.js");
+
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const facebookStrategy = require('passport-facebook').Strategy;
@@ -33,8 +35,6 @@ const login = (req, res) => {
 
     })
 }
-
-
 
 
 const loginGoogle = (validToken, res) => {
@@ -127,8 +127,6 @@ passport.deserializeUser(function (obj, done) {
     done(null, obj)
 })
 
-
-
 passport.use(new facebookStrategy({
     clientID: process.env.FB_ID,
     clientSecret: process.env.FB_SECRET,
@@ -176,7 +174,47 @@ passport.use(new facebookStrategy({
 
 //------------------------------------FACEBOOK------------------------------------
 
+
+
+const editImage = (req, res) => {
+
+    users.findOne({email:req.params.email}, function (err, user) {
+        if (err) {
+            res.status(400).send(err)
+        }
+        if(user){
+            console.log(req.body)
+            firebase.uploadImage(req.body.image, "profile_").then(result => {
+                if (result) {
+                    users.findOne({email:req.params.email}, function (err, results) {
+                        if (err) {
+                            res.status(400).send(err);
+                        }
+                        if (results) {
+                            results.img = result
+                            results.markModified("image")
+                            results.save();
+                            res.status(200).json({results: results,savedURL: result})
+                        }
+                    })
+                } else {
+                    res.status(400).send("Error");
+                }
+            }).catch(error => {
+                if (error) {
+                    res.status(400).send("Error");
+                }
+            })
+        }
+    })
+
+}
+
+
+
+
 exports.login = login;
 exports.register = register;
 exports.getUsers = getUsers;
 exports.loginGoogle = loginGoogle;
+exports.editImage = editImage;
