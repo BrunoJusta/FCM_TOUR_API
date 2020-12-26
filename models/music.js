@@ -9,9 +9,17 @@
 const mongoose = require('mongoose');
 
 const musicSchema = new mongoose.Schema({
-    cover: String,
-    cupertinos: Array,
-    ciclos: Array,
+    cupertinos: {
+        text: String,
+        audio: String,
+        img: String,
+        concerts: Array
+    },
+    ciclos: {
+        text: String,
+        audio: String,
+        img: String
+    }
 })
 
 const music = mongoose.model('music', musicSchema)
