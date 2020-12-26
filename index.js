@@ -10,6 +10,7 @@ const music = require('./routes/music.js')
 const roulette = require('./routes/roulette.js')
 const tower = require('./routes/tower.js')
 const library = require('./routes/library.js')
+const home = require('./routes/home.js')
 const utilities = require('./utilities/utilities.js');
 const passport = require('passport')
 
@@ -62,6 +63,8 @@ app.use('/utilizadores', user)
 app.use('/torre', tower)
 app.use('/roleta', roulette)
 app.use('/livraria', library)
+app.use('/home', home)
+
 
 app.listen(port, () => {
     console.log("Servidor a correr na porta " + port)
