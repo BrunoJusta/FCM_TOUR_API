@@ -1,36 +1,31 @@
-const museum = require("../models/museum.js"); 
-const speech = require("../API/text2speech.js"); 
+const museum = require("../models/museum.js");
+const speech = require("../API/text2speech.js");
 
 
 
-const getMuseum = (req, res) => {
-    museum.find({museum}, function (err, rooms) {
+const getMuseum = (req, res) => {museum.find({museum}, function (err, results) {
         if (err) {
-            res.status(400).send(err); 
-        }
-        else{
-            speech.speeching(rooms[0].description, "museu").then(result => {
-                if(result) {
-                    
-                    museum.findOne({museum}, function (err, rooms) {
+            res.status(400).send(err);
+        } else {
+            speech.speeching(results[0].description, "museu").then(result => {
+                if (result) {
+                    museum.findOne({museum}, function (err, results) {
                         if (err) {
-                            res.status(400).send(err); 
+                            res.status(400).send(err);
                         }
-                        if(rooms){
-                            rooms.audio = result
-                            rooms.markModified("audio")
-                            rooms.save();
-                            res.status(200).json({rooms: rooms, savedURL: result})
+                        if (results) {
+                            results.audio = result
+                            results.markModified("audio")
+                            results.save();
+                            res.status(200).json({results: results,savedURL: result})
                         }
                     })
-                   
                 } else {
-                    res.status(400).send("Error"); 
+                    res.status(400).send("Error");
                 }
-        
             }).catch(error => {
-                if(error) {
-                    res.status(400).send("Error"); 
+                if (error) {
+                    res.status(400).send("Error");
                 }
             })
         }
@@ -38,4 +33,41 @@ const getMuseum = (req, res) => {
 }
 
 
-exports.getMuseum = getMuseum; 
+const getTempByName = (req, res) => {
+    museum.find({museum}, function (err, results) {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            let temporary = results[0].temporary
+            for (let i = 0; i < temporary.length; i++) {
+                if (temporary[i].name == req.params.name) {
+                    speech.speeching(temporary[i].description, temporary[i].name).then(result => {
+                        if (result) {
+                            museum.findOne({museum}, function (err, musuems) {
+                                if (err) {
+                                    res.status(400).send(err);
+                                }
+                                if (musuems) {
+                                    musuems.temporary[i].audio = result
+                                    musuems.save();
+                                    res.status(200).json({ musuem: musuems.temporary, savedURL: result})
+                                }
+                            })
+                        } else {
+                            res.status(400).send("Error");
+                        }
+                    }).catch(error => {
+                        if (error) {
+                            res.status(400).send("Error");
+                        }
+                    })
+                }
+            }
+        }
+    })
+}
+
+
+
+exports.getMuseum = getMuseum;
+exports.getTempByName = getTempByName;
