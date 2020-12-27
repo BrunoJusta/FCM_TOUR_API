@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
-const mongoose = require('mongoose');
 const salas = require('./routes/rooms')
 const user = require('./routes/users.js')
 const museum = require('./routes/museum.js')
@@ -13,6 +12,7 @@ const library = require('./routes/library.js')
 const home = require('./routes/home.js')
 const utilities = require('./utilities/utilities.js');
 const passport = require('passport')
+const mongoBD = require('./database/db-config.js')
 
 
 
@@ -39,22 +39,9 @@ const auth = function (req, res, next) {
 }
 
 
-mongoose.connect('mongodb+srv://fcm_user:Grupo01@fmctour0.9jjb0.mongodb.net/FCM_TOUR?retryWrites=true&w=majority', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-
-const db = mongoose.connection;
-db.once('open', function () {
-    console.log("Connected to mongooose")
-})
-db.on('error', console.error.bind(console, "connection error: "))
-
 app.use(passport.initialize());
 app.use(express.json());
 app.use(auth)
-
-
 app.use('/torre', salas)
 app.use('/', user)
 app.use('/museu', museum)
@@ -62,7 +49,7 @@ app.use('/musica', music)
 app.use('/utilizadores', user)
 app.use('/torre', tower)
 app.use('/roleta', roulette)
-app.use('/livraria', library)
+app.use('/biblioteca', library)
 app.use('/home', home)
 
 

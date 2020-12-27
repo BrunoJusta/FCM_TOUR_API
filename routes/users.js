@@ -86,6 +86,7 @@ router.get('/', (req, res) => {
 router.post('/register', [
     body('username').notEmpty().escape(),
     body('password').notEmpty().escape(),
+    body('confPassword').notEmpty().escape(),
     body('email').notEmpty().escape(),
 
 ], function (req, res) {

@@ -1,9 +1,7 @@
 const home = require('../models/home.js')
 
 const getHome = (req, res) => {
-    home.find({
-        home
-    }, function (err, result) {
+    home.find({home}, function (err, result) {
         if (err) {
             res.status(400).send(err);
         }
