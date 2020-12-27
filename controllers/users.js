@@ -42,21 +42,21 @@ const register = (req, res) => {
                                     results.password = hash
                                     results.markModified("type")
                                     results.save();
-                                    res.status(200).json("Registered User");
+                                    res.status(200).json({res:"Utilizador registado"});
                                 } else if (results.type == 03) {
                                     results.type = 05
                                     results.password = hash
                                     results.markModified("type")
                                     results.save();
-                                    res.status(200).json("Registered User");
+                                    res.status(200).json({res:"Utilizador registado"});
                                 } else if (results.type == 07) {
                                     results.type = 06
                                     results.password = hash
                                     results.markModified("type")
                                     results.save();
-                                    res.status(200).json("Registered User");
+                                    res.status(200).json({res:"Utilizador registad"});
                                 } else {
-                                    res.status(406).send("Duplicated User");
+                                    res.status(409).send("Utilizador já existente");
                                 }
                             }
                         })
@@ -69,14 +69,14 @@ const register = (req, res) => {
                             }
                             res.status(200).json({
                                 res:
-                            "Registered User"});
+                            "User Registado"});
                         })
                     }
                 })
             });
         });
     } else {
-        res.status(406).send("Palavras Passes nao coincidem");
+        res.status(406).send({res:"Palavras Passes não coincidem"});
     }
 
 }
