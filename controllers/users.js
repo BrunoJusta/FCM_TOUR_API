@@ -189,7 +189,7 @@ passport.use(new facebookStrategy({
 
 
 
-            users.findOne({email:validToken.email}, function (err, results) {
+            users.findOne({email:data.email}, function (err, results) {
                 if (err) {
                     res.status(400).send(err);
                 }
