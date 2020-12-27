@@ -67,7 +67,9 @@ const register = (req, res) => {
                             if (err) {
                                 res.status(400).send(err);
                             }
-                            res.status(200).json("Registered User");
+                            res.status(200).json({
+                                res:
+                            "Registered User"});
                         })
                     }
                 })
