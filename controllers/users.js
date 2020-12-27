@@ -198,24 +198,33 @@ passport.use(new facebookStrategy({
                         results.type = 05
                             results.markModified("type")
                             results.save();
-                            res.status(200).json("Logged");
+                            utilities.generateToken({user: data.email}, (token) => {
+                                done(null, token)
+                            })
                     } 
                     else if(user[0].type == 02){
                         user[0].type = 07
                         results.markModified("type")
                         user.save();
-                        res.status(200).json("Logged");
+                        utilities.generateToken({user: data.email}, (token) => {
+                            done(null, token)
+                        })
                     }else if(user[0].type == 04){
                         user[0].type = 06
                         results.markModified("type")
                         user.save();
-                        res.status(200).json("Logged");
+                        utilities.generateToken({user: data.email}, (token) => {
+                            done(null, token)
+                        })
                     } 
                     else{
-                        res.status(200).json("Logged");
+                        utilities.generateToken({user: data.email}, (token) => {
+                            done(null, token)
+                        })
                     } 
                 }
             })
+            
            
         } else if (user.length == 0) {
 
