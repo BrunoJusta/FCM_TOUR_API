@@ -194,7 +194,7 @@ passport.use(new facebookStrategy({
                     res.status(400).send(err);
                 }
                 if (results) {
-                    if(user[0].type == 01){
+                    if(results.type == 01){
                         results.type = 05
                             results.markModified("type")
                             results.save();
@@ -202,15 +202,15 @@ passport.use(new facebookStrategy({
                                 done(null, token)
                             })
                     } 
-                    else if(user[0].type == 02){
-                        user[0].type = 07
+                    else if(results.type == 02){
+                        results.type = 07
                         results.markModified("type")
                         user.save();
                         utilities.generateToken({user: data.email}, (token) => {
                             done(null, token)
                         })
-                    }else if(user[0].type == 04){
-                        user[0].type = 06
+                    }else if(results.type == 04){
+                        results.type = 06
                         results.markModified("type")
                         user.save();
                         utilities.generateToken({user: data.email}, (token) => {
