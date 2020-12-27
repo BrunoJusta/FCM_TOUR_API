@@ -8,10 +8,10 @@ const facebookStrategy = require('passport-facebook').Strategy;
 //------------------------------------REGISTO------------------------------------
 
 const register = (req, res) => {
-    if(req.body.password == req.body.confPassword){
+    if (req.body.password == req.body.confPassword) {
         bcrypt.genSalt(10, function (err, salt) {
             bcrypt.hash(req.body.password, salt, function (err, hash) {
-    
+
                 const userToCreate = new users({
                     username: req.body.username,
                     password: hash,
@@ -20,41 +20,42 @@ const register = (req, res) => {
                     img: "",
                     type: 01
                 });
-    
-                users.find({email: req.body.email}, function (err, user) {
+
+                users.find({
+                    email: req.body.email
+                }, function (err, user) {
                     if (err) {
                         res.status(400).send(err);
                     }
-    
+
                     if (user.length > 0) {
 
-                        users.findOne({email:req.body.email}, function (err, results) {
+                        users.findOne({
+                            email: req.body.email
+                        }, function (err, results) {
                             if (err) {
                                 res.status(400).send(err);
                             }
                             if (results) {
-                                if(results.type == 02){
+                                if (results.type == 02) {
                                     results.type = 04
                                     results.password = hash
                                     results.markModified("type")
                                     results.save();
                                     res.status(200).json("Registered User");
-                                }
-                                else if(results.type == 03){
+                                } else if (results.type == 03) {
                                     results.type = 05
                                     results.password = hash
                                     results.markModified("type")
                                     results.save();
                                     res.status(200).json("Registered User");
-                                }
-                                else if(results.type == 07){
+                                } else if (results.type == 07) {
                                     results.type = 06
                                     results.password = hash
                                     results.markModified("type")
                                     results.save();
                                     res.status(200).json("Registered User");
-                                }
-                                else{
+                                } else {
                                     res.status(406).send("Duplicated User");
                                 }
                             }
@@ -72,29 +73,33 @@ const register = (req, res) => {
                 })
             });
         });
-    }
-    else{
+    } else {
         res.status(406).send("Palavras Passes nao coincidem");
     }
-   
+
 }
 
 //------------------------------------LOGIN-NORMAL------------------------------------
 
 const login = (req, res) => {
-    users.find({email: req.body.email}, function (err, user) {
+    users.find({
+        email: req.body.email
+    }, function (err, user) {
         if (err) {
             res.status(400).send(err);
         }
         if (user.length > 0) {
-            if(user[0].type == 02 || user[0].type == 03 || user[0].type == 07){
+            if (user[0].type == 02 || user[0].type == 03 || user[0].type == 07) {
                 res.status(401).send("Conta não existe");
-            }
-            else{
+            } else {
                 bcrypt.compare(req.body.password, user[0].password).then(function (result) {
                     if (result) {
-                        utilities.generateToken({user: req.body.email}, (token) => {
-                            res.status(200).json(token);
+                        utilities.generateToken({
+                            user: req.body.email
+                        }, (token) => {
+                            res.status(200).json({
+                                token: token
+                            });
                         })
                     } else {
                         res.status(401).send("Not Authorized");
@@ -112,42 +117,44 @@ const login = (req, res) => {
 
 const loginGoogle = (validToken, res) => {
 
-    users.find({email: validToken.email}, function (err, user) {
+    users.find({
+        email: validToken.email
+    }, function (err, user) {
         if (err) {
             res.status(400).send(err);
         }
         if (user.length > 0) {
 
 
-            users.findOne({email:validToken.email}, function (err, results) {
+            users.findOne({
+                email: validToken.email
+            }, function (err, results) {
                 if (err) {
                     res.status(400).send(err);
                 }
                 if (results) {
-                    if(results.type == 01){
+                    if (results.type == 01) {
                         results.type = 04
-                            results.markModified("type")
-                            results.save();
-                            res.status(200).json("Logged");
-                    } 
-                    else if(results.type == 03){
+                        results.markModified("type")
+                        results.save();
+                        res.status(200).json("Logged");
+                    } else if (results.type == 03) {
                         results.type = 07
                         results.markModified("type")
                         results.save();
                         res.status(200).json("Logged");
-                    }else if(results.type == 05){
+                    } else if (results.type == 05) {
                         results.type = 06
                         results.markModified("type")
                         results.save();
                         res.status(200).json("Logged");
-                    } 
-                    else{
+                    } else {
                         res.status(200).json("Logged");
-                    } 
+                    }
                 }
             })
 
-             
+
         } else if (user.length == 0) {
 
             const userToCreate = new users({
@@ -193,49 +200,59 @@ passport.use(new facebookStrategy({
     console.log('refreshToken', refreshToken)
     console.log('profile', profile)
     const data = profile._json;
-    users.find({email: data.email}, function (err, user) {
+    users.find({
+        email: data.email
+    }, function (err, user) {
         if (err) {
             res.status(400).send(err);
         }
         if (user.length > 0) {
 
-            users.findOne({email:data.email}, function (err, results) {
+            users.findOne({
+                email: data.email
+            }, function (err, results) {
                 if (err) {
                     res.status(400).send(err);
                 }
                 if (results) {
-                    if(results.type == 01){
+                    if (results.type == 01) {
                         results.type = 05
-                            results.markModified("type")
-                            results.save();
-                            utilities.generateToken({user: data.email}, (token) => {
-                                done(null, token)
-                            })
-                    } 
-                    else if(results.type == 02){
+                        results.markModified("type")
+                        results.save();
+                        utilities.generateToken({
+                            user: data.email
+                        }, (token) => {
+                            done(null, token)
+                        })
+                    } else if (results.type == 02) {
                         results.type = 07
                         results.markModified("type")
                         results.save();
-                        utilities.generateToken({user: data.email}, (token) => {
+                        utilities.generateToken({
+                            user: data.email
+                        }, (token) => {
                             done(null, token)
                         })
-                    }else if(results.type == 04){
+                    } else if (results.type == 04) {
                         results.type = 06
                         results.markModified("type")
                         results.save();
-                        utilities.generateToken({user: data.email}, (token) => {
+                        utilities.generateToken({
+                            user: data.email
+                        }, (token) => {
                             done(null, token)
                         })
-                    } 
-                    else{
-                        utilities.generateToken({user: data.email}, (token) => {
+                    } else {
+                        utilities.generateToken({
+                            user: data.email
+                        }, (token) => {
                             done(null, token)
                         })
-                    } 
+                    }
                 }
             })
-            
-           
+
+
         } else if (user.length == 0) {
 
             const userToCreate = new users({
@@ -263,14 +280,18 @@ passport.use(new facebookStrategy({
 //------------------------------------MUDAR-IMAGEM-PERFIL------------------------------------
 
 const editImage = (req, res) => {
-    users.findOne({email:req.params.email}, function (err, user) {
+    users.findOne({
+        email: req.params.email
+    }, function (err, user) {
         if (err) {
             res.status(400).send(err)
         }
-        if(user){
-            firebase.uploadImage(req.body.image, "profile_"+req.body.email).then(result => {
+        if (user) {
+            firebase.uploadImage(req.body.image, "profile_" + req.body.email).then(result => {
                 if (result) {
-                    users.findOne({email:req.params.email}, function (err, results) {
+                    users.findOne({
+                        email: req.params.email
+                    }, function (err, results) {
                         if (err) {
                             res.status(400).send(err);
                         }
@@ -278,7 +299,10 @@ const editImage = (req, res) => {
                             results.img = result
                             results.markModified("image")
                             results.save();
-                            res.status(200).json({results: results,savedURL: result})
+                            res.status(200).json({
+                                results: results,
+                                savedURL: result
+                            })
                         }
                     })
                 } else {
@@ -297,36 +321,35 @@ const editImage = (req, res) => {
 //------------------------------------MUDAR-PALAVRA-PASSE------------------------------------
 
 const editPassword = (req, res) => {
-    users.findOne({email:req.params.email}, function (err, user) {
+    users.findOne({
+        email: req.params.email
+    }, function (err, user) {
         if (err) {
             res.status(400).send(err)
         }
-        if(user){
-            if(req.body.newPassword == req.body.confPassword){
+        if (user) {
+            if (req.body.newPassword == req.body.confPassword) {
                 bcrypt.genSalt(10, function (err, salt) {
                     bcrypt.hash(req.body.newPassword, salt, function (err, hash) {
-                        if(user.type == 02){
+                        if (user.type == 02) {
                             user.type = 04
                             user.password = hash
-                        user.markModified("password")
-                        user.save();
-                        res.status(200).json("Password Alterada")
-                        }
-                        else if(user.type == 03){
+                            user.markModified("password")
+                            user.save();
+                            res.status(200).json("Password Alterada")
+                        } else if (user.type == 03) {
                             user.type = 05
                             user.password = hash
-                        user.markModified("password")
-                        user.save();
-                        res.status(200).json("Password Alterada")
-                        }
-                        else if(user.type == 07){
+                            user.markModified("password")
+                            user.save();
+                            res.status(200).json("Password Alterada")
+                        } else if (user.type == 07) {
                             user.type = 06
                             user.password = hash
-                        user.markModified("password")
-                        user.save();
-                        res.status(200).json("Password Alterada")
-                        }
-                        else{
+                            user.markModified("password")
+                            user.save();
+                            res.status(200).json("Password Alterada")
+                        } else {
                             user.password = hash
                             user.markModified("password")
                             user.save();
@@ -334,8 +357,7 @@ const editPassword = (req, res) => {
                         }
                     });
                 });
-            }
-            else{
+            } else {
                 res.status(406).send("Palavras Passes nao coincidem");
             }
         }
