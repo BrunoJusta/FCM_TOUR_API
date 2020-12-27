@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const facebookStrategy = require('passport-facebook').Strategy;
 
-
+//------------------------------------REGISTO------------------------------------
 
 const register = (req, res) => {
     if(req.body.password == req.body.confPassword){
@@ -27,8 +27,41 @@ const register = (req, res) => {
                     }
     
                     if (user.length > 0) {
-                        res.status(406).send("Duplicated User");
+
+                        users.findOne({email:req.body.email}, function (err, results) {
+                            if (err) {
+                                res.status(400).send(err);
+                            }
+                            if (results) {
+                                if(results.type == 02){
+                                    results.type = 04
+                                    results.password = hash
+                                    results.markModified("type")
+                                    results.save();
+                                    res.status(200).json("Registered User");
+                                }
+                                else if(results.type == 03){
+                                    results.type = 05
+                                    results.password = hash
+                                    results.markModified("type")
+                                    results.save();
+                                    res.status(200).json("Registered User");
+                                }
+                                else if(results.type == 07){
+                                    results.type = 06
+                                    results.password = hash
+                                    results.markModified("type")
+                                    results.save();
+                                    res.status(200).json("Registered User");
+                                }
+                                else{
+                                    res.status(406).send("Duplicated User");
+                                }
+                            }
+                        })
+
                     } else {
+
                         userToCreate.save(function (err, newUser) {
                             if (err) {
                                 res.status(400).send(err);
@@ -46,24 +79,7 @@ const register = (req, res) => {
    
 }
 
-
-const getUsers = (req, res) => {
-    users.find(function (err, result) {
-        if (err) {
-            res.status(400).send(err);
-        }
-        res.status(200).json(result);
-    })
-}
-
-
-
-
-
-
-
-
-//------------------------------------LOGIN_NORMAL------------------------------------
+//------------------------------------LOGIN-NORMAL------------------------------------
 
 const login = (req, res) => {
     users.find({email: req.body.email}, function (err, user) {
@@ -71,7 +87,7 @@ const login = (req, res) => {
             res.status(400).send(err);
         }
         if (user.length > 0) {
-            if(user[0].password == "" || user[0].password == null){
+            if(user[0].type == 02 || user[0].type == 03 || user[0].type == 07){
                 res.status(401).send("Conta não existe");
             }
             else{
@@ -92,7 +108,7 @@ const login = (req, res) => {
     })
 }
 
-//------------------------------------LOGIN_GOOGLE------------------------------------
+//------------------------------------LOGIN-GOOGLE------------------------------------
 
 const loginGoogle = (validToken, res) => {
 
@@ -108,21 +124,21 @@ const loginGoogle = (validToken, res) => {
                     res.status(400).send(err);
                 }
                 if (results) {
-                    if(user[0].type == 01){
+                    if(results.type == 01){
                         results.type = 04
                             results.markModified("type")
                             results.save();
                             res.status(200).json("Logged");
                     } 
-                    else if(user[0].type == 03){
-                        user[0].type = 07
+                    else if(results.type == 03){
+                        results.type = 07
                         results.markModified("type")
-                        user.save();
+                        results.save();
                         res.status(200).json("Logged");
-                    }else if(user[0].type == 05){
-                        user[0].type = 06
+                    }else if(results.type == 05){
+                        results.type = 06
                         results.markModified("type")
-                        user.save();
+                        results.save();
                         res.status(200).json("Logged");
                     } 
                     else{
@@ -157,9 +173,7 @@ const loginGoogle = (validToken, res) => {
     })
 }
 
-
-
-//------------------------------------LOGIN_FACEBOOK------------------------------------
+//------------------------------------LOGIN-FACEBOOK------------------------------------
 
 passport.serializeUser(function (user, done) {
     done(null, user)
@@ -178,16 +192,12 @@ passport.use(new facebookStrategy({
     console.log('accessToken', accessToken)
     console.log('refreshToken', refreshToken)
     console.log('profile', profile)
-
     const data = profile._json;
-
     users.find({email: data.email}, function (err, user) {
         if (err) {
             res.status(400).send(err);
         }
         if (user.length > 0) {
-
-
 
             users.findOne({email:data.email}, function (err, results) {
                 if (err) {
@@ -250,9 +260,7 @@ passport.use(new facebookStrategy({
     })
 }))
 
-
-
-//------------------------------------EDIT_PROFILE_IMAGE------------------------------------
+//------------------------------------MUDAR-IMAGEM-PERFIL------------------------------------
 
 const editImage = (req, res) => {
     users.findOne({email:req.params.email}, function (err, user) {
@@ -286,11 +294,56 @@ const editImage = (req, res) => {
 
 }
 
+//------------------------------------MUDAR-PALAVRA-PASSE------------------------------------
 
-
+const editPassword = (req, res) => {
+    users.findOne({email:req.params.email}, function (err, user) {
+        if (err) {
+            res.status(400).send(err)
+        }
+        if(user){
+            if(req.body.newPassword == req.body.confPassword){
+                bcrypt.genSalt(10, function (err, salt) {
+                    bcrypt.hash(req.body.newPassword, salt, function (err, hash) {
+                        if(user.type == 02){
+                            user.type = 04
+                            user.password = hash
+                        user.markModified("password")
+                        user.save();
+                        res.status(200).json("Password Alterada")
+                        }
+                        else if(user.type == 03){
+                            user.type = 05
+                            user.password = hash
+                        user.markModified("password")
+                        user.save();
+                        res.status(200).json("Password Alterada")
+                        }
+                        else if(user.type == 07){
+                            user.type = 06
+                            user.password = hash
+                        user.markModified("password")
+                        user.save();
+                        res.status(200).json("Password Alterada")
+                        }
+                        else{
+                            user.password = hash
+                            user.markModified("password")
+                            user.save();
+                            res.status(200).json("Password Alterada")
+                        }
+                    });
+                });
+            }
+            else{
+                res.status(406).send("Palavras Passes nao coincidem");
+            }
+        }
+    })
+}
 
 exports.login = login;
 exports.register = register;
-exports.getUsers = getUsers;
 exports.loginGoogle = loginGoogle;
 exports.editImage = editImage;
+exports.editPassword = editPassword
