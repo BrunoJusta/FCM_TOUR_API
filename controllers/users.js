@@ -205,14 +205,14 @@ passport.use(new facebookStrategy({
                     else if(results.type == 02){
                         results.type = 07
                         results.markModified("type")
-                        user.save();
+                        results.save();
                         utilities.generateToken({user: data.email}, (token) => {
                             done(null, token)
                         })
                     }else if(results.type == 04){
                         results.type = 06
                         results.markModified("type")
-                        user.save();
+                        results.save();
                         utilities.generateToken({user: data.email}, (token) => {
                             done(null, token)
                         })
