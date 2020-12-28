@@ -122,7 +122,7 @@ const login = (req, res) => {
 const loginGoogle = (validToken, res, id_token, access_token, code ) => {
     
     const tokenCreate = new tokens({
-        code: code,
+        code: code.substring(2),
         access_token: access_token,
         bearer: id_token,
     });
