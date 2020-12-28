@@ -29,9 +29,9 @@ const validateToken = (token, callback) => {
 
 
 const googleConfig = {
-    clientId: '817455743730-8aptanrqdh06q6aje2jhdp7i30l38mo8.apps.googleusercontent.com',
-    clientSecret: 'DJP8a958Jg1nlbNf1V3EpV5T',
-    redirect: 'https://fcm-tour.herokuapp.com/login'
+    clientId: process.env.GOOGLE_ID,
+    clientSecret: process.env.GOOGLE_SECRET,
+    redirect: process.env.GOOGLE_REDIRECT
 }
 
 const defaultScope = [
