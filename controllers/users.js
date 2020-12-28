@@ -118,7 +118,6 @@ const login = (req, res) => {
 //------------------------------------LOGIN-GOOGLE------------------------------------
 
 const loginGoogle = (validToken, res) => {
-
     users.find({
         email: validToken.email
     }, function (err, user) {
@@ -126,8 +125,6 @@ const loginGoogle = (validToken, res) => {
             res.status(400).send(err);
         }
         if (user.length > 0) {
-
-
             users.findOne({
                 email: validToken.email
             }, function (err, results) {
@@ -155,10 +152,7 @@ const loginGoogle = (validToken, res) => {
                     }
                 }
             })
-
-
         } else if (user.length == 0) {
-
             const userToCreate = new users({
                 username: validToken.given_name + " " + validToken.family_name,
                 password: "",
@@ -167,7 +161,6 @@ const loginGoogle = (validToken, res) => {
                 img: validToken.picture,
                 type: 02
             });
-
             userToCreate.save(function (err, newUser) {
                 if (err) {
                     res.status(400).send(err);
@@ -176,9 +169,7 @@ const loginGoogle = (validToken, res) => {
             })
         } else {
             res.status(401).send("Not Authorized");
-
         }
-
     })
 }
 
