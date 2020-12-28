@@ -145,17 +145,53 @@ const loginGoogle = (validToken, res, id_token, access_token, code ) => {
                         results.type = 04
                         results.markModified("type")
                         results.save();
-                        res.status(200).json("Logged");
+                        tokens.find({code: code}, function (err, result) {
+                            if (err) {
+                                res.status(400).send(err);
+                            }
+                            else{
+                                tokenCreate.save(function (err, newUser) {
+                                    if (err) {
+                                        res.status(400).send(err);
+                                    }
+                                    res.status(200).json("Logged");
+                                })
+                            }
+                        })
                     } else if (results.type == 03) {
                         results.type = 07
                         results.markModified("type")
                         results.save();
-                        res.status(200).json("Logged");
+                        tokens.find({code: code}, function (err, result) {
+                            if (err) {
+                                res.status(400).send(err);
+                            }
+                            else{
+                                tokenCreate.save(function (err, newUser) {
+                                    if (err) {
+                                        res.status(400).send(err);
+                                    }
+                                    res.status(200).json("Logged");
+                                })
+                            }
+                        })
                     } else if (results.type == 05) {
                         results.type = 06
                         results.markModified("type")
                         results.save();
-                        res.status(200).json("Logged");
+                        tokens.find({code: code}, function (err, result) {
+                            if (err) {
+                                res.status(400).send(err);
+                            }
+                            else{
+                                tokenCreate.save(function (err, newUser) {
+                                    if (err) {
+                                        res.status(400).send(err);
+                                    }
+                                    res.status(200).json("Logged");
+                                })
+                            }
+                        })
                     } else {
                         tokens.find({code: code}, function (err, result) {
                             if (err) {
@@ -186,7 +222,21 @@ const loginGoogle = (validToken, res, id_token, access_token, code ) => {
                 if (err) {
                     res.status(400).send(err);
                 }
-                res.status(200).json("Registered User");
+                else{
+                    tokens.find({code: code}, function (err, result) {
+                        if (err) {
+                            res.status(400).send(err);
+                        }
+                        else{
+                            tokenCreate.save(function (err, newUser) {
+                                if (err) {
+                                    res.status(400).send(err);
+                                }
+                                res.status(200).json("Logged");
+                            })
+                        }
+                    })
+                }
             })
         } else {
             res.status(401).send("Not Authorized");
