@@ -109,7 +109,7 @@ const validateTokenGoogle = (token, callback) => {
     }
 
     verify().catch(error => {
-
+        console.log(error)
     })
 }
 

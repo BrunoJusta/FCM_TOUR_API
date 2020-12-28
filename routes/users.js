@@ -24,9 +24,8 @@ router.get('/google', function (req, res) {
 })
 
 router.get('/login', function (req, res) {
-    utilities.getTokens(req.query, (error, tokens) => {
-        console.log(req.query)
-
+    utilities.getTokens(req.query.code, (error, tokens) => {
+        
         if (error) {
             res.status(400).send(error)
         } else {
