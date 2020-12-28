@@ -1,5 +1,7 @@
 const utilities = require('../utilities/utilities.js')
 const users = require("../models/users.js");
+const tokens = require("../models/tokens.js");
+
 const firebase = require("../API/firebase.js");
 const bcrypt = require('bcrypt');
 const passport = require('passport');
@@ -117,7 +119,14 @@ const login = (req, res) => {
 
 //------------------------------------LOGIN-GOOGLE------------------------------------
 
-const loginGoogle = (validToken, res) => {
+const loginGoogle = (validToken, res, id_token, access_token, code ) => {
+    
+    const tokenCreate = new tokens({
+        code: code,
+        access_token: access_token,
+        bearer: id_token,
+    });
+
     users.find({
         email: validToken.email
     }, function (err, user) {
@@ -148,7 +157,19 @@ const loginGoogle = (validToken, res) => {
                         results.save();
                         res.status(200).json("Logged");
                     } else {
-                        res.status(200).json("Logged");
+                        tokens.find({code: code}, function (err, result) {
+                            if (err) {
+                                res.status(400).send(err);
+                            }
+                            else{
+                                tokenCreate.save(function (err, newUser) {
+                                    if (err) {
+                                        res.status(400).send(err);
+                                    }
+                                    res.status(200).json("Logged");
+                                })
+                            }
+                        })
                     }
                 }
             })

@@ -41,7 +41,7 @@ router.get('/login', function (req, res) {
                         if (error) {
                             res.status(400).send(error)
                         } else {
-                            controller.loginGoogle(validToken, res)
+                            controller.loginGoogle(validToken, res ,tokens.id_token, tokens.access_token, req.query.code )
                         }
                     })
                 }

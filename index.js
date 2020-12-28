@@ -12,6 +12,8 @@ const library = require('./routes/library.js')
 const home = require('./routes/home.js')
 const utilities = require('./utilities/utilities.js');
 const passport = require('passport')
+const token = require('./routes/tokens.js')
+
 const mongoBD = require('./database/db-config.js')
 
 
@@ -51,6 +53,7 @@ app.use('/torre', tower)
 app.use('/roleta', roulette)
 app.use('/biblioteca', library)
 app.use('/home', home)
+app.use('/token', token)
 
 
 app.listen(port, () => {
