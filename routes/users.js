@@ -28,6 +28,7 @@ router.get('/login', function (req, res) {
         if (error) {
             res.status(400).send(error)
         } else {
+            console.log(req.query)
             utilities.getUserInfo(tokens.access_token, (error, user_info) => {
                 if (error) {
                     res.status(400).send(error)
