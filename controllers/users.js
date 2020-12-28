@@ -248,6 +248,7 @@ passport.use(new facebookStrategy({
                         utilities.generateToken({
                             user: data.email
                         }, (token) => {
+                            console.log("RESULTADO" + token)
                             done(null, token)
                         })
                     }
