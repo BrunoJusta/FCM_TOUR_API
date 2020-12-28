@@ -24,9 +24,7 @@ router.get('/google', function (req, res) {
 })
 
 router.get('/login', function (req, res) {
-    console.log("ISTO E O CONSOLE LOG QUE QUERO: "+req.url)
     utilities.getTokens(req.query.code, (error, tokens) => {
-    console.log("ISTO E O REQ QUERY CODE: "+req.query.code)
         
         if (error) {
             res.status(400).send(error)
@@ -36,7 +34,6 @@ router.get('/login', function (req, res) {
                     res.status(400).send(error)
                 } else {
                     utilities.validateTokenGoogle(tokens.id_token, (error, validToken) => {
-                    console.log("ISTO E O VALIDATE TOKEN: "+tokens.id_token)
 
                         if (error) {
                             res.status(400).send(error)
