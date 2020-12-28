@@ -1,6 +1,10 @@
 const express = require('express')
 const passport = require('passport')
-const { validationResult, body, param } = require('express-validator')
+const {
+    validationResult,
+    body,
+    param
+} = require('express-validator')
 
 const utilities = require('../utilities/utilities.js')
 const controller = require('../controllers/users.js')
@@ -45,10 +49,12 @@ router.get('/login', function (req, res) {
 
 router.get('/auth/facebook', passport.authenticate("facebook"));
 
-router.get('/auth/facebook/callback', passport.authenticate("facebook", {
-    successRedirect: "/",
-    failureRedirect: "/fail"
-}));
+router.get('/auth/facebook/callback', passport.authenticate("facebook"));
+
+/* , {
+        successRedirect: "/",
+        failureRedirect: "/fail"
+    } 
 
 router.get("/fail", (req, res) => {
     res.send("Failed Attempt");
@@ -56,7 +62,7 @@ router.get("/fail", (req, res) => {
 
 router.get('/', (req, res) => {
     res.send("Success");
-})
+}) */
 
 //------------------------------------REGISTO------------------------------------
 
@@ -81,13 +87,14 @@ router.post('/register', [
 
 router.put('/profile/:email', [
     param('email').notEmpty().escape(),
-], function(req, res){
+], function (req, res) {
     const erros = validationResult(req);
-    if(erros.isEmpty()){
+    if (erros.isEmpty()) {
         controller.editImage(req, res);
-    }
-    else{
-        res.status(404).json({errors: erros.array()})
+    } else {
+        res.status(404).json({
+            errors: erros.array()
+        })
     }
 })
 
@@ -97,13 +104,14 @@ router.put('/pass/:email', [
     param('email').notEmpty().escape(),
     body('newPassword').notEmpty().escape(),
     body('confPassword').notEmpty().escape(),
-], function(req, res){
+], function (req, res) {
     const erros = validationResult(req);
-    if(erros.isEmpty()){
+    if (erros.isEmpty()) {
         controller.editPassword(req, res);
-    }
-    else{
-        res.status(404).json({errors: erros.array()})
+    } else {
+        res.status(404).json({
+            errors: erros.array()
+        })
     }
 })
 
