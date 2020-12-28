@@ -23,8 +23,8 @@ router.get('/google', function (req, res) {
     res.send(utilities.urlGoogle())
 })
 
-router.get('/login', function (req, res) {
-    utilities.getTokens(req.query.code, (error, tokens) => {
+router.get('/login/:code', function (req, res) {
+    utilities.getTokens(req.params.code, (error, tokens) => {
         if (error) {
             res.status(400).send(error)
         } else {
