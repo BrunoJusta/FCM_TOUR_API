@@ -76,7 +76,7 @@ const register = (req, res) => {
             });
         });
     } else {
-        res.status(406).send({res:"Palavras Passes não coincidem"});
+        res.status(406).send("Palavras Passes não coincidem");
     }
 
 }
