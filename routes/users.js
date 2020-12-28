@@ -24,7 +24,7 @@ router.get('/google', function (req, res) {
 })
 
 router.get('/login', function (req, res) {
-    console.log("ISTO E O CONSOLE LOG QUE QUERO: "req.url)
+    console.log("ISTO E O CONSOLE LOG QUE QUERO: "+req.url)
     utilities.getTokens(req.query.code, (error, tokens) => {
         
         if (error) {
