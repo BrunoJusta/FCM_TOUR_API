@@ -19,7 +19,7 @@ router.post('/login', function (req, res) {
 
 //------------------------------------GOOGLE------------------------------------
 
-router.get('/', function (req, res) {
+router.get('/google', function (req, res) {
     res.send(utilities.urlGoogle())
 })
 
