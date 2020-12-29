@@ -1,6 +1,8 @@
 const utilities = require('../utilities/utilities.js')
 const users = require("../models/users.js");
 const tokens = require("../models/google_tokens.js");
+const tokensFB = require("../models/facebook_tokens.js");
+
 
 const firebase = require("../API/firebase.js");
 const bcrypt = require('bcrypt');
@@ -264,6 +266,10 @@ passport.use(new facebookStrategy({
     console.log('accessToken', accessToken)
     console.log('refreshToken', refreshToken)
     console.log('profile', profile)
+
+    const code = req.query.code
+    
+
     console.log('url', req.query.code, req.url)
 
     const data = profile._json;
@@ -289,7 +295,25 @@ passport.use(new facebookStrategy({
                         utilities.generateToken({
                             user: data.email
                         }, (token) => {
-                            done(null, token)
+                            const tokenCreate = new tokensFB({
+                                code: code,
+                                access_token: accessToken,
+                                bearer: token,
+                            });
+
+                            tokensFB.find({code: code}, function (err, result) {
+                                if (err) {
+                                    res.status(400).send(err);
+                                }
+                                else{
+                                    tokenCreate.save(function (err, newUser) {
+                                        if (err) {
+                                            res.status(400).send(err);
+                                        }
+                                        done(null, token)
+                                    })
+                                }
+                            })
                         })
                     } else if (results.type == 02) {
                         results.type = 07
@@ -298,7 +322,25 @@ passport.use(new facebookStrategy({
                         utilities.generateToken({
                             user: data.email
                         }, (token) => {
-                            done(null, token)
+                            const tokenCreate = new tokensFB({
+                                code: code,
+                                access_token: accessToken,
+                                bearer: token,
+                            });
+
+                            tokensFB.find({code: code}, function (err, result) {
+                                if (err) {
+                                    res.status(400).send(err);
+                                }
+                                else{
+                                    tokenCreate.save(function (err, newUser) {
+                                        if (err) {
+                                            res.status(400).send(err);
+                                        }
+                                        done(null, token)
+                                    })
+                                }
+                            })
                         })
                     } else if (results.type == 04) {
                         results.type = 06
@@ -307,13 +349,49 @@ passport.use(new facebookStrategy({
                         utilities.generateToken({
                             user: data.email
                         }, (token) => {
-                            done(null, token)
+                            const tokenCreate = new tokensFB({
+                                code: code,
+                                access_token: accessToken,
+                                bearer: token,
+                            });
+
+                            tokensFB.find({code: code}, function (err, result) {
+                                if (err) {
+                                    res.status(400).send(err);
+                                }
+                                else{
+                                    tokenCreate.save(function (err, newUser) {
+                                        if (err) {
+                                            res.status(400).send(err);
+                                        }
+                                        done(null, token)
+                                    })
+                                }
+                            })
                         })
                     } else {
                         utilities.generateToken({
                             user: data.email
                         }, (token) => {
-                           return done(null, token)
+                            const tokenCreate = new tokensFB({
+                                code: code,
+                                access_token: accessToken,
+                                bearer: token,
+                            });
+
+                            tokensFB.find({code: code}, function (err, result) {
+                                if (err) {
+                                    res.status(400).send(err);
+                                }
+                                else{
+                                    tokenCreate.save(function (err, newUser) {
+                                        if (err) {
+                                            res.status(400).send(err);
+                                        }
+                                        done(null, token)
+                                    })
+                                }
+                            })
                         })
                     }
                 }
@@ -335,7 +413,25 @@ passport.use(new facebookStrategy({
                 if (err) {
                     res.status(400).send(err);
                 }
-                done(null, newUser)
+                const tokenCreate = new tokensFB({
+                    code: code,
+                    access_token: accessToken,
+                    bearer: token,
+                });
+
+                tokensFB.find({code: code}, function (err, result) {
+                    if (err) {
+                        res.status(400).send(err);
+                    }
+                    else{
+                        tokenCreate.save(function (err, newUser) {
+                            if (err) {
+                                res.status(400).send(err);
+                            }
+                            done(null, token)
+                        })
+                    }
+                })
             })
 
         } else {
