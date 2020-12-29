@@ -1,6 +1,6 @@
 const utilities = require('../utilities/utilities.js')
 const users = require("../models/users.js");
-const tokens = require("../models/tokens.js");
+const tokens = require("../models/google_tokens.js");
 
 const firebase = require("../API/firebase.js");
 const bcrypt = require('bcrypt');
@@ -263,6 +263,8 @@ passport.use(new facebookStrategy({
     console.log('accessToken', accessToken)
     console.log('refreshToken', refreshToken)
     console.log('profile', profile)
+    console.log('url', req.url)
+
     const data = profile._json;
     users.find({
         email: data.email

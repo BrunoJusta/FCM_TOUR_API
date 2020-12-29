@@ -1,4 +1,4 @@
-const googleToken = require('../models/tokens.js')
+const googleToken = require('../models/google_tokens.js')
 
 const getGoogleInfo = (req, res) => {
     googleToken.find({code: req.params.code}, function (err, result) {
