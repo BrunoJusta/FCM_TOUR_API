@@ -53,14 +53,11 @@ router.get('/auth/facebook', passport.authenticate("facebook"));
 
 router.get('/auth/facebook/callback', function(req,res){
 
-    utilities.getTokens(req.query.code, (error, tokens) => {
-        
         if (error) {
             res.status(400).send(error)
         } else {
           controller.loginFacebook(req.url)
         }
-    })
 
 })
 
