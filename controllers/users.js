@@ -259,11 +259,11 @@ passport.use(new facebookStrategy({
     clientSecret: process.env.FB_SECRET,
     callbackURL: process.env.FB_CALLBACK_URL,
     profileFields: ["email", "name"]
-}, function (accessToken, refreshToken, profile, done) {
+}, function (req, accessToken, refreshToken, profile, done) {
     console.log('accessToken', accessToken)
     console.log('refreshToken', refreshToken)
     console.log('profile', profile)
-    console.log('url', callbackURL)
+    console.log('url', req.url)
 
     const data = profile._json;
     users.find({
