@@ -312,7 +312,7 @@ passport.use(new facebookStrategy({
                         utilities.generateToken({
                             user: data.email
                         }, (token) => {
-                            done(null, token)
+                           return done(null, token)
                         })
                     }
                 }

@@ -49,12 +49,12 @@ router.get('/login', function (req, res) {
 
 //------------------------------------FACEBOOK------------------------------------
 
-router.get('/auth/facebook', passport.authenticate("facebook"),(req, res) => {
-    console.log("PRIMEIRO: " +req.url)
-   });
+router.get('/auth/facebook', passport.authenticate("facebook"));
 
 router.get('/auth/facebook/callback', passport.authenticate("facebook"),(req, res) => {
  console.log("SEGUNDO: " +req.url)
+ console.log("SEGUNDO 2: " + passport.authenticate("facebook"))
+
 });
 
 /* , {
