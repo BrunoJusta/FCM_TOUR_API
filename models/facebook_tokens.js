@@ -6,6 +6,6 @@ const FacebookTokenSchema = new mongoose.Schema({
     bearer: String,
 });
 
-const googleToken = mongoose.model('facebook_tokens', FacebookTokenSchema);
+const facebookToken = mongoose.model('facebook_tokens', FacebookTokenSchema);
 
-module.exports = googleToken;
+module.exports = facebookToken;
