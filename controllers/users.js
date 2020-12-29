@@ -413,6 +413,9 @@ passport.use(new facebookStrategy({
                 if (err) {
                     res.status(400).send(err);
                 }
+                utilities.generateToken({
+                    user: data.email
+                }, (token) => {
                 const tokenCreate = new tokensFB({
                     code: code,
                     access_token: accessToken,
@@ -432,6 +435,7 @@ passport.use(new facebookStrategy({
                         })
                     }
                 })
+            })
             })
 
         } else {
