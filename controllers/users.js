@@ -245,104 +245,107 @@ const loginGoogle = (validToken, res, id_token, access_token, code ) => {
 }
 
 //------------------------------------LOGIN-FACEBOOK------------------------------------
+const loginFacebook = (url) => {
 
-passport.serializeUser(function (user, done) {
-    done(null, user)
-})
-
-passport.deserializeUser(function (obj, done) {
-    done(null, obj)
-})
-
-passport.use(new facebookStrategy({
-    clientID: process.env.FB_ID,
-    clientSecret: process.env.FB_SECRET,
-    callbackURL: process.env.FB_CALLBACK_URL,
-    profileFields: ["email", "name"]
-}, function (accessToken, refreshToken, profile, done,) {
-    console.log('accessToken', accessToken)
-    console.log('refreshToken', refreshToken)
-    console.log('profile', profile)
-    console.log('url', done)
-
-    const data = profile._json;
-    users.find({
-        email: data.email
-    }, function (err, user) {
-        if (err) {
-            res.status(400).send(err);
-        }
-        if (user.length > 0) {
-
-            users.findOne({
-                email: data.email
-            }, function (err, results) {
-                if (err) {
-                    res.status(400).send(err);
-                }
-                if (results) {
-                    if (results.type == 01) {
-                        results.type = 05
-                        results.markModified("type")
-                        results.save();
-                        utilities.generateToken({
-                            user: data.email
-                        }, (token) => {
-                            done(null, token)
-                        })
-                    } else if (results.type == 02) {
-                        results.type = 07
-                        results.markModified("type")
-                        results.save();
-                        utilities.generateToken({
-                            user: data.email
-                        }, (token) => {
-                            done(null, token)
-                        })
-                    } else if (results.type == 04) {
-                        results.type = 06
-                        results.markModified("type")
-                        results.save();
-                        utilities.generateToken({
-                            user: data.email
-                        }, (token) => {
-                            done(null, token)
-                        })
-                    } else {
-                        utilities.generateToken({
-                            user: data.email
-                        }, (token) => {
-                           return done(null, token)
-                        })
-                    }
-                }
-            })
-
-
-        } else if (user.length == 0) {
-
-            const userToCreate = new users({
-                username: data.first_name + " " + data.last_name,
-                password: "",
-                email: data.email,
-                points: 0,
-                img: "",
-                type: 03
-            });
-
-            userToCreate.save(function (err, newUser) {
-                if (err) {
-                    res.status(400).send(err);
-                }
-                done(null, newUser)
-            })
-
-        } else {
-            res.status(401).send("Not Authorized");
-        }
+     console.log("URLZITO"+ url)   
+    passport.serializeUser(function (user, done) {
+        done(null, user)
     })
-}))
-
+    
+    passport.deserializeUser(function (obj, done) {
+        done(null, obj)
+    })
+    
+    passport.use(new facebookStrategy({
+        clientID: process.env.FB_ID,
+        clientSecret: process.env.FB_SECRET,
+        callbackURL: process.env.FB_CALLBACK_URL,
+        profileFields: ["email", "name"]
+    }, function (accessToken, refreshToken, profile, done,) {
+        console.log('accessToken', accessToken)
+        console.log('refreshToken', refreshToken)
+        console.log('profile', profile)
+        console.log('url', done)
+    
+        const data = profile._json;
+        users.find({
+            email: data.email
+        }, function (err, user) {
+            if (err) {
+                res.status(400).send(err);
+            }
+            if (user.length > 0) {
+    
+                users.findOne({
+                    email: data.email
+                }, function (err, results) {
+                    if (err) {
+                        res.status(400).send(err);
+                    }
+                    if (results) {
+                        if (results.type == 01) {
+                            results.type = 05
+                            results.markModified("type")
+                            results.save();
+                            utilities.generateToken({
+                                user: data.email
+                            }, (token) => {
+                                done(null, token)
+                            })
+                        } else if (results.type == 02) {
+                            results.type = 07
+                            results.markModified("type")
+                            results.save();
+                            utilities.generateToken({
+                                user: data.email
+                            }, (token) => {
+                                done(null, token)
+                            })
+                        } else if (results.type == 04) {
+                            results.type = 06
+                            results.markModified("type")
+                            results.save();
+                            utilities.generateToken({
+                                user: data.email
+                            }, (token) => {
+                                done(null, token)
+                            })
+                        } else {
+                            utilities.generateToken({
+                                user: data.email
+                            }, (token) => {
+                               return done(null, token)
+                            })
+                        }
+                    }
+                })
+    
+    
+            } else if (user.length == 0) {
+    
+                const userToCreate = new users({
+                    username: data.first_name + " " + data.last_name,
+                    password: "",
+                    email: data.email,
+                    points: 0,
+                    img: "",
+                    type: 03
+                });
+    
+                userToCreate.save(function (err, newUser) {
+                    if (err) {
+                        res.status(400).send(err);
+                    }
+                    done(null, newUser)
+                })
+    
+            } else {
+                res.status(401).send("Not Authorized");
+            }
+        })
+    }))
+}
+    
 //------------------------------------MUDAR-IMAGEM-PERFIL------------------------------------
 
 const editImage = (req, res) => {
@@ -383,6 +386,7 @@ const editImage = (req, res) => {
     })
 
 }
+
 
 //------------------------------------MUDAR-PALAVRA-PASSE------------------------------------
 
@@ -435,3 +439,4 @@ exports.register = register;
 exports.loginGoogle = loginGoogle;
 exports.editImage = editImage;
 exports.editPassword = editPassword
+exports.loginFacebook = loginFacebook
