@@ -52,7 +52,7 @@ router.get('/login', function (req, res) {
 router.get('/auth/facebook', passport.authenticate("facebook"));
 
 router.get('/auth/facebook/callback', function (req, res, next) { 
-    passport.authenticate("facebook")(req, res, next)
+    passport.authenticate("facebook",{ scope:[], state:req.query.code})(req, res, next)
 });
 
 /* , {
