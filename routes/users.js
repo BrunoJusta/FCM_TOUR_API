@@ -51,11 +51,16 @@ router.get('/login', function (req, res) {
 
 router.get('/auth/facebook', passport.authenticate("facebook"));
 
-router.get('/auth/facebook/callback', passport.authenticate("facebook"),(req, res) => {
- console.log("SEGUNDO: " +req.url)
- console.log("SEGUNDO 2: " + passport.authenticate("facebook"))
+router.get('/auth/facebook/callback', function(req,res){
 
-});
+    passport.authenticate("facebook", (error, result) => {
+        if(result){
+            console.log("RESULTADO"+result)
+        }
+    })
+
+})
+
 
 /* , {
     successRedirect: "/facebook",
