@@ -51,18 +51,17 @@ router.get('/login', function (req, res) {
 
 router.get('/auth/facebook', passport.authenticate("facebook"));
 
-router.get('/auth/facebook/callback', passport.authenticate("facebook"));
-
-/* , {
+router.get('/auth/facebook/callback', passport.authenticate("facebook"), {
     successRedirect: "/facebook",
-    failureRedirect: "/fail"
+    failureRedirect: "/fail"})
+
 router.get("/fail", (req, res) => {
-    res.send("Failed Attempt");
-})
+res.send("Failed Attempt");})
+
 
 router.get('/facebook', (req, res) => {
-    res.send("Success");
-}) */
+    console.log(req.url)
+}) 
 
 //------------------------------------REGISTO------------------------------------
 
