@@ -25,7 +25,7 @@ router.get('/google', function (req, res) {
 
 router.get('/login', function (req, res) {
     utilities.getTokens(req.query.code, (error, tokens) => {
-        
+
         if (error) {
             res.status(400).send(error)
         } else {
@@ -38,7 +38,7 @@ router.get('/login', function (req, res) {
                         if (error) {
                             res.status(400).send(error)
                         } else {
-                            controller.loginGoogle(validToken, res ,tokens.id_token, tokens.access_token, req.query.code )
+                            controller.loginGoogle(validToken, res, tokens.id_token, tokens.access_token, req.query.code)
                         }
                     })
                 }
@@ -49,17 +49,11 @@ router.get('/login', function (req, res) {
 
 //------------------------------------FACEBOOK------------------------------------
 
-router.get('/auth/facebook', function(req,res){
+router.get('/auth/facebook', passport.authenticate("facebook"));
 
-      controller.loginFacebook(req.url)
+router.get('/auth/facebook/callback', function (req, res, next) { 
+    passport.authenticate("facebook")(req, res, next)
 });
-
-router.get('/auth/facebook/callback', function(req,res){
-
-          controller.loginFacebook(req.url)
-
-})
-
 
 /* , {
     successRedirect: "/facebook",
