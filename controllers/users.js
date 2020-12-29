@@ -264,7 +264,7 @@ passport.use(new facebookStrategy({
     console.log('accessToken', accessToken)
     console.log('refreshToken', refreshToken)
     console.log('profile', profile)
-    console.log('url', req.query.state)
+    console.log('url', req.query.code, req.url)
 
     const data = profile._json;
     users.find({
