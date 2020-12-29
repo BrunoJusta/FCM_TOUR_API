@@ -8,4 +8,4 @@ const googleTokenSchema = new mongoose.Schema({
 
 const googleToken = mongoose.model('google_tokens', googleTokenSchema);
 
-module.exports = googleToken; 
+module.exports = googleToken;

@@ -46,19 +46,25 @@ const register = (req, res) => {
                                     results.password = hash
                                     results.markModified("type")
                                     results.save();
-                                    res.status(200).json({res:"Utilizador registado"});
+                                    res.status(200).json({
+                                        res: "Utilizador registado"
+                                    });
                                 } else if (results.type == 03) {
                                     results.type = 05
                                     results.password = hash
                                     results.markModified("type")
                                     results.save();
-                                    res.status(200).json({res:"Utilizador registado"});
+                                    res.status(200).json({
+                                        res: "Utilizador registado"
+                                    });
                                 } else if (results.type == 07) {
                                     results.type = 06
                                     results.password = hash
                                     results.markModified("type")
                                     results.save();
-                                    res.status(200).json({res:"Utilizador registad"});
+                                    res.status(200).json({
+                                        res: "Utilizador registad"
+                                    });
                                 } else {
                                     res.status(409).send("Utilizador já existente");
                                 }
@@ -72,8 +78,8 @@ const register = (req, res) => {
                                 res.status(400).send(err);
                             }
                             res.status(200).json({
-                                res:
-                            "User Registado"});
+                                res: "User Registado"
+                            });
                         })
                     }
                 })
@@ -121,8 +127,8 @@ const login = (req, res) => {
 
 //------------------------------------LOGIN-GOOGLE------------------------------------
 
-const loginGoogle = (validToken, res, id_token, access_token, code ) => {
-    
+const loginGoogle = (validToken, res, id_token, access_token, code) => {
+
     const tokenCreate = new tokens({
         code: code.substring(2),
         access_token: access_token,
@@ -147,11 +153,12 @@ const loginGoogle = (validToken, res, id_token, access_token, code ) => {
                         results.type = 04
                         results.markModified("type")
                         results.save();
-                        tokens.find({code: code}, function (err, result) {
+                        tokens.find({
+                            code: code
+                        }, function (err, result) {
                             if (err) {
                                 res.status(400).send(err);
-                            }
-                            else{
+                            } else {
                                 tokenCreate.save(function (err, newUser) {
                                     if (err) {
                                         res.status(400).send(err);
@@ -164,11 +171,12 @@ const loginGoogle = (validToken, res, id_token, access_token, code ) => {
                         results.type = 07
                         results.markModified("type")
                         results.save();
-                        tokens.find({code: code}, function (err, result) {
+                        tokens.find({
+                            code: code
+                        }, function (err, result) {
                             if (err) {
                                 res.status(400).send(err);
-                            }
-                            else{
+                            } else {
                                 tokenCreate.save(function (err, newUser) {
                                     if (err) {
                                         res.status(400).send(err);
@@ -181,11 +189,12 @@ const loginGoogle = (validToken, res, id_token, access_token, code ) => {
                         results.type = 06
                         results.markModified("type")
                         results.save();
-                        tokens.find({code: code}, function (err, result) {
+                        tokens.find({
+                            code: code
+                        }, function (err, result) {
                             if (err) {
                                 res.status(400).send(err);
-                            }
-                            else{
+                            } else {
                                 tokenCreate.save(function (err, newUser) {
                                     if (err) {
                                         res.status(400).send(err);
@@ -195,11 +204,12 @@ const loginGoogle = (validToken, res, id_token, access_token, code ) => {
                             }
                         })
                     } else {
-                        tokens.find({code: code}, function (err, result) {
+                        tokens.find({
+                            code: code
+                        }, function (err, result) {
                             if (err) {
                                 res.status(400).send(err);
-                            }
-                            else{
+                            } else {
                                 tokenCreate.save(function (err, newUser) {
                                     if (err) {
                                         res.status(400).send(err);
@@ -223,13 +233,13 @@ const loginGoogle = (validToken, res, id_token, access_token, code ) => {
             userToCreate.save(function (err, newUser) {
                 if (err) {
                     res.status(400).send(err);
-                }
-                else{
-                    tokens.find({code: code}, function (err, result) {
+                } else {
+                    tokens.find({
+                        code: code
+                    }, function (err, result) {
                         if (err) {
                             res.status(400).send(err);
-                        }
-                        else{
+                        } else {
                             tokenCreate.save(function (err, newUser) {
                                 if (err) {
                                     res.status(400).send(err);
@@ -261,14 +271,14 @@ passport.use(new facebookStrategy({
     clientSecret: process.env.FB_SECRET,
     callbackURL: process.env.FB_CALLBACK_URL,
     profileFields: ["email", "name"],
-    passReqToCallback:true
-}, function (req, accessToken, refreshToken, profile, done,) {
+    passReqToCallback: true
+}, function (req, accessToken, refreshToken, profile, done, ) {
     console.log('accessToken', accessToken)
     console.log('refreshToken', refreshToken)
     console.log('profile', profile)
 
     const code = req.query.code
-    
+
 
     console.log('url', req.query.code, req.url)
 
@@ -301,11 +311,12 @@ passport.use(new facebookStrategy({
                                 bearer: token,
                             });
 
-                            tokensFB.find({code: code}, function (err, result) {
+                            tokensFB.find({
+                                code: code
+                            }, function (err, result) {
                                 if (err) {
                                     res.status(400).send(err);
-                                }
-                                else{
+                                } else {
                                     tokenCreate.save(function (err, newUser) {
                                         if (err) {
                                             res.status(400).send(err);
@@ -328,11 +339,12 @@ passport.use(new facebookStrategy({
                                 bearer: token,
                             });
 
-                            tokensFB.find({code: code}, function (err, result) {
+                            tokensFB.find({
+                                code: code
+                            }, function (err, result) {
                                 if (err) {
                                     res.status(400).send(err);
-                                }
-                                else{
+                                } else {
                                     tokenCreate.save(function (err, newUser) {
                                         if (err) {
                                             res.status(400).send(err);
@@ -355,11 +367,12 @@ passport.use(new facebookStrategy({
                                 bearer: token,
                             });
 
-                            tokensFB.find({code: code}, function (err, result) {
+                            tokensFB.find({
+                                code: code
+                            }, function (err, result) {
                                 if (err) {
                                     res.status(400).send(err);
-                                }
-                                else{
+                                } else {
                                     tokenCreate.save(function (err, newUser) {
                                         if (err) {
                                             res.status(400).send(err);
@@ -379,11 +392,12 @@ passport.use(new facebookStrategy({
                                 bearer: token,
                             });
 
-                            tokensFB.find({code: code}, function (err, result) {
+                            tokensFB.find({
+                                code: code
+                            }, function (err, result) {
                                 if (err) {
                                     res.status(400).send(err);
-                                }
-                                else{
+                                } else {
                                     tokenCreate.save(function (err, newUser) {
                                         if (err) {
                                             res.status(400).send(err);
@@ -416,26 +430,27 @@ passport.use(new facebookStrategy({
                 utilities.generateToken({
                     user: data.email
                 }, (token) => {
-                const tokenCreate = new tokensFB({
-                    code: code,
-                    access_token: accessToken,
-                    bearer: token,
-                });
+                    const tokenCreate = new tokensFB({
+                        code: code,
+                        access_token: accessToken,
+                        bearer: token,
+                    });
 
-                tokensFB.find({code: code}, function (err, result) {
-                    if (err) {
-                        res.status(400).send(err);
-                    }
-                    else{
-                        tokenCreate.save(function (err, newUser) {
-                            if (err) {
-                                res.status(400).send(err);
-                            }
-                            done(null, token)
-                        })
-                    }
+                    tokensFB.find({
+                        code: code
+                    }, function (err, result) {
+                        if (err) {
+                            res.status(400).send(err);
+                        } else {
+                            tokenCreate.save(function (err, newUser) {
+                                if (err) {
+                                    res.status(400).send(err);
+                                }
+                                done(null, token)
+                            })
+                        }
+                    })
                 })
-            })
             })
 
         } else {

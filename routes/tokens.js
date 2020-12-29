@@ -1,12 +1,14 @@
 const express = require('express')
-const { validationResult, body, param } = require('express-validator')
+const {
+    validationResult,
+    body,
+    param
+} = require('express-validator')
 
 const controller = require('../controllers/tokens.js')
-
 const router = express.Router();
 
-
-router.get('/:code', [
+router.get('/Google/:code', [
     param('code').notEmpty().escape(),
 ], function (req, res) {
     const erros = validationResult(req);
@@ -19,4 +21,17 @@ router.get('/:code', [
     }
 })
 
-module.exports = router; 
+router.get('/Facebook/:code', [
+    param('code').notEmpty().escape(),
+], function (req, res) {
+    const erros = validationResult(req);
+    if (erros.isEmpty()) {
+        controller.getFacebookInfo(req, res);
+    } else {
+        res.status(404).json({
+            errors: erros.array()
+        })
+    }
+})
+
+module.exports = router;

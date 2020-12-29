@@ -8,4 +8,4 @@ const FacebookTokenSchema = new mongoose.Schema({
 
 const googleToken = mongoose.model('facebook_tokens', FacebookTokenSchema);
 
-module.exports = googleToken; 
+module.exports = googleToken;
