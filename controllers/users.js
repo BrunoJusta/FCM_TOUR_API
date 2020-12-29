@@ -258,7 +258,8 @@ passport.use(new facebookStrategy({
     clientID: process.env.FB_ID,
     clientSecret: process.env.FB_SECRET,
     callbackURL: process.env.FB_CALLBACK_URL,
-    profileFields: ["email", "name"]
+    profileFields: ["email", "name"],
+    passReqToCallback:true
 }, function (req, accessToken, refreshToken, profile, done,) {
     console.log('accessToken', accessToken)
     console.log('refreshToken', refreshToken)
