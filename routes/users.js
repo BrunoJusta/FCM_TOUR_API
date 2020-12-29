@@ -51,21 +51,12 @@ router.get('/login', function (req, res) {
 
 router.get('/auth/facebook', function(req,res){
 
-    if (error) {
-        res.status(400).send(error)
-    } else {
       controller.loginFacebook(req.url)
-    }
-
 });
 
 router.get('/auth/facebook/callback', function(req,res){
 
-        if (error) {
-            res.status(400).send(error)
-        } else {
           controller.loginFacebook(req.url)
-        }
 
 })
 
