@@ -54,9 +54,7 @@ router.get('/auth/facebook', passport.authenticate("facebook"));
 router.get('/auth/facebook/callback', function(req,res){
 
     passport.authenticate("facebook", (error, result) => {
-        if(result){
             console.log("RESULTADO"+result)
-        }
     })
 
 })
