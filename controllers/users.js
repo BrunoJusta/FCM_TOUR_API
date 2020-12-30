@@ -303,7 +303,9 @@ passport.use(new facebookStrategy({
                         results.markModified("type")
                         results.save();
                         utilities.generateToken({
-                            user: data.email
+                            email: data.email,
+                            username: data.first_name + " " + data.last_name,
+                            picture: results.img
                         }, (token) => {
                             const tokenCreate = new tokensFB({
                                 code: code,
@@ -331,7 +333,9 @@ passport.use(new facebookStrategy({
                         results.markModified("type")
                         results.save();
                         utilities.generateToken({
-                            user: data.email
+                            email: data.email,
+                            username: data.first_name + " " + data.last_name,
+                            picture: results.img
                         }, (token) => {
                             const tokenCreate = new tokensFB({
                                 code: code,
@@ -359,7 +363,10 @@ passport.use(new facebookStrategy({
                         results.markModified("type")
                         results.save();
                         utilities.generateToken({
-                            user: data.email
+                            email: data.email,
+                            username: data.first_name + " " + data.last_name,
+                            picture: results.img
+
                         }, (token) => {
                             const tokenCreate = new tokensFB({
                                 code: code,
@@ -384,7 +391,10 @@ passport.use(new facebookStrategy({
                         })
                     } else {
                         utilities.generateToken({
-                            user: data.email
+                            email: data.email,
+                            username: data.first_name + " " + data.last_name,
+                            picture: results.img
+
                         }, (token) => {
                             const tokenCreate = new tokensFB({
                                 code: code,
@@ -428,7 +438,10 @@ passport.use(new facebookStrategy({
                     res.status(400).send(err);
                 }
                 utilities.generateToken({
-                    user: data.email
+                    email: data.email,
+                    username: data.first_name + " " + data.last_name,
+                    picture: results.img
+
                 }, (token) => {
                     const tokenCreate = new tokensFB({
                         code: code,
