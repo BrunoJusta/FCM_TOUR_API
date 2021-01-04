@@ -49,22 +49,22 @@ router.get('/login', function (req, res) {
 
 //------------------------------------FACEBOOK------------------------------------
 
-router.get('/auth/facebook', passport.authenticate("facebook"));
+router.get('/auth/facebook/token?access_token=:code',
+    passport.authenticate('facebookToken'),
+    function (req, res) {
+        if (req.user) {
+            console.log("USER LOGADO: ")
+            res.send(200, req.user);
+        } else {
+            res.send(401)
+        }
+    })
+
+/* router.get('/auth/facebook', passport.authenticate("facebook"));
 
 router.get('/auth/facebook/callback', function (req, res, next) { 
     passport.authenticate("facebook")(req, res, next)
-});
-
-/* , {
-    successRedirect: "/facebook",
-    failureRedirect: "/fail"
-router.get("/fail", (req, res) => {
-    res.send("Failed Attempt");
-})
-
-router.get('/facebook', (req, res) => {
-    res.send("Success");
-}) */
+}); */
 
 //------------------------------------REGISTO------------------------------------
 

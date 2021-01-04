@@ -7,7 +7,7 @@ const tokensFB = require("../models/facebook_tokens.js");
 const firebase = require("../API/firebase.js");
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-const facebookStrategy = require('passport-facebook').Strategy;
+const facebookTokenStrategy = require('passport-facebook-token');
 
 //------------------------------------REGISTO------------------------------------
 
@@ -258,7 +258,23 @@ const loginGoogle = (validToken, res, id_token, access_token, code) => {
 
 //------------------------------------LOGIN-FACEBOOK------------------------------------
 
-passport.serializeUser(function (user, done) {
+passport.use('facebookToken', new facebookTokenStrategy({
+    clientID: process.env.FB_ID,
+    clientSecret: process.env.FB_SECRET,
+    passReqToCallback: true
+}, async (req, accessToken, refreshToken, profile, done) => {
+    const code = req.query.code
+    try {
+        console.log('ACCESS TOKEN', accessToken)
+        console.log('REFRESH TOKEN', refreshToken)
+        console.log('PROFILE', profile)
+        console.log('QUERY', code)
+    } catch (error) {
+        done(error, false, error.message)
+    }
+}))
+
+/* passport.serializeUser(function (user, done) {
     done(null, user)
 })
 
@@ -470,7 +486,9 @@ passport.use(new facebookStrategy({
             res.status(401).send("Not Authorized");
         }
     })
-}))
+})) */
+
+
 
 //------------------------------------MUDAR-IMAGEM-PERFIL------------------------------------
 
