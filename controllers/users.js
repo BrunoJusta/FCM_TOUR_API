@@ -264,14 +264,11 @@ passport.use('facebookToken', new facebookTokenStrategy({
     passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, done) => {
     const code = req.query.code
-    try {
         console.log('ACCESS TOKEN', accessToken)
         console.log('REFRESH TOKEN', refreshToken)
         console.log('PROFILE', profile)
         console.log('QUERY', code)
-    } catch (error) {
-        done(error, false, error.message)
-    }
+        return done(done, user)
 }))
 
 /* passport.serializeUser(function (user, done) {

@@ -58,7 +58,8 @@ router.get('/auth/facebook/token?access_token=:code',
         } else {
             res.send(401)
         }
-    })
+    }
+);
 
 /* router.get('/auth/facebook', passport.authenticate("facebook"));
 
