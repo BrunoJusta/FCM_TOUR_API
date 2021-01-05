@@ -14,7 +14,7 @@ async function uploadImage(image, name){
         const bucket = storage.bucket(bucketName);
         var file = bucket.file('images/' + name + ".png");
 
-        let link = "https://firebasestorage.googleapis.com/v0/b/" + bucketName + "/o/" + 'images%2F' + name + ".mp3" + "?alt=media"
+        let link = "https://firebasestorage.googleapis.com/v0/b/" + bucketName + "/o/" + 'images%2F' + name + ".png" + "?alt=media"
 
         const options = { 
             metadata: {
