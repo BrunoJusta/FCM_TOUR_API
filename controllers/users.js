@@ -121,7 +121,208 @@ const login = (req, res) => {
     })
 }
 
-//------------------------------------LOGIN-GOOGLE------------------------------------
+//------------------------------------LOGIN-FACEBOOK------------------------------------
+
+const loginFacebook = (req, res) => {
+    users.find({
+        email: req.body.email
+    }, function (err, user) {
+        if (err) {
+            res.status(400).send(err);
+        }
+        if (user.length > 0) {
+            users.findOne({
+                email: req.body.email
+            }, function (err, results) {
+                if (err) {
+                    res.status(400).send(err);
+                }
+                if (results) {
+                    if (results.type == 01) {
+                        results.type = 05
+                        results.markModified("type")
+                        results.save();
+                        utilities.generateToken({
+                            email: req.body.email,
+                            username: req.body.username,
+                            picture: results.img
+                        }, (token) => {
+                            res.status(200).json({
+                                token: token
+                            });
+                        })
+                    } else if (results.type == 02) {
+                        results.type = 07
+                        results.markModified("type")
+                        results.save();
+                        utilities.generateToken({
+                            email: req.body.email,
+                            username: req.body.username,
+                            picture: results.img
+                        }, (token) => {
+                            res.status(200).json({
+                                token: token
+                            });
+                        })
+                    } else if (results.type == 04) {
+                        results.type = 06
+                        results.markModified("type")
+                        results.save();
+                        utilities.generateToken({
+                            email: req.body.email,
+                            username: req.body.username,
+                            picture: results.img
+                        }, (token) => {
+                            res.status(200).json({
+                                token: token
+                            });
+                        })
+                    } else {
+                        utilities.generateToken({
+                            email: req.body.email,
+                            username: req.body.username,
+                            picture: results.img
+                        }, (token) => {
+                            res.status(200).json({
+                                token: token
+                            });
+                        })
+                    }
+                }
+            })
+        } else if (user.length == 0) {
+            const userToCreate = new users({
+                username: req.body.username,
+                password: "",
+                email: req.body.email,
+                points: 0,
+                img: "",
+                type: 03
+            });
+            userToCreate.save(function (err, newUser) {
+                if (err) {
+                    res.status(400).send(err);
+                }
+                utilities.generateToken({
+                    email: req.body.email,
+                    username: req.body.username
+                }, (token) => {
+                    res.status(200).json({
+                        token: token
+                    });
+                })
+            })
+
+        } else {
+            res.status(401).send("Not Authorized");
+        }
+    })
+}
+
+//------------------------------------LOGIN-FACEBOOK------------------------------------
+
+const loginGoogleFE = (req, res) => {
+    users.find({
+        email: req.body.email
+    }, function (err, user) {
+        if (err) {
+            res.status(400).send(err);
+        }
+        if (user.length > 0) {
+            users.findOne({
+                email: req.body.email
+            }, function (err, results) {
+                if (err) {
+                    res.status(400).send(err);
+                }
+                if (results) {
+                    if (results.img != "") {
+                        results.img = req.body.picture
+                        results.markModified("img")
+                        results.save();
+                    }
+                    if (results.type == 01) {
+                        results.type = 04
+                        results.markModified("type")
+                        results.save();
+                        utilities.generateToken({
+                            email: req.body.email,
+                            username: req.body.username,
+                            picture: results.img
+                        }, (token) => {
+                            res.status(200).json({
+                                token: token
+                            });
+                        })
+                    } else if (results.type == 03) {
+                        results.type = 07
+                        results.markModified("type")
+                        results.save();
+                        utilities.generateToken({
+                            email: req.body.email,
+                            username: req.body.username,
+                            picture: results.img
+                        }, (token) => {
+                            res.status(200).json({
+                                token: token
+                            });
+                        })
+                    } else if (results.type == 05) {
+                        results.type = 06
+                        results.markModified("type")
+                        results.save();
+                        utilities.generateToken({
+                            email: req.body.email,
+                            username: req.body.username,
+                            picture: results.img
+                        }, (token) => {
+                            res.status(200).json({
+                                token: token
+                            });
+                        })
+                    } else {
+                        utilities.generateToken({
+                            email: req.body.email,
+                            username: req.body.username,
+                            picture: results.img
+                        }, (token) => {
+                            res.status(200).json({
+                                token: token
+                            });
+                        })
+                    }
+                }
+            })
+        } else if (user.length == 0) {
+            const userToCreate = new users({
+                username: req.body.username,
+                password: "",
+                email: req.body.email,
+                points: 0,
+                img: req.body.picture,
+                type: 02
+            });
+
+            userToCreate.save(function (err, newUser) {
+                if (err) {
+                    res.status(400).send(err);
+                }
+                utilities.generateToken({
+                    email: req.body.email,
+                    username: req.body.username
+                }, (token) => {
+                    res.status(200).json({
+                        token: token
+                    });
+                })
+            })
+        } else {
+            res.status(401).send("Not Authorized");
+        }
+    })
+}
+
+//---------------GOOGLE LOGIN(com passport, a funcionar em BE, sem ligação FE)--------------------
 
 const loginGoogle = (validToken, res, id_token, access_token, code) => {
 
@@ -251,105 +452,6 @@ const loginGoogle = (validToken, res, id_token, access_token, code) => {
         }
     })
 }
-
-//------------------------------------LOGIN-FACEBOOK------------------------------------
-
-const loginFacebook = (req, res) => {
-    users.find({
-        email: req.body.email
-    }, function (err, user) {
-        if (err) {
-            res.status(400).send(err);
-        }
-        if (user.length > 0) {
-            users.findOne({
-                email: req.body.email
-            }, function (err, results) {
-                if (err) {
-                    res.status(400).send(err);
-                }
-                if (results) {
-                    if (results.type == 01) {
-                        results.type = 05
-                        results.markModified("type")
-                        results.save();
-                        utilities.generateToken({
-                            email: req.body.email,
-                            username: req.body.username,
-                            picture: results.img
-                        }, (token) => {
-                            res.status(200).json({
-                                token: token
-                            });
-                        })
-                    } else if (results.type == 02) {
-                        results.type = 07
-                        results.markModified("type")
-                        results.save();
-                        utilities.generateToken({
-                            email: req.body.email,
-                            username: req.body.username,
-                            picture: results.img
-                        }, (token) => {
-                            res.status(200).json({
-                                token: token
-                            });
-                        })
-                    } else if (results.type == 04) {
-                        results.type = 06
-                        results.markModified("type")
-                        results.save();
-                        utilities.generateToken({
-                            email: req.body.email,
-                            username: req.body.username,
-                            picture: results.img
-                        }, (token) => {
-                            res.status(200).json({
-                                token: token
-                            });
-                        })
-                    } else {
-                        utilities.generateToken({
-                            email: req.body.email,
-                            username: req.body.username,
-                            picture: results.img
-                        }, (token) => {
-                            res.status(200).json({
-                                token: token
-                            });
-                        })
-                    }
-                }
-            })
-        } else if (user.length == 0) {
-            const userToCreate = new users({
-                username: req.body.username,
-                password: "",
-                email: req.body.email,
-                points: 0,
-                img: "",
-                type: 03
-            });
-            userToCreate.save(function (err, newUser) {
-                if (err) {
-                    res.status(400).send(err);
-                }
-                utilities.generateToken({
-                    email: req.body.email,
-                    username: req.body.username
-                }, (token) => {
-                    res.status(200).json({
-                        token: token
-                    });
-                })
-            })
-
-        } else {
-            res.status(401).send("Not Authorized");
-        }
-    })
-}
-
 
 //-------------FACEBOOK LOGIN(com passport, a funcionar em BE, sem ligação FE)--------------
 
@@ -660,3 +762,4 @@ exports.loginGoogle = loginGoogle;
 exports.editImage = editImage;
 exports.editPassword = editPassword
 exports.loginFacebook = loginFacebook;
+exports.loginGoogleFE = loginGoogleFE;
