@@ -7,7 +7,7 @@ const tokensFB = require("../models/facebook_tokens.js");
 const firebase = require("../API/firebase.js");
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-const facebookTokenStrategy = require('passport-facebook-token');
+const facebookStrategy = require('passport-facebook');
 
 //------------------------------------REGISTO------------------------------------
 
@@ -31,9 +31,7 @@ const register = (req, res) => {
                     if (err) {
                         res.status(400).send(err);
                     }
-
                     if (user.length > 0) {
-
                         users.findOne({
                             email: req.body.email
                         }, function (err, results) {
@@ -258,20 +256,105 @@ const loginGoogle = (validToken, res, id_token, access_token, code) => {
 
 //------------------------------------LOGIN-FACEBOOK------------------------------------
 
-passport.use('facebookToken', new facebookTokenStrategy({
-    clientID: process.env.FB_ID,
-    clientSecret: process.env.FB_SECRET,
-    passReqToCallback: true
-}, async (req, accessToken, refreshToken, profile, done) => {
-    const code = req.query.code
-        console.log('ACCESS TOKEN', accessToken)
-        console.log('REFRESH TOKEN', refreshToken)
-        console.log('PROFILE', profile)
-        console.log('QUERY', code)
-        return done(done, user)
-}))
+const loginFacebook = (req, res) => {
+    users.find({
+        email: req.body.email
+    }, function (err, user) {
+        if (err) {
+            res.status(400).send(err);
+        }
+        if (user.length > 0) {
+            users.findOne({
+                email: req.body.email
+            }, function (err, results) {
+                if (err) {
+                    res.status(400).send(err);
+                }
+                if (results) {
+                    if (results.type == 01) {
+                        results.type = 05
+                        results.markModified("type")
+                        results.save();
+                        utilities.generateToken({
+                            email: req.body.email,
+                            username: req.body.username,
+                            picture: results.img
+                        }, (token) => {
+                            res.status(200).json({
+                                token: token
+                            });
+                        })
+                    } else if (results.type == 02) {
+                        results.type = 07
+                        results.markModified("type")
+                        results.save();
+                        utilities.generateToken({
+                            email: req.body.email,
+                            username: req.body.username,
+                            picture: results.img
+                        }, (token) => {
+                            res.status(200).json({
+                                token: token
+                            });
+                        })
+                    } else if (results.type == 04) {
+                        results.type = 06
+                        results.markModified("type")
+                        results.save();
+                        utilities.generateToken({
+                            email: req.body.email,
+                            username: req.body.username,
+                            picture: results.img
+                        }, (token) => {
+                            res.status(200).json({
+                                token: token
+                            });
+                        })
+                    } else {
+                        utilities.generateToken({
+                            email: req.body.email,
+                            username: req.body.username,
+                            picture: results.img
+                        }, (token) => {
+                            res.status(200).json({
+                                token: token
+                            });
+                        })
+                    }
+                }
+            })
+        } else if (user.length == 0) {
+            const userToCreate = new users({
+                username: req.body.username,
+                password: "",
+                email: req.body.email,
+                points: 0,
+                img: "",
+                type: 03
+            });
+            userToCreate.save(function (err, newUser) {
+                if (err) {
+                    res.status(400).send(err);
+                }
+                utilities.generateToken({
+                    email: req.body.email,
+                    username: req.body.username
+                }, (token) => {
+                    res.status(200).json({
+                        token: token
+                    });
+                })
+            })
 
-/* passport.serializeUser(function (user, done) {
+        } else {
+            res.status(401).send("Not Authorized");
+        }
+    })
+}
+
+
+//-------------FACEBOOK LOGIN(com passport, a funcionar em BE, sem ligação FE)--------------
+passport.serializeUser(function (user, done) {
     done(null, user)
 })
 
@@ -483,9 +566,7 @@ passport.use(new facebookStrategy({
             res.status(401).send("Not Authorized");
         }
     })
-})) */
-
-
+}))
 
 //------------------------------------MUDAR-IMAGEM-PERFIL------------------------------------
 
@@ -579,3 +660,4 @@ exports.register = register;
 exports.loginGoogle = loginGoogle;
 exports.editImage = editImage;
 exports.editPassword = editPassword
+exports.loginFacebook = loginFacebook;
