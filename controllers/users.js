@@ -1,4 +1,4 @@
-const utilities = require('../utilities/utilities.js')
+const utilities = require('../middleware/utilities.js')
 const users = require("../models/users.js");
 const tokens = require("../models/google_tokens.js");
 const tokensFB = require("../models/facebook_tokens.js");

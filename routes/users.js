@@ -6,7 +6,7 @@ const {
     param
 } = require('express-validator')
 
-const utilities = require('../utilities/utilities.js')
+const utilities = require('../middleware/utilities.js')
 const controller = require('../controllers/users.js')
 
 const router = express.Router();

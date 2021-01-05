@@ -10,7 +10,7 @@ const roulette = require('./routes/roulette.js')
 const tower = require('./routes/tower.js')
 const library = require('./routes/library.js')
 const home = require('./routes/home.js')
-const utilities = require('./utilities/utilities.js');
+const utilities = require('./middleware/utilities.js');
 const passport = require('passport')
 const token = require('./routes/tokens.js')
 
