@@ -2,8 +2,6 @@ const utilities = require('../utilities/utilities.js')
 const users = require("../models/users.js");
 const tokens = require("../models/google_tokens.js");
 const tokensFB = require("../models/facebook_tokens.js");
-
-
 const firebase = require("../API/firebase.js");
 const bcrypt = require('bcrypt');
 const passport = require('passport');
@@ -354,6 +352,7 @@ const loginFacebook = (req, res) => {
 
 
 //-------------FACEBOOK LOGIN(com passport, a funcionar em BE, sem ligação FE)--------------
+
 passport.serializeUser(function (user, done) {
     done(null, user)
 })
