@@ -205,7 +205,8 @@ const loginFacebook = (req, res) => {
                 }
                 utilities.generateToken({
                     email: req.body.email,
-                    username: req.body.username
+                    username: req.body.username,
+                    picture: ""
                 }, (token) => {
                     res.status(200).json({
                         token: token
@@ -309,7 +310,8 @@ const loginGoogleFE = (req, res) => {
                 }
                 utilities.generateToken({
                     email: req.body.email,
-                    username: req.body.username
+                    username: req.body.username,
+                    picture: req.body.img
                 }, (token) => {
                     res.status(200).json({
                         token: token
