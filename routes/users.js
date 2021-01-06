@@ -8,8 +8,19 @@ const {
 
 const utilities = require('../middleware/utilities.js')
 const controller = require('../controllers/users.js')
-
 const router = express.Router();
+
+
+var multer  = require('multer')
+var upload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024, // keep images size < 5 MB
+    },
+});
+
+
+
 
 //------------------------------------LOGIN------------------------------------
 
@@ -94,12 +105,13 @@ router.post('/register', [
 
 //------------------------------------MUDAR-IMAGEM-PERFIL------------------------------------
 
-router.put('/profile/:email', [
-    param('email').notEmpty().escape(),
-], function (req, res) {
+
+router.put('/profile/:email',upload.single('file'),
+function (req, res) {
     const erros = validationResult(req);
     if (erros.isEmpty()) {
-        controller.editImage(req, res);
+     console.log(req.file)
+      controller.editImage(req, res);
     } else {
         res.status(404).json({
             errors: erros.array()

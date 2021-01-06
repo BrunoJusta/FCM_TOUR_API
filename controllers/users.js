@@ -577,32 +577,8 @@ const editImage = (req, res) => {
             res.status(400).send(err)
         }
         if (user) {
-            firebase.uploadImage(req.body.image, "profile_" + req.body.email).then(result => {
-                if (result) {
-                    users.findOne({
-                        email: req.params.email
-                    }, function (err, results) {
-                        if (err) {
-                            res.status(400).send(err);
-                        }
-                        if (results) {
-                            results.img = result
-                            results.markModified("image")
-                            results.save();
-                            res.status(200).json({
-                                results: results,
-                                savedURL: result
-                            })
-                        }
-                    })
-                } else {
-                    res.status(400).send("Error");
-                }
-            }).catch(error => {
-                if (error) {
-                    res.status(400).send("Error");
-                }
-            })
+            firebase.uploadImage(res, req.params.email, req.file, req.file.originalname, req.file.mimetype.substring(6))
+
         }
     })
 

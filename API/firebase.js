@@ -1,41 +1,51 @@
 const uuid = require('uuid-v4');
 const keyFilename = './API/fcmtour-347cf-firebase-adminsdk-qmqn9-d61fffd41e.json'
 const {Storage} = require('@google-cloud/storage');
+const users = require("../models/users.js");
+const storage = new Storage({
+  projectId: 'fcmtour-347cf',
+  keyFilename: keyFilename
+});
+let bucketName = "fcmtour-347cf.appspot.com"
+const bucket = storage.bucket(bucketName);
 
 
-async function uploadImage(image, name){
+async function uploadImage(res, email, image, name, type) {
 
-        const storage = new Storage({
-            projectId: 'fcmtour-347cf',
-            keyFilename: keyFilename
-        }); 
-        
-        let bucketName = "fcmtour-347cf.appspot.com"
-        const bucket = storage.bucket(bucketName);
-        var file = bucket.file('images/' + name + ".png");
+  console.log("SIGA")
+  
+  var file = bucket.file(image.originalname + "_" +Date.now());
 
-        let link = "https://firebasestorage.googleapis.com/v0/b/" + bucketName + "/o/" + 'images%2F' + name + ".mp3" + "?alt=media"
+  const blobWriter = file.createWriteStream({
+    metadata: {
+      contentType: 'image/' + type,
+      metadata: {
+        firebaseStorageDownloadTokens: uuid()
+      }
+    }
+  });
+  console.log("OK")
 
-        const options = { 
-            metadata: {
-              contentType: 'image/png',
-              cacheControl: 'public, max-age=31536000',
-              metadata:{
-                firebaseStorageDownloadTokens: uuid()
-              }
-            }
-        };
+  blobWriter.on('error', (err) =>  res.status(400).json(err));
 
-        return await file.save(image, options)
-        .then(response => {
-          console.log(response)
-          return link; 
-        })
-        .catch((error) => {
-          console.error(error);
-          return null;
-        });
-    
+  blobWriter.on('finish', () => {
+    const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/${encodeURI(file.name)}?alt=media`;
+      users.findOne({email: email}, function (err, results) {
+        if (err) {
+            res.status(400).send(err);
+        }
+        if (results) {
+            results.img = publicUrl
+            results.markModified("image")
+            results.save();
+            res.status(200).json({
+                results: results,
+                savedURL: publicUrl
+            })
+        }
+      })
+  });
+  blobWriter.end(image.buffer);
 }
 
 exports.uploadImage = uploadImage;
