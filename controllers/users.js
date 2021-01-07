@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const facebookStrategy = require('passport-facebook');
 const jwt_decode = require('jwt-decode');
+const { json } = require('body-parser');
 
 //------------------------------------REGISTO------------------------------------
 
@@ -224,9 +225,9 @@ const loginFacebook = (req, res) => {
 //------------------------------------LOGIN-GOOGLE------------------------------------
 
 const loginGoogleFE = (req, res) => {
-    console.log("TOKEN" + decodedToken)
+    console.log("TOKEN" + req.body.token)
     var decodedToken = jwt_decode(req.body.token)
-    console.log("DECODED" + decodedToken)
+    console.log("DECODED" + JSON.stringify(decodedToken))
     /* users.find({
         email: req.body.email
     }, function (err, user) {
