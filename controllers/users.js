@@ -224,8 +224,9 @@ const loginFacebook = (req, res) => {
 //------------------------------------LOGIN-GOOGLE------------------------------------
 
 const loginGoogleFE = (req, res) => {
+    console.log("TOKEN" + decodedToken)
     var decodedToken = jwt_decode(req.body.token)
-    console.log(decodedToken)
+    console.log("DECODED" + decodedToken)
     /* users.find({
         email: req.body.email
     }, function (err, user) {
