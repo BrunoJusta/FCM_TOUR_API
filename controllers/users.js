@@ -295,6 +295,7 @@ const loginGoogleFE = (req, res) => {
                 }
             })
         } else if (user.length == 0) {
+            console.log("IMAGE: " + req.body.picture)
             const userToCreate = new users({
                 username: req.body.username,
                 password: "",
