@@ -48,9 +48,7 @@ router.post('/facebook', [
 //------------------------------------FACEBOOK------------------------------------
 
 router.post('/login/google', [
-    body('username').notEmpty().escape(),
-    body('email').notEmpty().escape(),
-    body('picture').notEmpty().escape(),
+    body('token').notEmpty().escape()
 ], function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
