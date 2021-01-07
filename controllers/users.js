@@ -226,7 +226,7 @@ const loginFacebook = (req, res) => {
 const loginGoogleFE = (req, res) => {
     var decodedToken = jwt_decode(req.body.token)
     console.log(decodedToken)
-    users.find({
+    /* users.find({
         email: req.body.email
     }, function (err, user) {
         if (err) {
@@ -325,7 +325,7 @@ const loginGoogleFE = (req, res) => {
         } else {
             res.status(401).send("Not Authorized");
         }
-    })
+    }) */
 }
 
 //---------------GOOGLE LOGIN(com passport, a funcionar em BE, sem ligação FE)--------------------
