@@ -7,7 +7,9 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const facebookStrategy = require('passport-facebook');
 const jwt_decode = require('jwt-decode');
-const { json } = require('body-parser');
+const {
+    json
+} = require('body-parser');
 
 //------------------------------------REGISTO------------------------------------
 
@@ -226,26 +228,25 @@ const loginFacebook = (req, res) => {
 
 const loginGoogleFE = (req, res) => {
     var decodedToken = jwt_decode(req.body.token)
-    const name = decodedToken.name
-    const email = decodedToken.email
-    const picture = decodedToken.picture
-    console.log(name + email +"  PICTURE   " +  picture)
-    /* users.find({
-        email: req.body.email
+    const username = decodedToken.name
+    const userEmail = decodedToken.email
+    const userPicture = decodedToken.picture
+    users.find({
+        email: userEmail
     }, function (err, user) {
         if (err) {
             res.status(400).send(err);
         }
         if (user.length > 0) {
             users.findOne({
-                email: req.body.email
+                email: userEmail
             }, function (err, results) {
                 if (err) {
                     res.status(400).send(err);
                 }
                 if (results) {
                     if (results.img == "") {
-                        results.img = req.body.picture
+                        results.img = userPicture
                         results.markModified("img")
                         results.save();
                     }
@@ -254,8 +255,8 @@ const loginGoogleFE = (req, res) => {
                         results.markModified("type")
                         results.save();
                         utilities.generateToken({
-                            email: req.body.email,
-                            username: req.body.username,
+                            email: userEmail,
+                            username: username,
                             picture: results.img
                         }, (token) => {
                             res.status(200).json({
@@ -267,8 +268,8 @@ const loginGoogleFE = (req, res) => {
                         results.markModified("type")
                         results.save();
                         utilities.generateToken({
-                            email: req.body.email,
-                            username: req.body.username,
+                            email: userEmail,
+                            username: username,
                             picture: results.img
                         }, (token) => {
                             res.status(200).json({
@@ -280,8 +281,8 @@ const loginGoogleFE = (req, res) => {
                         results.markModified("type")
                         results.save();
                         utilities.generateToken({
-                            email: req.body.email,
-                            username: req.body.username,
+                            email: userEmail,
+                            username: username,
                             picture: results.img
                         }, (token) => {
                             res.status(200).json({
@@ -290,8 +291,8 @@ const loginGoogleFE = (req, res) => {
                         })
                     } else {
                         utilities.generateToken({
-                            email: req.body.email,
-                            username: req.body.username,
+                            email: userEmail,
+                            username: username,
                             picture: results.img
                         }, (token) => {
                             res.status(200).json({
@@ -302,13 +303,12 @@ const loginGoogleFE = (req, res) => {
                 }
             })
         } else if (user.length == 0) {
-            console.log("IMAGE: " + req.body.picture)
             const userToCreate = new users({
-                username: req.body.username,
+                username: username,
                 password: "",
-                email: req.body.email,
+                email: userEmail,
                 points: 0,
-                img: req.body.picture,
+                img: userPicture,
                 type: 02
             });
 
@@ -317,9 +317,9 @@ const loginGoogleFE = (req, res) => {
                     res.status(400).send(err);
                 }
                 utilities.generateToken({
-                    email: req.body.email,
-                    username: req.body.username,
-                    picture: req.body.img
+                    email: userEmail,
+                    username: username,
+                    picture: userPicture
                 }, (token) => {
                     res.status(200).json({
                         token: token
@@ -329,7 +329,7 @@ const loginGoogleFE = (req, res) => {
         } else {
             res.status(401).send("Not Authorized");
         }
-    }) */
+    })
 }
 
 //---------------GOOGLE LOGIN(com passport, a funcionar em BE, sem ligação FE)--------------------
