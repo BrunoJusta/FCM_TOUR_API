@@ -6,6 +6,7 @@ const firebase = require("../API/firebase.js");
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const facebookStrategy = require('passport-facebook');
+const jwt_decode = require('jwt-decode');
 
 //------------------------------------REGISTO------------------------------------
 
@@ -223,6 +224,8 @@ const loginFacebook = (req, res) => {
 //------------------------------------LOGIN-GOOGLE------------------------------------
 
 const loginGoogleFE = (req, res) => {
+    var decodedToken = jwt_decode(req.body.token)
+    console.log(decodedToken)
     users.find({
         email: req.body.email
     }, function (err, user) {
