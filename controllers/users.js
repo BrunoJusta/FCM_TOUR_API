@@ -219,7 +219,7 @@ const loginFacebook = (req, res) => {
     })
 }
 
-//------------------------------------LOGIN-FACEBOOK------------------------------------
+//------------------------------------LOGIN-GOOGLE------------------------------------
 
 const loginGoogleFE = (req, res) => {
     users.find({
@@ -236,7 +236,7 @@ const loginGoogleFE = (req, res) => {
                     res.status(400).send(err);
                 }
                 if (results) {
-                    if (results.img != "") {
+                    if (results.img == "") {
                         results.img = req.body.picture
                         results.markModified("img")
                         results.save();
