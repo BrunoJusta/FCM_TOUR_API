@@ -11,8 +11,6 @@ const getRooms = (req, res) => {
     })
 }
 
-
-
 const getRoomsByNumber = (req, res) => {
     room.find({
         number: req.params.number
@@ -22,16 +20,13 @@ const getRoomsByNumber = (req, res) => {
         } else {
             speech.speeching(rooms[0].description, rooms[0].name).then(result => {
                 if (result) {
-
                     room.findOne({
-                        room
+                        number: req.params.number
                     }, function (err, rooms) {
                         if (err) {
                             res.status(400).send(err);
                         }
                         if (rooms) {
-                            console.log(rooms)
-
                             rooms.audio = result
                             rooms.markModified("audio")
                             rooms.save();
@@ -39,14 +34,12 @@ const getRoomsByNumber = (req, res) => {
                                 rooms: rooms,
                                 savedURL: result
                             })
-
                         }
                     })
 
                 } else {
                     res.status(400).send("Error");
                 }
-
             }).catch(error => {
                 if (error) {
                     res.status(400).send("Error");
@@ -55,11 +48,6 @@ const getRoomsByNumber = (req, res) => {
         }
     })
 }
-
-
-
-
-
 
 exports.getRoomsByNumber = getRoomsByNumber;
 exports.getRooms = getRooms;

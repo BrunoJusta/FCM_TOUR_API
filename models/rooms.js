@@ -6,7 +6,8 @@ const roomSchema = new mongoose.Schema({
     name: String,
     description: String,
     audio: String,
-    imgs: Array
+    imgs: Array,
+    cover: String
 })
 
 const room = mongoose.model('rooms', roomSchema)
