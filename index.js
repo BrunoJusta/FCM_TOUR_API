@@ -13,7 +13,7 @@ const home = require('./routes/home.js')
 const utilities = require('./middleware/utilities.js');
 const passport = require('passport')
 const token = require('./routes/tokens.js')
-
+const cors = require("cors");
 const mongoBD = require('./database/db-config.js')
 
 
@@ -22,6 +22,18 @@ const mongoBD = require('./database/db-config.js')
 const expressSwagger = require('express-swagger-generator')(app);
 const options = require('./swagger_conf');
 expressSwagger(options);
+
+
+
+app.use(cors({origin:'*'}));
+
+
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+})
 
 
 
