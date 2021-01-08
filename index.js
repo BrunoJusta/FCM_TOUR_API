@@ -13,6 +13,7 @@ const home = require('./routes/home.js')
 const utilities = require('./middleware/utilities.js');
 const passport = require('passport')
 const token = require('./routes/tokens.js')
+const ticket = require('./routes/qrCode')
 
 const mongoBD = require('./database/db-config.js')
 
@@ -26,7 +27,6 @@ expressSwagger(options);
 
 
 const auth = function (req, res, next) {
-    console.log(req.url)
     if (utilities.exceptions.indexOf(req.url) >= 0 || req.url.indexOf('login?code') != -1 || req.url.indexOf(`auth/facebook`)) {
         next();
     } else {
@@ -54,6 +54,7 @@ app.use('/roleta', roulette)
 app.use('/biblioteca', library)
 app.use('/home', home)
 app.use('/token', token)
+app.use('/ticket', ticket)
 
 
 app.listen(port, () => {
