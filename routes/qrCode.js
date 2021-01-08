@@ -11,8 +11,8 @@ router.post('/', function (req, res) {
     controller.generateTicket(req, res);
 })
 
-router.get('/', [
-    body('code').notEmpty().escape(),
+router.get('/:code', [
+    param('code').notEmpty().escape(),
 ], function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {

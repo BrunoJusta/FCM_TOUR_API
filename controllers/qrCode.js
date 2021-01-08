@@ -31,7 +31,7 @@ const generateTicket = (req, res) => {
 
 const getTicketByCode = (req, res) => {
     tickets.find({
-        code: req.body.code
+        code: req.params.code
     }, function (err, ticket) {
         if (err) {
             res.status(400).send(err);
