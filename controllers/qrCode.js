@@ -40,9 +40,9 @@ const getTicketByCode = (req, res) => {
             const fullDate = new Date()
             const date = fullDate.getFullYear() + '/' + (fullDate.getMonth() + 1) + '/' + fullDate.getDate();
             if (ticket[0].date == date) {
-                res.status(401).send("Ticket válido");
+                res.status(401).json({state:"Ticket válido"});
             } else {
-                res.status(401).send("Ticket não autorizado");
+                res.status(401).json({state:"Ticket não autorizado"});
             }
         }
     })
