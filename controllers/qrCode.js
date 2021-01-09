@@ -21,10 +21,10 @@ const generateTicket = (req, res) => {
                 if (err) {
                     res.status(400).send(err);
                 }
-                res.status(200).send("Ticket criado");
+                res.status(200).json({state:"Ticket criado"});
             })
         } else {
-            res.status(401).send("Ticket já existe");
+            res.status(400).json({state:"Ticket já existe"});
         }
     })
 }
@@ -42,7 +42,7 @@ const getTicketByCode = (req, res) => {
             if (ticket[0].date == date) {
                 res.status(200).json({state:"Ticket válido"});
             } else {
-                res.status(200).json({state:"Ticket não autorizado"});
+                res.status(400).json({state:"Ticket não autorizado"});
             }
         }
     })
