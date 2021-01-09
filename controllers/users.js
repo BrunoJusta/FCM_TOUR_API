@@ -107,7 +107,11 @@ const login = (req, res) => {
                 bcrypt.compare(req.body.password, user[0].password).then(function (result) {
                     if (result) {
                         utilities.generateToken({
-                            user: req.body.email
+                            user: req.body.email,
+                            name: user.username,
+                            img: user.img,
+                            points: user.points
+
                         }, (token) => {
                             res.status(200).json({
                                 token: token
