@@ -42,7 +42,7 @@ const getTicketByCode = (req, res) => {
             if (ticket[0].date == date) {
                 res.status(200).json({state:"Ticket válido"});
             } else {
-                res.status(400).json({state:"Ticket não autorizado"});
+                res.status(200).json({state:"Ticket não autorizado"});
             }
         }
     })
