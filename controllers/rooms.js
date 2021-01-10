@@ -18,33 +18,40 @@ const getRoomsByNumber = (req, res) => {
         if (err) {
             res.status(400).send(err);
         } else {
-            speech.speeching(rooms[0].description, rooms[0].name).then(result => {
-                if (result) {
-                    room.findOne({
-                        number: req.params.number
-                    }, function (err, rooms) {
-                        if (err) {
-                            res.status(400).send(err);
-                        }
-                        if (rooms) {
-                            rooms.audio = result
-                            rooms.markModified("audio")
-                            rooms.save();
-                            res.status(200).json({
-                                rooms: rooms,
-                                savedURL: result
-                            })
-                        }
-                    })
-
-                } else {
-                    res.status(400).send("Error");
-                }
-            }).catch(error => {
-                if (error) {
-                    res.status(400).send("Error");
-                }
-            })
+            if(rooms[0].audio != null || rooms[0].audio != "" ){
+                res.status(200).json({
+                    rooms: rooms,
+                })
+            }else{
+                speech.speeching(rooms[0].description, rooms[0].name).then(result => {
+                    if (result) {
+                        room.findOne({
+                            number: req.params.number
+                        }, function (err, rooms) {
+                            if (err) {
+                                res.status(400).send(err);
+                            }
+                            if (rooms) {
+                                rooms.audio = result
+                                rooms.markModified("audio")
+                                rooms.save();
+                                res.status(200).json({
+                                    rooms: rooms,
+                                    savedURL: result
+                                })
+                            }
+                        })
+    
+                    } else {
+                        res.status(400).send("Error");
+                    }
+                }).catch(error => {
+                    if (error) {
+                        res.status(400).send("Error");
+                    }
+                })
+            }
+            
         }
     })
 }
