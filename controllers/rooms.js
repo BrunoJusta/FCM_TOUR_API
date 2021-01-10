@@ -18,10 +18,9 @@ const getRoomsByNumber = (req, res) => {
         if (err) {
             res.status(400).send(err);
         } else {
-            if(rooms[0].audio != null || rooms[0].audio != "" ){
-                res.status(200).json({
-                    rooms: rooms,
-                })
+            console.log( rooms[0].audio)
+            if( rooms[0].audio != '' ){
+                res.status(200).json(rooms[0])
             }else{
                 speech.speeching(rooms[0].description, rooms[0].name).then(result => {
                     if (result) {
@@ -35,10 +34,7 @@ const getRoomsByNumber = (req, res) => {
                                 rooms.audio = result
                                 rooms.markModified("audio")
                                 rooms.save();
-                                res.status(200).json({
-                                    rooms: rooms,
-                                    savedURL: result
-                                })
+                                res.status(200).json(rooms)
                             }
                         })
     
