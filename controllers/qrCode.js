@@ -21,10 +21,14 @@ const generateTicket = (req, res) => {
                 if (err) {
                     res.status(400).send(err);
                 }
-                res.status(200).json({state:"Ticket criado"});
+                res.status(200).json({
+                    state: "Ticket criado"
+                });
             })
         } else {
-            res.status(400).json({state:"Ticket já existe"});
+            res.status(400).json({
+                state: "Ticket já existe"
+            });
         }
     })
 }
@@ -40,10 +44,19 @@ const getTicketByCode = (req, res) => {
             const fullDate = new Date()
             const date = fullDate.getFullYear() + '/' + (fullDate.getMonth() + 1) + '/' + fullDate.getDate();
             console.log(ticket)
-            if (ticket[0].date == date) {
-                res.status(200).json({state:"Ticket válido"});
+            if (ticket.length == 0) {
+                res.status(200).json({
+                    state: "Ticket não autorizado"
+                });
+            }
+            else if (ticket[0].date == date) {
+                res.status(200).json({
+                    state: "Ticket válido"
+                });
             } else {
-                res.status(200).json({state:"Ticket não autorizado"});
+                res.status(200).json({
+                    state: "Ticket não autorizado"
+                });
             }
         }
     })
