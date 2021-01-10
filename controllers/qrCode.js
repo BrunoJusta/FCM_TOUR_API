@@ -39,6 +39,7 @@ const getTicketByCode = (req, res) => {
         if (ticket) {
             const fullDate = new Date()
             const date = fullDate.getFullYear() + '/' + (fullDate.getMonth() + 1) + '/' + fullDate.getDate();
+            console.log(ticket)
             if (ticket[0].date == date) {
                 res.status(200).json({state:"Ticket válido"});
             } else {
