@@ -34,7 +34,7 @@ const getTicketByCode = (req, res) => {
         code: req.params.code
     }, function (err, ticket) {
         if (err) {
-            res.status(400).send(err);
+            res.status(400).json({state:"Ticket não autorizado"});
         }
         if (ticket) {
             const fullDate = new Date()
