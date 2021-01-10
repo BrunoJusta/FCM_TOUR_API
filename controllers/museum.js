@@ -1,4 +1,5 @@
 const museum = require("../models/museum.js");
+const sculpture = require("../models/sculpture.js");
 const speech = require("../API/text2speech.js");
 
 
@@ -15,6 +16,18 @@ const getMuseum = (req, res) => {
     })
 }
 
+
+const getSculptures = (req, res) => {
+    sculpture.find({
+        sculpture
+    }, function (err, results) {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            res.status(200).json(results)
+        }
+    })
+}
 
 const getTempByName = (req, res) => {
     museum.find({
@@ -76,5 +89,6 @@ const getArtistsById = (req, res) => {
 }
 
 exports.getMuseum = getMuseum;
+exports.getSculptures = getSculptures;
 exports.getTempByName = getTempByName;
 exports.getArtistsById = getArtistsById;

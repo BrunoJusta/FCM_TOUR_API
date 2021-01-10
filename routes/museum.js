@@ -18,6 +18,17 @@ router.get('/', function (req, res) {
     }
 })
 
+router.get('/esculturas', function (req, res) {
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
+        controller.getSculptures(req, res);
+    } else {
+        res.status(404).json({
+            errors: errors.array()
+        })
+    }
+})
+
 router.get('/temporary/:name', [
     param('name').notEmpty().escape()
 ], function (req, res) {
