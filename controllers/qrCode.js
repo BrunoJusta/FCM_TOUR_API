@@ -41,6 +41,7 @@ const getTicketByCode = (req, res) => {
             res.status(400).send(err);
         }
         if (ticket) {
+            console.log(ticket)
             const fullDate = new Date()
             const date = fullDate.getFullYear() + '/' + (fullDate.getMonth() + 1) + '/' + fullDate.getDate();
             console.log(ticket)
