@@ -10,32 +10,7 @@ const getMuseum = (req, res) => {
         if (err) {
             res.status(400).send(err);
         } else {
-            speech.speeching(results[0].description, "museu").then(result => {
-                if (result) {
-                    museum.findOne({
-                        museum
-                    }, function (err, results) {
-                        if (err) {
-                            res.status(400).send(err);
-                        }
-                        if (results) {
-                            results.audio = result
-                            results.markModified("audio")
-                            results.save();
-                            res.status(200).json({
-                                results: results,
-                                savedURL: result
-                            })
-                        }
-                    })
-                } else {
-                    res.status(400).send("Error");
-                }
-            }).catch(error => {
-                if (error) {
-                    res.status(400).send("Error");
-                }
-            })
+            res.status(200).json(results)
         }
     })
 }
