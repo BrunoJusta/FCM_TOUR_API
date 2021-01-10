@@ -102,7 +102,7 @@ const login = (req, res) => {
         }
         if (user.length > 0) {
             if (user[0].type == 02 || user[0].type == 03 || user[0].type == 07) {
-                res.status(401).send("Conta não existe");
+                res.status(401).send("Credenciais inválidas");
             } else {
                 bcrypt.compare(req.body.password, user[0].password).then(function (result) {
                     if (result) {
@@ -119,12 +119,12 @@ const login = (req, res) => {
                             });
                         })
                     } else {
-                        res.status(401).send("Not Authorized");
+                        res.status(401).send("Credenciais inválidas");
                     }
                 });
             }
         } else {
-            res.status(401).send("Not Authorized");
+            res.status(401).send("Credenciais inválidas");
         }
 
     })
