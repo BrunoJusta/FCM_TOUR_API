@@ -29,12 +29,25 @@ router.get('/esculturas', function (req, res) {
     }
 })
 
-router.get('/temporary/:name', [
-    param('name').notEmpty().escape()
+router.get('/temporary/:id', [
+    param('id').notEmpty().escape()
 ], function (req, res) {
     const erros = validationResult(req);
     if (erros.isEmpty()) {
-        controller.getTempByName(req, res);
+        controller.getTempByID(req, res);
+    } else {
+        res.status(404).json({
+            errors: erros.array()
+        })
+    }
+})
+
+router.get('/permanente/:id', [
+    param('id').notEmpty().escape()
+], function (req, res) {
+    const erros = validationResult(req);
+    if (erros.isEmpty()) {
+        controller.getPermaByID(req, res);
     } else {
         res.status(404).json({
             errors: erros.array()

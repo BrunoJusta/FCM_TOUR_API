@@ -29,7 +29,7 @@ const getSculptures = (req, res) => {
     })
 }
 
-const getTempByName = (req, res) => {
+const getTempByID = (req, res) => {
     museum.find({
         museum
     }, function (err, results) {
@@ -37,8 +37,8 @@ const getTempByName = (req, res) => {
             res.status(400).send(err);
         } else {
             let temporary = results[0].temporary
-            for (let i = 0; i < temporary.length; i++) {
-                if (temporary[i].name == req.params.name) {
+            for (let i = 0; i < temporary.length; i++) { 
+                if (temporary[i].number == req.params.id) {
                     speech.speeching(temporary[i].description, temporary[i].name).then(result => {
                         if (result) {
                             museum.findOne({
@@ -50,10 +50,7 @@ const getTempByName = (req, res) => {
                                 if (musuems) {
                                     musuems.temporary[i].audio = result
                                     musuems.save();
-                                    res.status(200).json({
-                                        musuem: musuems.temporary,
-                                        savedURL: result
-                                    })
+                                    res.status(200).json(musuems.temporary[i])
                                 }
                             })
                         } else {
@@ -69,6 +66,47 @@ const getTempByName = (req, res) => {
         }
     })
 }
+
+const getPermaByID = (req, res) => {
+    museum.find({
+        museum
+    }, function (err, results) {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            let permanent = results[0].permanent
+            for (let i = 0; i < permanent.length; i++) {
+                if (permanent[i].number == req.params.id) {
+                    speech.speeching(permanent[i].description, permanent[i].name).then(result => {
+                        if (result) {
+                            museum.findOne({
+                                museum
+                            }, function (err, musuems) {
+                                if (err) {
+                                    res.status(400).send(err);
+                                }
+                                if (musuems) {
+                                    musuems.permanent[i].audio = result
+                                    musuems.save();
+                                    res.status(200).json(
+                                        musuems.permanent[i]
+                                    )
+                                }
+                            })
+                        } else {
+                            res.status(400).send("Error");
+                        }
+                    }).catch(error => {
+                        if (error) {
+                            res.status(400).send("Error");
+                        }
+                    })
+                }
+            }
+        }
+    })
+}
+
 
 const getArtistsById = (req, res) => {
     museum.find({
@@ -90,5 +128,6 @@ const getArtistsById = (req, res) => {
 
 exports.getMuseum = getMuseum;
 exports.getSculptures = getSculptures;
-exports.getTempByName = getTempByName;
+exports.getTempByID = getTempByID;
+exports.getPermaByID = getPermaByID;
 exports.getArtistsById = getArtistsById;

@@ -6,12 +6,16 @@ const museumSchema = new mongoose.Schema({
     temporary: [{
         name: String,
         description: String,
-        audio: String
+        audio: String,
+        img: String,
+        number: String
     }],
     permanent: [{
         name: String,
         description: String,
-        audio: String
+        audio: String,
+        img: String,
+        number: String
     }],
     artists: [{
         id: String,
