@@ -1,7 +1,4 @@
 var jwt = require('jsonwebtoken');
-const {
-    google
-} = require('googleapis');
 
 const generateToken = (user_info, callback) => {
     let secret = process.env.SECRET;
@@ -28,93 +25,6 @@ const validateToken = (token, callback) => {
 }
 
 
-const googleConfig = {
-    clientId: "817455743730-8aptanrqdh06q6aje2jhdp7i30l38mo8.apps.googleusercontent.com",
-    clientSecret: "DJP8a958Jg1nlbNf1V3EpV5T",
-    redirect: "https://fcm-tour.herokuapp.com/login"
-}
-
-const defaultScope = [
-    'https://www.googleapis.com/auth/userinfo.profile',
-    'https://www.googleapis.com/auth/userinfo.email',
-
-]
-
-const createConnection = () => {
-    return new google.auth.OAuth2(
-        googleConfig.clientId,
-        googleConfig.clientSecret,
-        googleConfig.redirect
-    );
-}
-
-
-const getConnectionUrl = (auth) => {
-    return auth.generateAuthUrl({
-        access_type: 'offline',
-        prompt: 'consent',
-        scope: defaultScope,
-        include_granted_scopes: true
-    });
-}
-
-const urlGoogle = () => {
-    const auth = createConnection();
-    const url = getConnectionUrl(auth);
-    return url;
-}
-
-const getTokens = (code, callback) => {
-    const auth = createConnection();
-    auth.getToken(code).then(tokens => {
-        console.log(tokens)
-        if (!tokens.tokens) {
-            return callback(true, "Error")
-        } else {
-            return callback(false, tokens.tokens)
-        }
-    })
-}
-
-const getUserInfo = (access_token, callback) => {
-    let client = new google.auth.OAuth2(googleConfig.clientId)
-    client.setCredentials({
-        access_token: access_token
-    })
-    var oauth2 = google.oauth2({
-        auth: client,
-        version: 'v2'
-    })
-    oauth2.userinfo.get(
-        function (err, result) {
-            if (err) {
-                return callback(true, err)
-            } else {
-                return callback(false, result.data)
-            }
-        })
-}
-
-const validateTokenGoogle = (token, callback) => {
-    let client = new google.auth.OAuth2(googleConfig.clientId)
-    async function verify() {
-        let ticket = await client.verifyIdToken({
-            idToken: token,
-            audience: googleConfig.clientId
-
-        })
-
-        let payload = ticket.getPayload();
-        return callback(false, payload)
-    }
-
-    verify().catch(error => {
-        console.log(error)
-    })
-}
-
-
-
 
 const exceptions = ['/', '/login', '/auth/facebook', '/auth/facebook/callback', '/torre', '/register', '/museu', '/musica', '/musica/cupertinos', '/roleta', '/roleta/girar']
 
@@ -124,7 +34,3 @@ const exceptions = ['/', '/login', '/auth/facebook', '/auth/facebook/callback', 
 exports.generateToken = generateToken
 exports.validateToken = validateToken
 exports.exceptions = exceptions
-exports.urlGoogle = urlGoogle
-exports.getTokens = getTokens
-exports.getUserInfo = getUserInfo
-exports.validateTokenGoogle = validateTokenGoogle

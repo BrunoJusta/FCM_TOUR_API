@@ -52,52 +52,13 @@ router.post('/login/google', [
 ], function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
-        controller.loginGoogleFE(req, res);
+        controller.loginGoogle(req, res);
     } else {
         res.status(404).json({
             errors: errors.array()
         })
     }
 })
-
-//----------------GOOGLE(a funcionar em BE, sem ligação ao FE)------------------------
-
-router.get('/google', function (req, res) {
-    res.send(utilities.urlGoogle())
-})
-
-router.get('/login', function (req, res) {
-    utilities.getTokens(req.query.code, (error, tokens) => {
-
-        if (error) {
-            res.status(400).send(error)
-        } else {
-            utilities.getUserInfo(tokens.access_token, (error, user_info) => {
-                if (error) {
-                    res.status(400).send(error)
-                } else {
-                    utilities.validateTokenGoogle(tokens.id_token, (error, validToken) => {
-
-                        if (error) {
-                            res.status(400).send(error)
-                        } else {
-                            controller.loginGoogle(validToken, res, tokens.id_token, tokens.access_token, req.query.code)
-                        }
-                    })
-                }
-            })
-        }
-    })
-})
-
-//----------------------FACEBOOK(a funcionar em BE, sem ligação ao FE)--------
-
-router.get('/auth/facebook', passport.authenticate("facebook"));
-
-router.get('/auth/facebook/callback', function (req, res, next) {
-    passport.authenticate("facebook")(req, res, next)
-});
-//-------------------------------------------------------------------------------
 
 //------------------------------------REGISTO------------------------------------
 
