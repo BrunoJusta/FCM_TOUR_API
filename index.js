@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
-const salas = require('./routes/rooms')
 const user = require('./routes/users.js')
 const museum = require('./routes/museum.js')
 const music = require('./routes/music.js')
@@ -57,7 +56,6 @@ const auth = function (req, res, next) {
 app.use(passport.initialize());
 app.use(express.json());
 app.use(auth)
-app.use('/torre', salas)
 app.use('/', user)
 app.use('/museu', museum)
 app.use('/musica', music)
