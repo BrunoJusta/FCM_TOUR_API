@@ -29,7 +29,7 @@ router.get('/esculturas', function (req, res) {
     }
 })
 
-router.get('/temporary/:id', [
+router.get('/temporarias/:id', [
     param('id').notEmpty().escape()
 ], function (req, res) {
     const erros = validationResult(req);
