@@ -2,6 +2,7 @@ const museum = require("../models/museum.js");
 const sculpture = require("../models/sculpture.js");
 const painting = require("../models/painting.js");
 const speech = require("../API/text2speech.js");
+const { param } = require("express-validator");
 
 
 
@@ -40,7 +41,8 @@ const getTempByID = (req, res) => {
             let temporary = results[0].temporary
             for (let i = 0; i < temporary.length; i++) { 
                 if (temporary[i].number == req.params.id) {
-                    speech.speeching(temporary[i].description, temporary[i].name).then(result => {
+                    let tempName = temporary[i].name
+                    speech.speeching(temporary[i].description, tempName.replace(/\s/g, '')).then(result => {
                         if (result) {
                             museum.findOne({
                                 museum
@@ -78,7 +80,8 @@ const getPermaByID = (req, res) => {
             let permanent = results[0].permanent
             for (let i = 0; i < permanent.length; i++) {
                 if (permanent[i].number == req.params.id) {
-                    speech.speeching(permanent[i].description, permanent[i].name).then(result => {
+                    let permaName = permanent[i].name
+                    speech.speeching(permanent[i].description, permaName.replace(/\s/g, '')).then(result => {
                         if (result) {
                             museum.findOne({
                                 museum
@@ -118,8 +121,8 @@ const getPaintingByID = (req, res) => {
         } else {
             let paintings = results[0]
                 if (paintings.number == req.params.id) {
-                    console.log(req.params.id)
-                    speech.speeching(paintings.description, paintings.name).then(result => {
+                    let paintName = paintings.name
+                    speech.speeching(paintings.description, paintName.replace(/\s/g, '')).then(result => {
                         if (result) {
                             painting.findOne({
                                 painting

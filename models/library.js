@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 const librarySchema = new mongoose.Schema({
     description: String,
     cover: String, 
-    collections: [{
-        artistName: String,
+    acervos: [{
+        name: String,
         description: String,
-        books: Array,
-        artistImg: String
+        audio: String,
+        img: String,
+        number: String
+
     }]
 })
 
