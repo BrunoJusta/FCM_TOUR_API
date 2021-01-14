@@ -55,6 +55,20 @@ router.get('/permanente/:id', [
     }
 })
 
+router.get('/quadros/:id', [
+    param('id').notEmpty().escape()
+], function (req, res) {
+    const erros = validationResult(req);
+    if (erros.isEmpty()) {
+        controller.getPaintingByID(req, res);
+    } else {
+        res.status(404).json({
+            errors: erros.array()
+        })
+    }
+})
+
+
 router.get('/artists/:id', [
     param('id').notEmpty().isString().escape(),
 ], function (req, res) {

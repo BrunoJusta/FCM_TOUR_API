@@ -1,5 +1,6 @@
 const museum = require("../models/museum.js");
 const sculpture = require("../models/sculpture.js");
+const painting = require("../models/painting.js");
 const speech = require("../API/text2speech.js");
 
 
@@ -108,6 +109,46 @@ const getPermaByID = (req, res) => {
 }
 
 
+const getPaintingByID = (req, res) => {
+    painting.find({
+        painting
+    }, function (err, results) {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            let paintings = results[0]
+                if (paintings.number == req.params.id) {
+                    console.log(req.params.id)
+                    speech.speeching(paintings.description, paintings.name).then(result => {
+                        if (result) {
+                            painting.findOne({
+                                painting
+                            }, function (err, paintings) {
+                                if (err) {
+                                    res.status(400).send(err);
+                                }
+                                if (paintings) {
+                                    paintings.audio = result
+                                    paintings.save();
+                                    res.status(200).json(
+                                        paintings
+                                    )
+                                }
+                            })
+                        } else {
+                            res.status(400).send("Error");
+                        }
+                    }).catch(error => {
+                        if (error) {
+                            res.status(400).send("Error");
+                        }
+                    })
+                }
+        }
+    })
+}
+
+
 const getArtistsById = (req, res) => {
     museum.find({
         museum
@@ -131,3 +172,4 @@ exports.getSculptures = getSculptures;
 exports.getTempByID = getTempByID;
 exports.getPermaByID = getPermaByID;
 exports.getArtistsById = getArtistsById;
+exports.getPaintingByID = getPaintingByID;
