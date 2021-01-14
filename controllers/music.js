@@ -9,7 +9,7 @@ const getCupertinos = (req, res) => {
         if (err) {
             res.status(400).send(err);
         } else {
-            speech.speeching(results[0].cupertinos.text, "cupertinos").then(result => {
+            speech.speeching(results[0].cupertinos.description, "cupertinos").then(result => {
                 if (result) {
                     music.findOne({
                         music
@@ -48,7 +48,7 @@ const getCiclos = (req, res) => {
         if (err) {
             res.status(400).send(err);
         } else {
-            speech.speeching(results[0].ciclos.text, "ciclos").then(result => {
+            speech.speeching(results[0].ciclos.description, "ciclos").then(result => {
                 if (result) {
                     music.findOne({
                         music
