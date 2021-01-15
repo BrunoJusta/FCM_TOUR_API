@@ -52,7 +52,8 @@ const getTicketByCode = (req, res) => {
             }
             else if (ticket[0].date == date) {
                 res.status(200).json({
-                    state: "Ticket válido"
+                    state: "Ticket válido",
+                    code: req.params.code
                 });
             } else {
                 res.status(200).json({
