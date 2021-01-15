@@ -1,4 +1,5 @@
 const roulette = require("../models/roulette.js");
+const { getRoomsByNumber } = require("./tower.js");
 
 
 const getRoulette = (req, res) => {
@@ -49,12 +50,18 @@ const getItems = (req, res) => {
 
 const getItemsByNumber = (req, res) => {
     roulette.find({
-        number: req.params.number
-    }, function (err, items) {
+        roulette
+    }, function (err, results) {
         if (err) {
             res.status(400).send(err);
-        } 
-        res.status(200).json(items[0].items[number])
+        }else{
+            let items = results[0].items
+            for(let i = 0; i< items.length; i++){
+                if( items[i].number == req.params.number){
+                    res.status(200).json(results[0].items[i])
+                }
+            }
+        }
     })
 }
 
