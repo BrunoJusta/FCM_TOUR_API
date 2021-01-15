@@ -38,15 +38,15 @@ router.get('/premios', function (req, res) {
         })
     }
 })
-router.get('/premios/:number', [
+/* router.get('/premmios/:number', [
     param('number').notEmpty().escape(),
 ], function (req, res) {
     const errors = validationResult(req); 
     if (errors.isEmpty()) {
-        controller.getItemsByNumber(req, res); 
+        controller.getRoomsByNumber(req, res); 
     } else {
         res.status(404).json({errors: errors.array()})
     }
-})
+}) */
 
 module.exports = router;
