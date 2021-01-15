@@ -47,6 +47,15 @@ const getItems = (req, res) => {
     })
 }
 
+const getItemsByNumber = (req, res) => {
+    roulette.find({number:req.params.number},function (err, items) {
+        if (err) {
+            res.status(400).send(err);
+        }
+        res.status(200).json(items[0].items[number]);
+    })
+}
+
 /* const addRoulette = (req, res) =>{
     const newRoulette = new roulette({
         prizes: req.body.prizes,
@@ -63,5 +72,6 @@ const getItems = (req, res) => {
  */
 exports.getRoulette = getRoulette;
 exports.getPoints = getPoints;
-exports.getItems = getItems
+exports.getItems = getItems;
+exports.getItemsByNumber = getItemsByNumber;
 /* exports.addRoulette = addRoulette;  */
