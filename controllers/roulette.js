@@ -33,7 +33,7 @@ const getPoints = (req, res) => {
             }
         }
         let award = total[Math.floor(total.length * Math.random())];
-        res.status(200).json(award);
+        res.status(200).json({award: award});
 
     })
 }
