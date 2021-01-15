@@ -2,6 +2,20 @@ const music = require("../models/music.js");
 const speech = require('../API/text2speech')
 
 
+const getMusic = (req, res) => {
+    music.find(function (err, results) {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            res.status(200).json(results)
+        }
+    })
+}
+
+
+
+
+
 const getCupertinos = (req, res) => {
     music.find({
         music
@@ -75,3 +89,4 @@ const getCiclos = (req, res) => {
 
 exports.getCupertinos = getCupertinos;
 exports.getCiclos = getCiclos;
+exports.getMusic = getMusic;
