@@ -18,13 +18,10 @@ const getCupertinos = (req, res) => {
                             res.status(400).send(err);
                         }
                         if (results) {
-                             results.cupertinos.audio = result
+                            results.cupertinos.audio = result
                             results.markModified("audio")
                             results.save();
-                            res.status(200).json({
-                                results: results,
-                                savedURL: result
-                            })
+                            res.status(200).json(results.cupertinos)
                         }
                     })
                 } else {
@@ -57,13 +54,10 @@ const getCiclos = (req, res) => {
                             res.status(400).send(err);
                         }
                         if (results) {
-                             results.ciclos.audio = result
+                            results.ciclos.audio = result
                             results.markModified("audio")
                             results.save();
-                            res.status(200).json({
-                                results: results,
-                                savedURL: result
-                            })
+                            res.status(200).json(results.ciclos)
                         }
                     })
                 } else {
