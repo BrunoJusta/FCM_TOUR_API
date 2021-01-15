@@ -3,7 +3,8 @@ const router = express.Router();
 const controller = require('../controllers/roulette.js')
 const {
     body,
-    validationResult
+    validationResult,
+    param
 } = require('express-validator');
 
 router.get('/', function (req, res) {
@@ -38,6 +39,7 @@ router.get('/premios', function (req, res) {
         })
     }
 })
+
 router.get('/premios/:number', [
     param('number').notEmpty().escape(),
 ], function (req, res) {

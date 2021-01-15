@@ -55,6 +55,7 @@ const getItemsByNumber = (req, res) => {
         if (err) {
             res.status(400).send(err);
         }else{
+            
             let items = results[0].items
             for(let i = 0; i< items.length; i++){
                 if( items[i].number == req.params.number){
