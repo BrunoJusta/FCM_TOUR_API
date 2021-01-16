@@ -110,7 +110,6 @@ const login = (req, res) => {
                             img: user[0].img,
                             points: user[0].points,
                             type: user[0].type
-
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -152,7 +151,8 @@ const loginFacebook = (req, res) => {
                         utilities.generateToken({
                             email: req.body.email,
                             username: req.body.username,
-                            picture: results.img
+                            picture: results.img,
+                            type: results.type
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -165,7 +165,8 @@ const loginFacebook = (req, res) => {
                         utilities.generateToken({
                             email: req.body.email,
                             username: req.body.username,
-                            picture: results.img
+                            picture: results.img,
+                            type: results.type
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -178,7 +179,8 @@ const loginFacebook = (req, res) => {
                         utilities.generateToken({
                             email: req.body.email,
                             username: req.body.username,
-                            picture: results.img
+                            picture: results.img,
+                            type: results.type
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -188,7 +190,8 @@ const loginFacebook = (req, res) => {
                         utilities.generateToken({
                             email: req.body.email,
                             username: req.body.username,
-                            picture: results.img
+                            picture: results.img,
+                            type: results.type
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -204,7 +207,7 @@ const loginFacebook = (req, res) => {
                 email: req.body.email,
                 points: 0,
                 img: "",
-                type: 03
+                type: 3
             });
             userToCreate.save(function (err, newUser) {
                 if (err) {
@@ -213,7 +216,8 @@ const loginFacebook = (req, res) => {
                 utilities.generateToken({
                     email: req.body.email,
                     username: req.body.username,
-                    picture: ""
+                    picture: "",
+                    type: 3
                 }, (token) => {
                     res.status(200).json({
                         token: token
@@ -260,7 +264,8 @@ const loginGoogle = (req, res) => {
                         utilities.generateToken({
                             email: userEmail,
                             username: username,
-                            picture: results.img
+                            picture: results.img,
+                            type: results.type
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -273,7 +278,8 @@ const loginGoogle = (req, res) => {
                         utilities.generateToken({
                             email: userEmail,
                             username: username,
-                            picture: results.img
+                            picture: results.img,
+                            type: results.type
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -286,7 +292,8 @@ const loginGoogle = (req, res) => {
                         utilities.generateToken({
                             email: userEmail,
                             username: username,
-                            picture: results.img
+                            picture: results.img,
+                            type: results.type
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -296,7 +303,8 @@ const loginGoogle = (req, res) => {
                         utilities.generateToken({
                             email: userEmail,
                             username: username,
-                            picture: results.img
+                            picture: results.img,
+                            type: results.type
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -312,7 +320,7 @@ const loginGoogle = (req, res) => {
                 email: userEmail,
                 points: 0,
                 img: userPicture,
-                type: 02
+                type: 2
             });
 
             userToCreate.save(function (err, newUser) {
@@ -322,7 +330,8 @@ const loginGoogle = (req, res) => {
                 utilities.generateToken({
                     email: userEmail,
                     username: username,
-                    picture: userPicture
+                    picture: userPicture,
+                    type: 2
                 }, (token) => {
                     res.status(200).json({
                         token: token
