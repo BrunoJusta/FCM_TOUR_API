@@ -106,8 +106,8 @@ const login = (req, res) => {
                     if (result) {
                         utilities.generateToken({
                             email: req.body.email,
-                            name: user[0].username,
-                            img: user[0].img,
+                            username: user[0].username,
+                            picture: user[0].img,
                             points: user[0].points,
                             type: user[0].type
                         }, (token) => {
