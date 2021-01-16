@@ -433,7 +433,8 @@ const addPassword = (req, res) => {
                         user.save();
                         res.status(200).json({
                             result: true,
-                            msg: "Password Alterada"
+                            msg: "Password Alterada",
+                            user: user.type
                         })
                     } else if (user.type == 03) {
                         user.type = 05
@@ -442,7 +443,8 @@ const addPassword = (req, res) => {
                         user.save();
                         res.status(200).json({
                             result: true,
-                            msg: "Password Alterada"
+                            msg: "Password Alterada",
+                            user: user.type
                         })
                     } else if (user.type == 07) {
                         user.type = 06
@@ -451,7 +453,8 @@ const addPassword = (req, res) => {
                         user.save();
                         res.status(200).json({
                             result: true,
-                            msg: "Password Alterada"
+                            msg: "Password Alterada",
+                            user: user.type
                         })
                     } else {
                         user.password = hash
@@ -459,7 +462,8 @@ const addPassword = (req, res) => {
                         user.save();
                         res.status(200).json({
                             result: true,
-                            msg: "Password Alterada"
+                            msg: "Password Alterada",
+                            user: user.type
                         })
                     }
                 });
