@@ -37,7 +37,7 @@ app.use(function(req, res, next) {
 
 
 
-const auth = function (req, res, next) {
+/*const auth = function (req, res, next) {
     if (utilities.exceptions.indexOf(req.url) >= 0 || req.url.indexOf('login?code') != -1) {
         next();
     } else {
@@ -49,7 +49,7 @@ const auth = function (req, res, next) {
             }
         })
     }
-}
+}*/
 
 
 app.use(passport.initialize());
