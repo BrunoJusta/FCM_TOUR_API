@@ -11,7 +11,7 @@ const controller = require('../controllers/users.js')
 const router = express.Router();
 
 
-var multer  = require('multer')
+var multer = require('multer')
 var upload = multer({
     storage: multer.memoryStorage(),
     limits: {
@@ -82,18 +82,18 @@ router.post('/register', [
 //------------------------------------MUDAR-IMAGEM-PERFIL------------------------------------
 
 
-router.put('/profile/:email',upload.single('file'),
-function (req, res) {
-    const erros = validationResult(req);
-    if (erros.isEmpty()) {
-     console.log(req.file)
-      controller.editImage(req, res);
-    } else {
-        res.status(404).json({
-            errors: erros.array()
-        })
-    }
-})
+router.put('/profile/:email', upload.single('file'),
+    function (req, res) {
+        const erros = validationResult(req);
+        if (erros.isEmpty()) {
+            console.log(req.file)
+            controller.editImage(req, res);
+        } else {
+            res.status(404).json({
+                errors: erros.array()
+            })
+        }
+    })
 
 //------------------------------------MUDAR-PALAVRA-PASSE------------------------------------
 
@@ -126,5 +126,20 @@ router.put('/addPass/:email', [
         })
     }
 })
+
+//--------------------------------------------ELIMINAR-CONTA----------------------------------------
+router.delete('/delete/:email', [
+    param('email').notEmpty().escape()
+], function (req, res) {
+    const erros = validationResult(req);
+    if (erros.isEmpty()) {
+        controller.removeAccount(req, res);
+    } else {
+        res.status(404).json({
+            errors: erros.array()
+        })
+    }
+})
+
 
 module.exports = router

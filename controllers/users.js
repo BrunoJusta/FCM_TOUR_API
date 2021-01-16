@@ -445,6 +445,23 @@ const addPassword = (req, res) => {
     })
 }
 
+//--------------------------------------------ELIMINAR-CONTA----------------------------------------
+
+const removeAccount = (req, res) => {
+    users.deleteOne({
+            email: req.params.email
+        },
+        function (err, user) {
+            if (err) {
+                res.status(400).send(err)
+            }
+            res.status(200).json({
+                result: true,
+                msg: "Conta Eliminada"
+            })
+        })
+}
+
 exports.login = login;
 exports.register = register;
 exports.editImage = editImage;
@@ -452,3 +469,4 @@ exports.editPassword = editPassword;
 exports.addPassword = addPassword;
 exports.loginFacebook = loginFacebook;
 exports.loginGoogle = loginGoogle;
+exports.removeAccount = removeAccount;
