@@ -361,6 +361,20 @@ const editImage = (req, res) => {
 
 }
 
+const getImage = (req, res) => {
+    users.findOne({
+        email: req.params.email
+    }, function (err, user) {
+        if (err) {
+            res.status(400).send(err)
+        }
+        if (user) {
+            res.status(400).send(user.img)
+        }
+    })
+
+}
+
 //------------------------------------MUDAR-PALAVRA-PASSE------------------------------------
 
 const editPassword = (req, res) => {
@@ -479,3 +493,4 @@ exports.addPassword = addPassword;
 exports.loginFacebook = loginFacebook;
 exports.loginGoogle = loginGoogle;
 exports.removeAccount = removeAccount;
+exports.getImage = getImage;

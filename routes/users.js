@@ -92,6 +92,19 @@ router.put('/profile/:email', upload.single('file'),
         }
     })
 
+router.get('/profile/:email', upload.single('file'),
+function (req, res) {
+    const erros = validationResult(req);
+    if (erros.isEmpty()) {
+        console.log(req.file)
+        controller.getImage(req, res);
+    } else {
+        res.status(404).json({
+            errors: erros.array()
+        })
+    }
+})
+
 //------------------------------------MUDAR-PALAVRA-PASSE------------------------------------
 
 router.put('/pass/:email', [
