@@ -99,12 +99,27 @@ function (req, res) {
 
 router.put('/pass/:email', [
     param('email').notEmpty().escape(),
+    body('oldPassword').notEmpty().escape(),
     body('newPassword').notEmpty().escape(),
-    body('confPassword').notEmpty().escape(),
 ], function (req, res) {
     const erros = validationResult(req);
     if (erros.isEmpty()) {
         controller.editPassword(req, res);
+    } else {
+        res.status(404).json({
+            errors: erros.array()
+        })
+    }
+})
+
+//------------------------------ADICIONAR-PALAVRA-PASSE(GOOGLE E FACEBOOK ACCOUNTS)------------
+router.put('/addPass/:email', [
+    param('email').notEmpty().escape(),
+    body('newPassword').notEmpty().escape(),
+], function (req, res) {
+    const erros = validationResult(req);
+    if (erros.isEmpty()) {
+        controller.addPassword(req, res);
     } else {
         res.status(404).json({
             errors: erros.array()

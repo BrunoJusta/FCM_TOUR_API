@@ -362,38 +362,85 @@ const editPassword = (req, res) => {
             res.status(400).send(err)
         }
         if (user) {
-            if (req.body.newPassword == req.body.confPassword) {
-                bcrypt.genSalt(10, function (err, salt) {
-                    bcrypt.hash(req.body.newPassword, salt, function (err, hash) {
-                        if (user.type == 02) {
-                            user.type = 04
-                            user.password = hash
-                            user.markModified("password")
-                            user.save();
-                            res.status(200).json("Password Alterada")
-                        } else if (user.type == 03) {
-                            user.type = 05
-                            user.password = hash
-                            user.markModified("password")
-                            user.save();
-                            res.status(200).json("Password Alterada")
-                        } else if (user.type == 07) {
-                            user.type = 06
-                            user.password = hash
-                            user.markModified("password")
-                            user.save();
-                            res.status(200).json("Password Alterada")
-                        } else {
-                            user.password = hash
-                            user.markModified("password")
-                            user.save();
-                            res.status(200).json("Password Alterada")
-                        }
-                    });
-                });
+            if (req.body.oldPassword != req.body.newPassword) {
+                bcrypt.compare(req.body.oldPassword, user.password, function (error, result) {
+                    if (result) {
+                        bcrypt.genSalt(10, function (err, salt) {
+                            bcrypt.hash(req.body.newPassword, salt, function (err, hash) {
+                                user.password = hash
+                                user.markModified("password")
+                                user.save();
+                                res.status(200).json({
+                                    result: true,
+                                    msg: "Password Alterada"
+                                })
+                            });
+                        });
+                    } else {
+                        res.status(406).json({
+                            result: false
+                        })
+                    }
+                })
             } else {
-                res.status(406).send("Palavras Passes nao coincidem");
+                res.status(406).send("A nova palavra passe não pode ser a mesma que a antiga.");
             }
+        }
+    })
+
+}
+
+//-------------------------ADICIONAR-PALAVRA-PASSE(FACEBOOK, GOOGLE ACCOUNTS)----------------------
+
+
+const addPassword = (req, res) => {
+    users.findOne({
+        email: req.params.email
+    }, function (err, user) {
+        if (err) {
+            res.status(400).send(err)
+        }
+        if (user) {
+            bcrypt.genSalt(10, function (err, salt) {
+                bcrypt.hash(req.body.newPassword, salt, function (err, hash) {
+                    if (user.type == 02) {
+                        user.type = 04
+                        user.password = hash
+                        user.markModified("password")
+                        user.save();
+                        res.status(200).json({
+                            result: true,
+                            msg: "Password Alterada"
+                        })
+                    } else if (user.type == 03) {
+                        user.type = 05
+                        user.password = hash
+                        user.markModified("password")
+                        user.save();
+                        res.status(200).json({
+                            result: true,
+                            msg: "Password Alterada"
+                        })
+                    } else if (user.type == 07) {
+                        user.type = 06
+                        user.password = hash
+                        user.markModified("password")
+                        user.save();
+                        res.status(200).json({
+                            result: true,
+                            msg: "Password Alterada"
+                        })
+                    } else {
+                        user.password = hash
+                        user.markModified("password")
+                        user.save();
+                        res.status(200).json({
+                            result: true,
+                            msg: "Password Alterada"
+                        })
+                    }
+                });
+            });
         }
     })
 }
@@ -401,6 +448,7 @@ const editPassword = (req, res) => {
 exports.login = login;
 exports.register = register;
 exports.editImage = editImage;
-exports.editPassword = editPassword
+exports.editPassword = editPassword;
+exports.addPassword = addPassword;
 exports.loginFacebook = loginFacebook;
 exports.loginGoogle = loginGoogle;
