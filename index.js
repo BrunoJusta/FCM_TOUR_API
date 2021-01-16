@@ -38,7 +38,7 @@ app.use(function(req, res, next) {
 
 
 const auth = function (req, res, next) {
-    if (utilities.exceptions.indexOf(req.url) >= 0 || req.url.indexOf('login?code') != -1 || req.url.indexOf(`auth/facebook`)) {
+    if (utilities.exceptions.indexOf(req.url) >= 0 || req.url.indexOf('login?code') != -1) {
         next();
     } else {
         utilities.validateToken(req.headers.authorization, (result) => {
@@ -58,7 +58,6 @@ app.use(auth)
 app.use('/', user)
 app.use('/museu', museum)
 app.use('/musica', music)
-app.use('/utilizadores', user)
 app.use('/torre', tower)
 app.use('/roleta', roulette)
 app.use('/biblioteca', library)
