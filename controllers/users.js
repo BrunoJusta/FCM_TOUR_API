@@ -369,7 +369,7 @@ const getImage = (req, res) => {
             res.status(400).send(err)
         }
         if (user) {
-            res.status(400).send(user.img)
+            res.status(200).send(user.img)
         }
     })
 
