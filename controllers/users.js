@@ -110,7 +110,8 @@ const login = (req, res) => {
                             username: user[0].username,
                             picture: user[0].img,
                             points: user[0].points,
-                            type: user[0].type
+                            type: user[0].type,
+                            date: user[0].date
                         }, (token) => {
                             res.status(200).json({
                                 token: token
