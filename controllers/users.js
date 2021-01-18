@@ -15,7 +15,6 @@ const register = (req, res) => {
     if (req.body.password == req.body.confPassword) {
         bcrypt.genSalt(10, function (err, salt) {
             bcrypt.hash(req.body.password, salt, function (err, hash) {
-
                 const userToCreate = new users({
                     username: req.body.username,
                     password: hash,
@@ -154,7 +153,9 @@ const loginFacebook = (req, res) => {
                             email: req.body.email,
                             username: req.body.username,
                             picture: results.img,
-                            type: results.type
+                            type: results.type,
+                            points: results.points,
+                            date: results.date
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -168,7 +169,9 @@ const loginFacebook = (req, res) => {
                             email: req.body.email,
                             username: req.body.username,
                             picture: results.img,
-                            type: results.type
+                            type: results.type,
+                            points: results.points,
+                            date: results.date
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -182,7 +185,9 @@ const loginFacebook = (req, res) => {
                             email: req.body.email,
                             username: req.body.username,
                             picture: results.img,
-                            type: results.type
+                            type: results.type,
+                            points: results.points,
+                            date: results.date
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -193,7 +198,9 @@ const loginFacebook = (req, res) => {
                             email: req.body.email,
                             username: req.body.username,
                             picture: results.img,
-                            type: results.type
+                            type: results.type,
+                            points: results.points,
+                            date: results.date
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -220,7 +227,9 @@ const loginFacebook = (req, res) => {
                     email: req.body.email,
                     username: req.body.username,
                     picture: "",
-                    type: 3
+                    type: 3,
+                    points: 0,
+                    date: ""
                 }, (token) => {
                     res.status(200).json({
                         token: token
@@ -268,7 +277,9 @@ const loginGoogle = (req, res) => {
                             email: userEmail,
                             username: username,
                             picture: results.img,
-                            type: results.type
+                            type: results.type,
+                            points: results.points,
+                            date: results.date
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -282,7 +293,9 @@ const loginGoogle = (req, res) => {
                             email: userEmail,
                             username: username,
                             picture: results.img,
-                            type: results.type
+                            type: results.type,
+                            points: results.points,
+                            date: results.date
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -296,7 +309,9 @@ const loginGoogle = (req, res) => {
                             email: userEmail,
                             username: username,
                             picture: results.img,
-                            type: results.type
+                            type: results.type,
+                            points: results.points,
+                            date: results.date
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -307,7 +322,9 @@ const loginGoogle = (req, res) => {
                             email: userEmail,
                             username: username,
                             picture: results.img,
-                            type: results.type
+                            type: results.type,
+                            points: results.points,
+                            date: results.date
                         }, (token) => {
                             res.status(200).json({
                                 token: token
@@ -335,7 +352,9 @@ const loginGoogle = (req, res) => {
                     email: userEmail,
                     username: username,
                     picture: userPicture,
-                    type: 2
+                    type: 2,
+                    points: 0,
+                    date: ""
                 }, (token) => {
                     res.status(200).json({
                         token: token
@@ -521,10 +540,10 @@ const updateSpinDate = (req, res) => {
             res.status(400).send(err)
         }
         if (user) {
-           user.date = req.body.date
-           user.markModified("date")
-           user.save()
-           res.status(200).send("Data Alterada!")
+            user.date = req.body.date
+            user.markModified("date")
+            user.save()
+            res.status(200).send("Data Alterada!")
         }
     })
 
