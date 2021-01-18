@@ -521,10 +521,14 @@ const updateSpinDate = (req, res) => {
             res.status(400).send(err)
         }
         if (user) {
-           user.date = req.body.date
-           user.markModified("date")
-           user.save()
-           res.status(200).send("Data Alterada!")
+            user.date = req.body.date
+            user.markModified("date")
+            user.save()
+            res.status(200).send({
+                result: true,
+                msg: "Data Alterada!",
+                user: user.date
+            })
         }
     })
 
