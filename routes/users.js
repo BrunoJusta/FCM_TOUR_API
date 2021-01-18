@@ -152,4 +152,33 @@ router.delete('/delete/:email', [
 })
 
 
+//--------------------------------------------VERIFICA DATA PARA RODAR A ROLETA----------------------------------------
+
+router.get('/spin/:id', [
+    param('id').notEmpty().escape(),  //campos de preenchimento obrigatorio
+], function(req, res){
+    const erros = validationResult(req);
+    if(erros.isEmpty()){
+        controller.getSpinDate(req, res);
+    }
+    else{
+        res.status(404).json({errors: erros.array()})
+    }
+})
+
+//--------------------------------------------ALTERA DATA PARA RODAR A ROLETA----------------------------------------
+router.put('/spin/:id', [
+    param('id').notEmpty().escape(),
+    body('date').notEmpty().escape(),
+], function(req, res){
+    const erros = validationResult(req);
+    if(erros.isEmpty()){
+        controller.updateSpinDate(req, res);
+    }
+    else{
+        res.status(404).json({errors: erros.array()})
+    }
+})
+
+
 module.exports = router

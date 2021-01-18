@@ -22,7 +22,8 @@ const register = (req, res) => {
                     email: req.body.email,
                     points: 0,
                     img: "",
-                    type: 01
+                    type: 01,
+                    date: ""
                 });
 
                 users.find({
@@ -207,7 +208,8 @@ const loginFacebook = (req, res) => {
                 email: req.body.email,
                 points: 0,
                 img: "",
-                type: 3
+                type: 3,
+                date: ""
             });
             userToCreate.save(function (err, newUser) {
                 if (err) {
@@ -320,7 +322,8 @@ const loginGoogle = (req, res) => {
                 email: userEmail,
                 points: 0,
                 img: userPicture,
-                type: 2
+                type: 2,
+                date: ""
             });
 
             userToCreate.save(function (err, newUser) {
@@ -489,6 +492,44 @@ const removeAccount = (req, res) => {
         })
 }
 
+
+
+//--------------------------------------------VERIFICA DATA PARA RODAR A ROLETA----------------------------------------
+const getSpinDate = (req, res) => {
+    users.findOne({
+        email: req.params.id
+    }, function (err, user) {
+        console.log(user)
+        if (err) {
+            res.status(400).send(err)
+        }
+        if (user) {
+            res.status(200).json(user.date)
+        }
+    })
+
+}
+
+//--------------------------------------------ALTERA DATA PARA RODAR A ROLETA----------------------------------------
+
+const updateSpinDate = (req, res) => {
+    users.findOne({
+        email: req.params.id
+    }, function (err, user) {
+        if (err) {
+            res.status(400).send(err)
+        }
+        if (user) {
+           user.date = req.body.date
+           user.markModified("date")
+           user.save()
+           res.status(200).send("Data Alterada!")
+        }
+    })
+
+}
+
+
 exports.login = login;
 exports.register = register;
 exports.editImage = editImage;
@@ -498,3 +539,5 @@ exports.loginFacebook = loginFacebook;
 exports.loginGoogle = loginGoogle;
 exports.removeAccount = removeAccount;
 exports.getImage = getImage;
+exports.getSpinDate = getSpinDate;
+exports.updateSpinDate = updateSpinDate;

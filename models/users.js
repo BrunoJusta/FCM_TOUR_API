@@ -16,7 +16,8 @@ const userSchema = new mongoose.Schema({
     email: String,
     points: String,
     img: String,
-    type:Number
+    type:Number,
+    date: String
     
 });
 
