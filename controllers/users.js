@@ -543,12 +543,39 @@ const updateSpinDate = (req, res) => {
             user.date = req.body.date
             user.markModified("date")
             user.save()
-            res.status(200).send("Data Alterada!")
+            res.status(200).send({
+                result: true,
+                msg: "Data Alterada!",
+                user: user.date
+            })
         }
     })
 
 }
 
+//--------------------------------------------ALTERA PONTOS DO UTILIZADOR----------------------------------------
+
+
+const updatePoints = (req, res) => {
+    users.findOne({
+        email: req.params.id
+    }, function (err, user) {
+        if (err) {
+            res.status(400).send(err)
+        }
+        if (user) {
+            user.points = req.body.points
+            user.markModified("points")
+            user.save()
+            res.status(200).send({
+                result: true,
+                msg: "Pontos Alterados",
+                user: user.points
+            })
+        }
+    })
+
+}
 
 exports.login = login;
 exports.register = register;
@@ -561,3 +588,4 @@ exports.removeAccount = removeAccount;
 exports.getImage = getImage;
 exports.getSpinDate = getSpinDate;
 exports.updateSpinDate = updateSpinDate;
+exports.updatePoints = updatePoints

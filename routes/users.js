@@ -180,5 +180,19 @@ router.put('/spin/:id', [
     }
 })
 
+//--------------------------------------------ALTERA PONTOS DO UTILIZADORES----------------------------------------
+router.put('/points/:id', [
+    param('id').notEmpty().escape(),
+    body('points').notEmpty().escape(),
+], function(req, res){
+    const erros = validationResult(req);
+    if(erros.isEmpty()){
+        controller.updatePoints(req, res);
+    }
+    else{
+        res.status(404).json({errors: erros.array()})
+    }
+})
+
 
 module.exports = router
