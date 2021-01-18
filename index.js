@@ -13,6 +13,7 @@ const utilities = require('./middleware/utilities.js');
 const passport = require('passport')
 const cors = require("cors");
 const ticket = require('./routes/qrCode')
+const quizz = require('./routes/quizz')
 
 const mongoBD = require('./database/db-config.js')
 
@@ -25,12 +26,14 @@ expressSwagger(options);
 
 
 
-app.use(cors({origin:'*'}));
+app.use(cors({
+    origin: '*'
+}));
 
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 })
@@ -55,6 +58,7 @@ app.use(function(req, res, next) {
 app.use(passport.initialize());
 app.use(express.json());
 //app.use(auth)
+app.use('/quizz', quizz)
 app.use('/', user)
 app.use('/museu', museum)
 app.use('/musica', music)
