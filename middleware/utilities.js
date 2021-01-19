@@ -1,4 +1,5 @@
 var jwt = require('jsonwebtoken');
+const users = require("../models/users.js");
 
 const generateToken = (user_info, callback) => {
     let secret = process.env.SECRET;
@@ -19,14 +20,26 @@ const validateToken = (token, callback) => {
         if (error) {
             return callback(false);
         } else {
-            return callback(true)
+          
+            const userEmail = decoded.email
+            users.find({
+                email: userEmail
+            }, function (err, user) {
+                if (err) {
+                    return callback(false);
+                }
+                if (user) {
+                    console.log(decoded)
+                    return callback(true)
+                }
+            })
         }
     })
 }
 
 
 
-const exceptions = ['/', '/login', '/torre', '/register', '/museu', '/musica', '/musica/cupertinos', '/roleta', '/roleta/girar', '/home']
+const exceptions = ['/points?', '/spin?', '/roleta', '/roleta/girar', '/roleta/premios', 'roleta/premios?', '/quizz']
 
 
 
