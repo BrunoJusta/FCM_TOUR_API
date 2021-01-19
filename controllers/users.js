@@ -595,7 +595,6 @@ const sendEmail = (req, res) => {
         html: req.body.message
     }, function (err, result) {
         if (err) {
-            console.log("erro");
             res.status(400).send(err)
         }
         if (result) {
