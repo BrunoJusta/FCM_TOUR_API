@@ -5,6 +5,14 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const facebookStrategy = require('passport-facebook');
 const jwt_decode = require('jwt-decode');
+const nodemailer = require('nodemailer');
+const sendgridTransporter = require('nodemailer-sendgrid-transport');
+const transporter = nodemailer.createTransport(
+    sendgridTransporter({
+        auth: {
+            api_key: process.env.EMAIL_TRANSPORTER
+        }
+    }));
 const {
     json
 } = require('body-parser');
@@ -577,6 +585,28 @@ const updatePoints = (req, res) => {
 
 }
 
+//--------------------------------------------EMAIL DO PREMIO PARA O UTILIZADOR----------------------------------------
+
+const sendEmail = (req, res) => {
+    transporter.sendMail({
+        to: req.body.email,
+        from: "fcmESMAPP@outlook.com",
+        subject: "FCM Tour - Código do prêmio",
+        html: req.body.message
+    }, function (err, result) {
+        if (err) {
+            console.log("erro");
+            res.status(400).send(err)
+        }
+        if (result) {
+            res.status(200).send({
+                result: true,
+                msg: "Email enviado"
+            })
+        }
+    })
+}
+
 exports.login = login;
 exports.register = register;
 exports.editImage = editImage;
@@ -588,4 +618,5 @@ exports.removeAccount = removeAccount;
 exports.getImage = getImage;
 exports.getSpinDate = getSpinDate;
 exports.updateSpinDate = updateSpinDate;
-exports.updatePoints = updatePoints
+exports.updatePoints = updatePoints;
+exports.sendEmail = sendEmail;
