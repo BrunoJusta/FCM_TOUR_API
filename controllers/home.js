@@ -5,7 +5,21 @@ const getHome = (req, res) => {
         if (err) {
             res.status(400).send(err);
         }
-        res.status(200).json(result)
+        else{
+            if(req.headers.language == "EN"){
+                res.status(200).json({result:{
+                    description: result[0].description_en,
+                    cover: result[0].cover
+                }})
+            }
+            else{
+                res.status(200).json({
+                    description: result[0].description,
+                    cover: result[0].cover
+                })
+                
+            }
+        }
     })
 }
 
