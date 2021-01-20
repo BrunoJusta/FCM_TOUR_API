@@ -21,13 +21,16 @@ const validateToken = (token, callback) => {
             return callback(false);
         } else {
             const userEmail = decoded.data.email
+            console.log(userEmail);
             users.find({
                 email: userEmail
             }, function (err, user) {
                 if (err) {
+                    console.log("falseeeeeeeeeeeeeeeeeeeeeeeeee");
                     return callback(false);
                 }
                 if (user) {
+                    console.log("TRUEEEEEEEEEEEEEEEEEEEEEE");
                     return callback(true)
                 }
             })
