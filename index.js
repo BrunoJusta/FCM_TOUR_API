@@ -45,7 +45,7 @@ const auth = function (req, res, next) {
     if (req.url.indexOf("/quizz") != -1 || req.url.indexOf("/roleta") != -1 || req.url.indexOf("/spin") != -1 || req.url.indexOf("/points") != -1) {
         utilities.validateToken(req.headers.authorization, (result) => {
             if (result) {
-                console.log(req.headers)
+                console.log("HEADERS" + req.headers.authorization)
                 next();
             } else {
                 res.status(401).send("Invalid Token");

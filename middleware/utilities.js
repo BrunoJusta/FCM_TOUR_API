@@ -20,8 +20,9 @@ const validateToken = (token, callback) => {
         if (error) {
             return callback(false);
         } else {
-          
+    
             const userEmail = decoded.email
+            console.log("EMAIL" + decoded.email)
             users.find({
                 email: userEmail
             }, function (err, user) {
