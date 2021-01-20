@@ -29,7 +29,6 @@ const validateToken = (token, callback) => {
                     return callback(false);
                 }
                 if (user) {
-                    console.log(decoded)
                     return callback(true)
                 }
             })
