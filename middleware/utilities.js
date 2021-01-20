@@ -21,7 +21,7 @@ const validateToken = (token, callback) => {
             return callback(false);
         } else {
             const userEmail = decoded.email
-            console.log("EMAIL" + decoded)
+            console.log("EMAIL" + JSON.stringify(decoded))
             users.find({
                 email: userEmail
             }, function (err, user) {
