@@ -26,11 +26,9 @@ const validateToken = (token, callback) => {
                 email: userEmail
             }, function (err, user) {
                 if (err) {
-                    console.log("falseeeeeeeeeeeeeeeeeeeeeeeeee");
                     return callback(false);
                 }
                 if (user) {
-                    console.log("TRUEEEEEEEEEEEEEEEEEEEEEE");
                     return callback(true)
                 }
             })
