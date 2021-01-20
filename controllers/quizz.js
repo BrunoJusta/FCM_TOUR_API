@@ -4,8 +4,9 @@ const getQuizz = (req, res) => {
     quizz.find(function (err, questions) {
         if (err) {
             res.status(400).send(err);
+        } else {
+            res.status(200).json(questions);
         }
-        res.status(200).json(questions);
     })
 }
 
