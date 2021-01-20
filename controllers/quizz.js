@@ -7,7 +7,7 @@ const getQuizz = (req, res) => {
             res.status(404).send(err);
         } else {
             console.log("QUESTIONS" + questions);
-            res.status(200).json(questions);
+            res.status(200).json({questions});
         }
     })
 }
