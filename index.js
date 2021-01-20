@@ -41,11 +41,11 @@ app.use(function (req, res, next) {
 
 
 const auth = function (req, res, next) {
-console.log(utilities.exceptions.indexOf(req.url) >= 0 )
-    if (req.url.indexOf("/quizz") != -1|| req.url.indexOf("/roleta") != -1 || req.url.indexOf("/spin") != -1 || req.url.indexOf("/points") != -1) {
-         utilities.validateToken(req.headers.authorization, (result) => { 
-            if (result) {    
-               
+    console.log(utilities.exceptions.indexOf(req.url) >= 0)
+    if (req.url.indexOf("/quizz") != -1 || req.url.indexOf("/roleta") != -1 || req.url.indexOf("/spin") != -1 || req.url.indexOf("/points") != -1) {
+        utilities.validateToken(req.headers.authorization, (result) => {
+            if (result) {
+                console.log(req.headers)
                 next();
             } else {
                 res.status(401).send("Invalid Token");
@@ -74,4 +74,3 @@ app.use('/ticket', ticket)
 app.listen(port, () => {
     console.log("Servidor a correr na porta " + port)
 })
-
