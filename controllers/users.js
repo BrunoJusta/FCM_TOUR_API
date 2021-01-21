@@ -592,10 +592,11 @@ const sendEmail = (req, res) => {
         to: req.body.email,
         from: "fcmESMAPP@outlook.com",
         subject: "FCM Tour - Código do prêmio",
-        html: req.body.message
+        html: `<h1>Email de teste para</h1>
+                <h2> ${req.body.email}</h2>      `
     }, function (err, result) {
         if (err) {
-            res.status(400).send(err)
+            res.status(404).send(err)
         }
         if (result) {
             res.status(200).send({
