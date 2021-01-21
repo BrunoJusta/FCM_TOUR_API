@@ -596,7 +596,7 @@ const sendEmail = (req, res) => {
                 <h2> ${req.body.email}</h2>      `
     }, function (err, result) {
         if (err) {
-            res.status(400).send(err)
+            res.status(404).send(err)
         }
         if (result) {
             res.status(200).send({
