@@ -595,10 +595,14 @@ const sendEmail = (req, res) => {
         html: `<h1>Email de teste para</h1>
                 <h2> ${req.body.email}</h2>      `
     }, function (err, result) {
+        console.log("ERRO: " + err);
+        console.log("RESULT: " + result);
         if (err) {
+        console.log("ENTROU NO ERRO: " + err);
             res.status(404).send(err)
         }
         if (result) {
+        console.log("ENTROU NO RESULTADO: " + result);
             res.status(200).send({
                 result: true,
                 msg: "Email enviado"
