@@ -7,10 +7,10 @@ const getHome = (req, res) => {
         }
         else{
             if(req.headers.language == "EN"){
-                res.status(200).json({result:{
+                res.status(200).json({
                     description: result[0].description_en,
                     cover: result[0].cover
-                }})
+                })
             }
             else{
                 res.status(200).json({
