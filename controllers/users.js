@@ -588,12 +588,21 @@ const updatePoints = (req, res) => {
 //--------------------------------------------EMAIL DO PREMIO PARA O UTILIZADOR----------------------------------------
 
 const sendEmail = (req, res) => {
+    let msgQuizz = `<h1>Email de QUIZZ</h1>
+                 <h2> ${req.body.email}</h2>`;
+    let msgPrizes = `<h1>Email de QUIZZ</h1>
+                    <h2> ${req.body.email}</h2>`;
+    let message = "";
+    if (req.body.type == 0) {
+        message = msgQuizz;
+    } else if(req.body.type == 1){
+        message = msgPrizes
+    }
     transporter.sendMail({
         to: req.body.email,
         from: "fcmESMAPP@outlook.com",
         subject: "FCM Tour - Código do prêmio",
-        html: `<h1>Email de teste para</h1>
-                <h2> ${req.body.email}</h2>      `
+        html: message
     }, function (err, result) {
         if (err) {
             res.status(404).send(err)
