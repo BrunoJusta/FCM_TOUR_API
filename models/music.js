@@ -12,14 +12,17 @@ const musicSchema = new mongoose.Schema({
     cupertinos: {
         text: String,
         description: String,
+        description_en: String,
         audio: String,
+        audio_en: String,
         img: String,
-        concerts: Array
     },
     ciclos: {
         text: String,
         description: String,
+        description_en: String,
         audio: String,
+        audio_en: String,
         img: String
     }
 })

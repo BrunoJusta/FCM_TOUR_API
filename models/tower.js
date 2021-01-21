@@ -2,9 +2,8 @@ const mongoose = require('mongoose');
 
 const towerSchema = new mongoose.Schema({
     description: String,
-    cover: String, 
-    tickets: Array,
-    url: String
+    description_en: String,
+    cover: String
 })
 
 const tower = mongoose.model('tower', towerSchema)

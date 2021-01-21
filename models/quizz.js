@@ -8,7 +8,8 @@ const quizzSchema = new mongoose.Schema({
         C: String,
         D: String
     },
-    answer: String
+    answer: String,
+    language: String,
 })
 
 const quizz = mongoose.model('quizzes', quizzSchema)

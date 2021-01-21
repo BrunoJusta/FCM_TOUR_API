@@ -69,17 +69,4 @@ router.get('/quadros/:id', [
 })
 
 
-router.get('/artists/:id', [
-    param('id').notEmpty().isString().escape(),
-], function (req, res) {
-    const errors = validationResult(req);
-    if (errors.isEmpty()) {
-        controller.getArtistsById(req, res);
-    } else {
-        res.status(404).json({
-            errors: errors.array()
-        })
-    }
-})
-
 module.exports = router;

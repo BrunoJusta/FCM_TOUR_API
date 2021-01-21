@@ -10,9 +10,20 @@ const client = new textToSpeech.TextToSpeechClient({
 });
 
 
-async function speeching(txt, name){
+async function speeching(txt, name, lang){
 
-    let YourSetting = JSON.stringify({
+  let languageCode
+  let voicName
+
+  if(lang == "EN"){
+    languageCode = "en-US"
+    voicName = "en-US-Wavenet-F"
+  }else{
+    languageCode = "pt-PT"
+    voicName = "pt-PT-Wavenet-A"
+  }
+
+  let YourSetting = JSON.stringify({
         "audioConfig": {
             "audioEncoding": "LINEAR16",
             "pitch": 0,
@@ -22,15 +33,14 @@ async function speeching(txt, name){
             "text": txt
         },
         "voice": {
-            "languageCode": "pt-PT",
-            "name": "pt-PT-Wavenet-A"
+            "languageCode": languageCode,
+            "name": voicName
         },
-        "outputFileName": name + ".mp3"
+        "outputFileName": name + lang + ".mp3"
     });
     
     async function Text2Speech(YourSetting) {
         const [response] = await client.synthesizeSpeech(JSON.parse(YourSetting));
-
         
         const storage = new Storage({
             projectId: 'fcmtour-347cf',
@@ -39,9 +49,9 @@ async function speeching(txt, name){
         
         let bucketName = "fcmtour-347cf.appspot.com"
         const bucket = storage.bucket(bucketName);
-        var file = bucket.file('Audio/' + name + ".mp3");
+        var file = bucket.file('Audio/' + name + lang + ".mp3");
 
-        let link = "https://firebasestorage.googleapis.com/v0/b/" + bucketName + "/o/" + 'Audio%2F' + name + ".mp3" + "?alt=media"
+        let link = "https://firebasestorage.googleapis.com/v0/b/" + bucketName + "/o/" + 'Audio%2F' + name + lang + ".mp3" + "?alt=media"
 
         const options = { 
             metadata: {

@@ -5,7 +5,21 @@ const getQuizz = (req, res) => {
         if (err) {
             res.status(404).send(err);
         } else {
-            res.status(200).json({questions});
+            let quizz = []
+            let quizz_en = []
+
+            for (let i = 0; i < questions.length; i++) {
+                if (questions[i].language == "PT") {
+                    quizz.push(questions[i])
+                }
+                if (questions[i].language == "EN") {
+                    quizz_en.push(questions[i])
+                }
+
+            }
+
+            if (req.headers.language == "PT") res.status(200).json(quizz);
+            if (req.headers.language == "EN") res.status(200).json(quizz_en);
         }
     })
 }
