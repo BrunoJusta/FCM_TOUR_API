@@ -589,9 +589,9 @@ const updatePoints = (req, res) => {
 
 const sendEmail = (req, res) => {
     let msgQuizz = `<h1>Email de QUIZZ</h1>
-                 <h2> ${req.body.email}</h2>`;
-    let msgPrizes = `<h1>Email de QUIZZ</h1>
-                    <h2> ${req.body.email}</h2>`;
+    <h2> ${req.body.email}</h2>`;
+    let msgPrizes = `<h1>Email da ROLETA</h1>
+    <h2> ${req.body.email}</h2>`;
     let message = "";
     if (req.body.type == 0) {
         message = msgQuizz;
