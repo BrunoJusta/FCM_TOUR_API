@@ -196,7 +196,8 @@ router.put('/points/:id', [
 
 
 router.post('/premio', [
-    body('email').notEmpty().escape()
+    body('email').notEmpty().escape(),
+    body('type').notEmpty().escape()
 ], function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
