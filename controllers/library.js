@@ -7,7 +7,22 @@ const getLibrary = (req, res) => {
         if (err) {
             res.status(400).send(err);
         }
-        res.status(200).json(result)
+        else{
+            if (req.headers.language == "EN") {
+                res.status(200).json({
+                    description: result[0].description_en,
+                    cover: result[0].cover,
+                    acervos: result[0].acervos,
+                })
+            } else {
+                res.status(200).json({
+                    description: result[0].description,
+                    cover: result[0].cover,
+                    acervos: result[0].acervos,
+                })
+
+            }
+        }
     })
 }
 
@@ -29,11 +44,33 @@ const getCollectionsByID = (req, res) => {
         if (err) {
             res.status(400).send(err);
         } else {
+            let language = req.headers.language
             let collection = results[0].acervos
             for (let i = 0; i < collection.length; i++) { 
                 if (collection[i].number == req.params.id) {
+                    if(language == "EN" && collection[i].audio_en != ''){
+                        res.status(200).json({
+                            number: collection[i].number,
+                            audio: collection[i].audio_en,
+                            img: collection[i].img,
+                            name: collection[i].name,
+                            description: collection[i].description_en
+                        })
+                    }
+                    else if( language == "PT" && collection[i].audio != '' ){
+                        res.status(200).json({
+                            number: collection[i].number,
+                            audio: collection[i].audio,
+                            img: collection[i].img,
+                            name: collection[i].name,
+                            description: collection[i].description
+                        })
+                    }else{
+                    let description 
+                    if(language == "EN" ) description = collection[i].description_en
+                    else description = collection[i].description
                     let colName = collection[i].name
-                    speech.speeching(collection[i].description, colName.replace(/\s/g, '')).then(result => {
+                    speech.speeching(description, colName.replace(/\s/g, ''), language).then(result => {
                         if (result) {
                             library.findOne({
                                 library
@@ -42,9 +79,30 @@ const getCollectionsByID = (req, res) => {
                                     res.status(400).send(err);
                                 }
                                 if (resultCol) {
-                                    resultCol.acervos[i].audio = result
-                                    resultCol.save();
-                                    res.status(200).json(resultCol.acervos[i])
+                                    if(language == "EN"){
+                                        resultCol.acervos[i].audio_en = result
+                                        resultCol.markModified("audio_en")
+                                        resultCol.save();
+                                        res.status(200).json({
+                                            number: resultCol.acervos[i].number,
+                                            audio: resultCol.acervos[i].audio_en,
+                                            img: resultCol.acervos[i].img,
+                                            name: resultCol.acervos[i].name,
+                                            description: resultCol.acervos[i].description_en
+                                        })
+                                    }
+                                    else if( language == "PT"){
+                                        resultCol.acervos[i].audio = result
+                                        resultCol.markModified("audio")
+                                        resultCol.save();
+                                        res.status(200).json({
+                                            number: resultCol.acervos[i].number,
+                                            audio: resultCol.acervos[i].audio,
+                                            img: resultCol.acervos[i].img,
+                                            name: resultCol.acervos[i].name,
+                                            description: resultCol.acervos[i].description
+                                        }) 
+                                    }    
                                 }
                             })
                         } else {
@@ -57,6 +115,7 @@ const getCollectionsByID = (req, res) => {
                     })
                 }
             }
+        }
         }
     })
 }

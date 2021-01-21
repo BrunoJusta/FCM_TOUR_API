@@ -40,11 +40,33 @@ const getPoints = (req, res) => {
 }
 
 const getItems = (req, res) => {
-    roulette.find(function (err, items) {
+    roulette.find(function (err, result) {
         if (err) {
             res.status(400).send(err);
         }
-        res.status(200).json({items});
+        else{
+            let items = []
+            let prizes = result[0].items
+            for (let i = 0; i < prizes.length; i++) {
+                if(req.headers.language == "EN"){
+                    items.push({
+                        number:prizes[i].number,
+                        img:prizes[i].img,
+                        name:prizes[i].name_en,
+                        price:prizes[i].number
+                    })
+                }
+                else{
+                    items.push({
+                        number:prizes[i].number,
+                        img:prizes[i].img,
+                        name:prizes[i].name,
+                        price:prizes[i].number
+                    })
+                }
+            }
+            res.status(200).json(items);
+        }
     })
 }
 
@@ -59,29 +81,29 @@ const getItemsByNumber = (req, res) => {
             let items = results[0].items
             for(let i = 0; i< items.length; i++){
                 if( items[i].number == req.params.number){
-                    res.status(200).json(results[0].items[i])
+                    if(req.headers.language == "EN"){
+                        res.status(200).json({
+                            number:items[i].number,
+                            img:items[i].img,
+                            name:items[i].name_en,
+                            price:items[i].number
+                        })
+                    }
+                    else{
+                        res.status(200).json({
+                            number:items[i].number,
+                            img:items[i].img,
+                            name:items[i].name,
+                            price:items[i].number
+                        })
+                    }
                 }
             }
         }
     })
 }
 
-/* const addRoulette = (req, res) =>{
-    const newRoulette = new roulette({
-        prizes: req.body.prizes,
-        items: req.body.cover,
-    })
-
-    newRoulette.save(function(err,museum){
-        if (err){
-            res.status(400).send(err);
-        }
-        res.status(200).json(museum)
-    })
-}
- */
 exports.getRoulette = getRoulette;
 exports.getPoints = getPoints;
 exports.getItems = getItems;
 exports.getItemsByNumber = getItemsByNumber;
-/* exports.addRoulette = addRoulette;  */
