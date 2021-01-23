@@ -14,6 +14,8 @@ const passport = require('passport')
 const cors = require("cors");
 const ticket = require('./routes/qrCode')
 const quizz = require('./routes/quizz')
+const products = require('./routes/products')
+const orders = require('./routes/orders.js')
 
 const mongoBD = require('./database/db-config.js')
 
@@ -42,7 +44,7 @@ app.use(function (req, res, next) {
 
 const auth = function (req, res, next) {
     console.log(utilities.exceptions.indexOf(req.url) >= 0)
-    if (req.url.indexOf("/quizz") != -1 || req.url.indexOf("/roleta") != -1 || req.url.indexOf("/spin") != -1 || req.url.indexOf("/points") != -1) {
+    if (req.url.indexOf("/quizz") != -1 || req.url.indexOf("/roleta") != -1 || req.url.indexOf("/spin") != -1 || req.url.indexOf("/points") != -1 || req.url.indexOf("/produtos") != -1 || req.url.indexOf("/encomenda") != -1) {
         utilities.validateToken(req.headers.authorization, (result) => {
             if (result) {
                 next();
@@ -68,6 +70,8 @@ app.use('/roleta', roulette)
 app.use('/biblioteca', library)
 app.use('/home', home)
 app.use('/ticket', ticket)
+app.use('/produtos', products)
+app.use('/encomenda', orders)
 
 
 app.listen(port, () => {
