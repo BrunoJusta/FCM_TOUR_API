@@ -16,7 +16,7 @@ const addToCart = (req, res) => {
                 email: req.params.email,
                 number: product[0].number,
                 name: product[0].name,
-                price: product[0].adress,
+                price: product[0].price,
                 img: product[0].img,
             });
 
