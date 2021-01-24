@@ -40,8 +40,9 @@ router.get('/preco/baixo', function (req, res) {
     }
 })
 
-router.get('/:id', [
+router.get('/:id/:idUser', [
     param('id').notEmpty().escape(),
+    param('idUser').notEmpty().escape(),
 ], function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {

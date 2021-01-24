@@ -23,6 +23,7 @@ const addOrder = (req, res) => {
                 contact: req.body.contact,
                 total: req.body.total,
                 products: req.body.products,
+                state: 0
             });
 
             order.find(function (err, user) {

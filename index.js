@@ -16,6 +16,7 @@ const ticket = require('./routes/qrCode')
 const quizz = require('./routes/quizz')
 const products = require('./routes/products')
 const orders = require('./routes/orders.js')
+const carts = require('./routes/cart.js')
 
 const mongoBD = require('./database/db-config.js')
 
@@ -72,7 +73,7 @@ app.use('/home', home)
 app.use('/ticket', ticket)
 app.use('/produtos', products)
 app.use('/encomenda', orders)
-
+app.use('/carrinho', carts)
 
 app.listen(port, () => {
     console.log("Servidor a correr na porta " + port)

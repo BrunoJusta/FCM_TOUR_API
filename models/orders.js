@@ -9,7 +9,8 @@ const orderSchema = new mongoose.Schema({
     city: String,
     name: String,
     contact: String,
-    total: Number
+    total: Number,
+    state: Number
 })
 
 const order = mongoose.model('orders', orderSchema)
