@@ -154,8 +154,8 @@ router.delete('/delete/:email', [
 
 //--------------------------------------------VERIFICA DATA PARA RODAR A ROLETA----------------------------------------
 
-router.get('/spin/:id', [
-    param('id').notEmpty().escape(),  //campos de preenchimento obrigatorio
+router.get('/spin/:email', [
+    param('email').notEmpty().escape(),  //campos de preenchimento obrigatorio
 ], function(req, res){
     const erros = validationResult(req);
     if(erros.isEmpty()){
@@ -167,8 +167,8 @@ router.get('/spin/:id', [
 })
 
 //--------------------------------------------ALTERA DATA PARA RODAR A ROLETA----------------------------------------
-router.put('/spin/:id', [
-    param('id').notEmpty().escape(),
+router.put('/spin/:email', [
+    param('email').notEmpty().escape(),
     body('date').notEmpty().escape(),
 ], function(req, res){
     const erros = validationResult(req);
@@ -181,8 +181,8 @@ router.put('/spin/:id', [
 })
 
 //--------------------------------------------ALTERA PONTOS DO UTILIZADORES----------------------------------------
-router.put('/points/:id', [
-    param('id').notEmpty().escape(),
+router.put('/points/:email', [
+    param('email').notEmpty().escape(),
     body('points').notEmpty().escape(),
 ], function(req, res){
     const erros = validationResult(req);

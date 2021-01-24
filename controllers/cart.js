@@ -12,14 +12,14 @@ const addToCart = (req, res) => {
             console.log(product) 
             
             const cartToCreate = new cart({
-                email: req.params.id,
+                email: req.params.email,
                 number: product[0].number,
                 name: product[0].name,
                 price: product[0].adress,
                 img: product[0].img,
             });
 
-            cart.find({email: req.params.id, number:req.params.product},function (err, results) {
+            cart.find({email: req.params.email, number:req.params.product},function (err, results) {
                 if (err) {
                     res.status(400).send(err);
                 } else {
@@ -46,7 +46,7 @@ const addToCart = (req, res) => {
 
 
 const getCartByUser = (req, res) => {
-    cart.find({email: req.params.id}, function (err, result) {
+    cart.find({email: req.params.email}, function (err, result) {
         if (err) {
             res.status(400).send(err);
         }
@@ -57,7 +57,7 @@ const getCartByUser = (req, res) => {
 }
 
 const deleteProductInCart = (req, res) => {
-    cart.deleteOne({email: req.params.id, number:req.params.product}, function (err, result) {
+    cart.deleteOne({email: req.params.email, number:req.params.product}, function (err, result) {
         if (err) {
             res.status(400).send(err);
         }

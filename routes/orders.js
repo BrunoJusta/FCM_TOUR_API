@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require('../controllers/orders.js')
 const { body, validationResult, param } = require('express-validator');
 
-router.post('/:id', [param('id').notEmpty().escape()], function (req, res) {
+router.post('/:email', [param('email').notEmpty().escape()], function (req, res) {
     console.log("ok")
     const errors = validationResult(req);
     if (errors.isEmpty()) {
@@ -16,7 +16,7 @@ router.post('/:id', [param('id').notEmpty().escape()], function (req, res) {
 })
 
 
-router.get('/utilizador/:id', [param('id').notEmpty().escape()], function (req, res) {
+router.get('/utilizador/:email', [param('email').notEmpty().escape()], function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         controller.getOrdersByUser(req, res);

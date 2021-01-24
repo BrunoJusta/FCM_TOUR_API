@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require('../controllers/cart.js')
 const { body, validationResult, param } = require('express-validator');
 
-router.post('/:id/:product', [param('id').notEmpty().escape(), param('product').notEmpty().escape() ], function (req, res) {
+router.post('/:email/:product', [param('email').notEmpty().escape(), param('product').notEmpty().escape() ], function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         controller.addToCart(req, res);
@@ -15,7 +15,7 @@ router.post('/:id/:product', [param('id').notEmpty().escape(), param('product').
 })
 
 
-router.get('/:id', [param('id').notEmpty().escape()], function (req, res) {
+router.get('/:email', [param('email').notEmpty().escape()], function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         controller.getCartByUser(req, res);
@@ -26,8 +26,8 @@ router.get('/:id', [param('id').notEmpty().escape()], function (req, res) {
     }
 })
 
-router.delete('/:id/:product', [
-    param('id').notEmpty().escape(),
+router.delete('/:email/:product', [
+    param('email').notEmpty().escape(),
     param('product').notEmpty().escape()
 ], function (req, res) {
     const errors = validationResult(req);

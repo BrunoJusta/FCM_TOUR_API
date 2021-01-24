@@ -525,7 +525,7 @@ const removeAccount = (req, res) => {
 //--------------------------------------------VERIFICA DATA PARA RODAR A ROLETA----------------------------------------
 const getSpinDate = (req, res) => {
     users.findOne({
-        email: req.params.id
+        email: req.params.email
     }, function (err, user) {
         console.log(user)
         if (err) {
@@ -542,7 +542,7 @@ const getSpinDate = (req, res) => {
 
 const updateSpinDate = (req, res) => {
     users.findOne({
-        email: req.params.id
+        email: req.params.email
     }, function (err, user) {
         if (err) {
             res.status(400).send(err)
@@ -566,7 +566,7 @@ const updateSpinDate = (req, res) => {
 
 const updatePoints = (req, res) => {
     users.findOne({
-        email: req.params.id
+        email: req.params.email
     }, function (err, user) {
         if (err) {
             res.status(400).send(err)

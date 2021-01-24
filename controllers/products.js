@@ -42,7 +42,7 @@ const getProductsbyID = (req, res) => {
             res.status(400).send(err);
         }
         else{
-            cart.find({number:req.params.id, email:req.params.idUser}, function(err, cart){
+            cart.find({number:req.params.id, email:req.params.email}, function(err, cart){
 
                 let state 
                 if(cart.length == 0)  state = 0 

@@ -15,7 +15,7 @@ const addOrder = (req, res) => {
            console.log(newNum)
             const orderToCreate = new order({
                 number: newNum,
-                email: req.params.id,
+                email: req.params.email,
                 name: req.body.name,
                 adress: req.body.adress,
                 zipCode: req.body.zipCode,
@@ -46,7 +46,7 @@ const addOrder = (req, res) => {
 
 
 const getOrdersByUser = (req, res) => {
-    order.find({email: req.params.id}, function (err, result) {
+    order.find({email: req.params.email}, function (err, result) {
         if (err) {
             res.status(400).send(err);
         }
