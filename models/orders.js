@@ -1,5 +1,19 @@
 const mongoose = require('mongoose');
 
+/**
+ * @typedef Order
+ * @property {Number} number.required
+ * @property {String} email.required
+ * @property {Array} products.required
+ * @property {String} adress.required
+ * @property {String} zipCode.required
+ * @property {String} city.required
+ * @property {String} name.required
+ * @property {Number} total.required
+ * @property {Number} state.required
+ * 
+ */
+
 const orderSchema = new mongoose.Schema({
     number:Number,
     email: String,

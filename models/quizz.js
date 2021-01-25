@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 
+/**
+ * @typedef quizz
+ * @property {string} question
+ * @property {Object} options
+ * @property {string} answer
+ * @property {string} language
+ */
+
 const quizzSchema = new mongoose.Schema({
     question: String,
     options: {

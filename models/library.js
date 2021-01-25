@@ -1,5 +1,12 @@
 const mongoose = require('mongoose');
 
+/**
+ * @typedef Library
+ * @property {String} description
+ * @property {String} description_en
+ * @property {String} cover
+ * @property {Array} acervos
+ */
 const librarySchema = new mongoose.Schema({
     description: String,
     description_en: String,

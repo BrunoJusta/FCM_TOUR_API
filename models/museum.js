@@ -1,5 +1,15 @@
 const mongoose = require('mongoose');
 
+/**
+ * @typedef Museum
+ * @property {String} description
+ * @property {String} description_en
+ * @property {String} cover
+ * @property {Array} temporary
+ * @property {Array} permanent
+ * 
+ */
+
 const museumSchema = new mongoose.Schema({
     description: String,
     description_en:String,

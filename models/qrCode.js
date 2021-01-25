@@ -1,5 +1,12 @@
 const mongoose = require('mongoose');
 
+/**
+ * @typedef qrCode
+ * @property {string} code.required
+ * @property {String} date.required
+ */
+
+
 const qrCodeSchema = new mongoose.Schema({
     code: String,
     date: String

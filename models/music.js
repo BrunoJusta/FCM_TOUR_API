@@ -1,8 +1,7 @@
 /**
  * @typedef Music
- * @property {string} cover.required
- * @property {Array} cupertinos.required
- * @property {Array} ciclos.required
+ * @property {Array} cupertinos
+ * @property {Array} ciclos
  * 
  */
 

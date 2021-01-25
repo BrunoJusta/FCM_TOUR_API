@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 /**
  * @typedef User
  * @property {string} username.required
@@ -5,10 +7,9 @@
  * @property {string} email.required
  * @property {string} points.required
  * @property {string} img.required
- * 
+ * @property {Number} type.required
+ * @property {string} date.required
  */
-
-const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
     username: String,
