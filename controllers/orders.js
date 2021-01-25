@@ -4,7 +4,11 @@ const order = require('../models/orders.js')
 const addOrder = (req, res) => {
 
     order.find(function (err, orders) {
-        console.log("BODYYYY: " + req.body)
+        let info = req.body[0]
+        let list = req.body[1]
+        console.log("INFO: " + info)
+        console.log("LIST: " + list)
+
         if (err) {
             res.status(400).send(err);
         }
@@ -15,12 +19,12 @@ const addOrder = (req, res) => {
             const orderToCreate = new order({
                 number: newNum,
                 email: req.params.email,
-                name: req.body.name,
-                adress: req.body.adress,
-                zipCode: req.body.zipCode,
-                city: req.body.city,
-                total: req.body.total,
-                products: req.body.products,
+                name: info.name,
+                adress: info.adress,
+                zipCode: info.zipCode,
+                city: info.city,
+                total: info.total,
+                products: list.products,
                 state: 0
             });
 
