@@ -9,10 +9,8 @@ const addOrder = (req, res) => {
         }
         else{
             let newNum
-            console.log(orders) 
             if(orders.length == 0) newNum = 1
             else newNum = orders[orders.length-1].number + 1
-           console.log(newNum)
             const orderToCreate = new order({
                 number: newNum,
                 email: req.params.email,
@@ -20,7 +18,6 @@ const addOrder = (req, res) => {
                 adress: req.body.adress,
                 zipCode: req.body.zipCode,
                 city: req.body.city,
-                contact: req.body.contact,
                 total: req.body.total,
                 products: req.body.products,
                 state: 0

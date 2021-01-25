@@ -4,7 +4,6 @@ const controller = require('../controllers/orders.js')
 const { body, validationResult, param } = require('express-validator');
 
 router.post('/:email', [param('email').notEmpty().escape()], function (req, res) {
-    console.log("ok")
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         controller.addOrder(req, res);
