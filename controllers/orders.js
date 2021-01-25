@@ -34,7 +34,8 @@ const addOrder = (req, res) => {
                             res.status(400).send(err);
                         }
                         res.status(200).json({
-                            res: "Encomenda Registada!"
+                            res: "Encomenda Registada!",
+                            state: true
                         });
                     })
                 }
