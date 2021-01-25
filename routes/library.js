@@ -45,7 +45,7 @@ router.get('/acervos', function (req, res) {
 /**
  * @route Get /biblioteca/acervos/{id}
  * @group Library
- * @param {string} id.path - Collection id
+ * @param {string} id.path - Collection id (Example 1)
  * @returns {object} 200 - An array with data from specific collection
  * @returns {Error} 400 - Unexpected error
  */

@@ -2,8 +2,8 @@
 const options = {
     swaggerDefinition: {
         info: {
-            description: 'Students API Demo for DTAM and TSIW Students',
-            title: 'Students API',
+            description: 'API for Fundação Cupertino de Miranda mobile Aplication',
+            title: 'FCM TOUR API',
             version: '1.0.0',
         },
         host: 'localhost:3000',
@@ -26,4 +26,6 @@ const options = {
     files: ['./routes/**/*.js', './models/**/*.js']
 };
 
+
+//https://fcm-tour.herokuapp.com/
 module.exports = options; 

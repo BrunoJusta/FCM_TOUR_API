@@ -7,10 +7,10 @@ const {
     param
 } = require('express-validator');
 /**
- * @route POST /carrinho/{email}/{products}
+ * @route POST /carrinho/{email}/{product}
  * @group Cart
- * @param {string} email.path - User's name
- * @param {string} product.path - Product's number
+ * @param {string} email.path - User's email
+ * @param {string} product.path - Product's number (Example: 1)
  * @returns {object} 200 - New product add to cart
  * @returns {Error} 400 - Unexpected error
  * @returns {Error} 401 - Invalid Token
@@ -33,7 +33,6 @@ router.post('/:email/:product', [param('email').notEmpty().escape(), param('prod
  * @route Get /carrinho/{email}
  * @group Cart
  * @param {string} email.path - User's email
- * @param {string} product.path - Product's number
  * @returns {object} 200 - An array with products in a user cart
  * @returns {Error} 400 - Unexpected error
  * @returns {Error} 401 - Invalid Token
@@ -55,6 +54,7 @@ router.get('/:email', [param('email').notEmpty().escape()], function (req, res) 
  * @route Delete /carrinho/{email}/{product}
  * @group Cart
  * @param {string} email.path - User's email
+ * @param {string} product.path - Product's number
  * @returns {object} 200 - The product is deleted from the cart
  * @returns {Error} 400 - Unexpected error
  * @returns {Error} 401 - Invalid Token

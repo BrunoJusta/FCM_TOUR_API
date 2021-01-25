@@ -102,6 +102,8 @@ router.post('/register', [
  * @route PUT /profile/{email}
  * @group Users
  * @param {string} email.path - User's Email
+ * @param {file} file.formData.required - New user image
+ * @returns {object} 200 - image changed
  * @returns {Error} 400 - Unexpected error
  */
 router.put('/profile/:email', upload.single('file'),

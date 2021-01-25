@@ -12,8 +12,6 @@ const {
  * @group Tower
  * @returns {object} 200 - An Object with description and image of the Tower
  * @returns {Error} 400 - Unexpected error
- * @returns {Error} 401 - Invalid Token
- * @security Bearer
  */
 router.get('/', function (req, res) {
     const errors = validationResult(req);
@@ -31,8 +29,6 @@ router.get('/', function (req, res) {
  * @group Tower
  * @returns {object} 200 - An Array with all Rooms of the Tower
  * @returns {Error} 400 - Unexpected error
- * @returns {Error} 401 - Invalid Token
- * @security Bearer
  */
 router.route('/salas')
     .get(function (req, res) {
@@ -52,8 +48,6 @@ router.route('/salas')
  * @param {string} number.path - Room's number
  * @returns {object} 200 - An Object with the Room's Info
  * @returns {Error} 400 - Unexpected error
- * @returns {Error} 401 - Invalid Token
- * @security Bearer
  */
 router.get('/salas/:number', [
     param('number').notEmpty().escape(),

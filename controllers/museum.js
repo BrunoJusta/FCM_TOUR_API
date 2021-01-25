@@ -68,7 +68,7 @@ const getTempByID = (req, res) => {
                             name: temporary[i].name,
                             description: temporary[i].description_en
                         })
-                    } else if (language == "PT" && temporary[i].audio != '') {
+                    } else if (temporary[i].audio != '') {
                         res.status(200).json({
                             number: temporary[i].number,
                             audio: temporary[i].audio,
@@ -102,7 +102,7 @@ const getTempByID = (req, res) => {
                                                 name: musuems.temporary[i].name,
                                                 description: musuems.temporary[i].description_en
                                             })
-                                        } else if (language == "PT") {
+                                        } else{
                                             musuems.temporary[i].audio = result
                                             musuems.markModified("audio")
                                             musuems.save();
@@ -151,7 +151,7 @@ const getPermaByID = (req, res) => {
                             name: permanent[i].name,
                             description: permanent[i].description_en
                         })
-                    } else if (language == "PT" && permanent[i].audio != '') {
+                    } else if (permanent[i].audio != '') {
                         res.status(200).json({
                             number: permanent[i].number,
                             audio: permanent[i].audio,
@@ -185,7 +185,7 @@ const getPermaByID = (req, res) => {
                                                 name: musuems.permanent[i].name,
                                                 description: musuems.permanent[i].description_en
                                             })
-                                        } else if (language == "PT") {
+                                        } else {
                                             musuems.permanent[i].audio = result
                                             musuems.markModified("audio")
                                             musuems.save();
@@ -233,7 +233,7 @@ const getPaintingByID = (req, res) => {
                     name: paintings.name,
                     description: paintings.description_en
                 })
-            } else if (language == "PT" && paintings.audio != '') {
+            } else if (paintings.audio != '') {
                 res.status(200).json({
                     number: paintings.number,
                     audio: paintings.audio,
@@ -268,7 +268,7 @@ const getPaintingByID = (req, res) => {
                                         name: paintings.name,
                                         description:paintings.description_en
                                     })
-                                } else if (language == "PT") {
+                                } else{
                                     paintings.audio = result
                                     paintings.markModified("audio")
                                     paintings.save();

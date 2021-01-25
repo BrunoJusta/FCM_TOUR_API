@@ -57,7 +57,7 @@ const getCollectionsByID = (req, res) => {
                             description: collection[i].description_en
                         })
                     }
-                    else if( language == "PT" && collection[i].audio != '' ){
+                    else if(collection[i].audio != '' ){
                         res.status(200).json({
                             number: collection[i].number,
                             audio: collection[i].audio,
@@ -91,7 +91,7 @@ const getCollectionsByID = (req, res) => {
                                             description: resultCol.acervos[i].description_en
                                         })
                                     }
-                                    else if( language == "PT"){
+                                    else{
                                         resultCol.acervos[i].audio = result
                                         resultCol.markModified("audio")
                                         resultCol.save();
