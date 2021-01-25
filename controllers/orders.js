@@ -45,8 +45,8 @@ const addOrder = (req, res) => {
                                 from: "fcmESMAPP@outlook.com",
                                 subject: "FCM Tour - Encomenda nº" + newNum,
                                 html: `<img style="width: 120px; height: 120px;" src="https://firebasestorage.googleapis.com/v0/b/fcmtour-347cf.appspot.com/o/images%2Flogo.png?alt=media&token=7a03772d-5967-4a75-ab11-a230e3e44cb9%22%3E
-                                <h1 style="font-family: Arial, Helvetica, sans-serif;">FCM TOUR</h1>
-                                <h2 style="font-family: Arial, Helvetica, sans-serif;">Enomenda nº${newNum}</h2>
+                                <h2 style="font-family: Arial, Helvetica, sans-serif;">FCM TOUR</h2>
+                                <h2 style="font-family: Arial, Helvetica, sans-serif;">Encomenda nº${newNum}</h2>
                                 <p style="font-family: Arial, Helvetica, sans-serif; color: gray;">Olá ${info.name}, caso ainda não tenha efetuado o pagamento, a sua encomenda será processada após a receção do mesmo (Dispõe de 24h, caso contrário será automaticamente cancelada).
                                 Enviaremos email assim que a sua encomenda for processada!</p>
                                 <h3 style="font-family: Arial, Helvetica, sans-serif;">TOTAL A PAGAR: ${info.total}€</h3>`
