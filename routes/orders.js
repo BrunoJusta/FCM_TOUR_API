@@ -8,7 +8,6 @@ router.post('/:email', [param('email').notEmpty().escape()], function (req, res)
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         controller.addOrder(req, res);
-        controllerCart.deleteCartByUser(req, res);
     } else {
         res.status(404).json({
             errors: errors.array()

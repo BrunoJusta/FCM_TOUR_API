@@ -78,19 +78,6 @@ const deleteProductInCart = (req, res) => {
     })
 }
 
-
-const deleteCartByUser = (req, res) => {
-    cart.deleteMany({
-        email: req.params.email
-    }, function (err, result) {
-        if (err) {
-            res.status(400).send(err);
-        }
-    })
-}
-
-
 exports.addToCart = addToCart
 exports.getCartByUser = getCartByUser
 exports.deleteProductInCart = deleteProductInCart
-exports.deleteCartByUser = deleteCartByUser

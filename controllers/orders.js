@@ -1,4 +1,5 @@
 const order = require('../models/orders.js')
+const cart = require('../models/cart.js')
 const nodemailer = require('nodemailer');
 const sendgridTransporter = require('nodemailer-sendgrid-transport');
 const transporter = nodemailer.createTransport(
@@ -9,7 +10,6 @@ const transporter = nodemailer.createTransport(
     }));
 
 const addOrder = (req, res) => {
-
     order.find(function (err, orders) {
         let info = req.body[0]
         let list = req.body[1]
@@ -30,7 +30,6 @@ const addOrder = (req, res) => {
                 products: list.products,
                 state: 0
             });
-
             order.find(function (err, user) {
                 if (err) {
                     res.status(400).send(err);
@@ -55,15 +54,22 @@ const addOrder = (req, res) => {
                                     res.status(404).send(err)
                                 }
                                 if (result) {
-                                    res.status(200).json([{
-                                        res: "Encomenda Registada!",
-                                        state: 0
-                                    }]);
+                                    cart.deleteMany({
+                                        email: req.params.email
+                                    }, function (err, results) {
+                                        if (err) {
+                                            res.status(400).send(err);
+                                        }
+                                        if (results) {
+                                            res.status(200).json([{
+                                                res: "Encomenda Registada!",
+                                                state: 0
+                                            }]);
+                                        }
+                                    })
                                 }
                             })
-
                         }
-
                     })
                 }
             })
