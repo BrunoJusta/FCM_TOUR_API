@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/cart.js')
-const { body, validationResult, param } = require('express-validator');
+const {
+    body,
+    validationResult,
+    param
+} = require('express-validator');
 
-router.post('/:email/:product', [param('email').notEmpty().escape(), param('product').notEmpty().escape() ], function (req, res) {
+router.post('/:email/:product', [param('email').notEmpty().escape(), param('product').notEmpty().escape()], function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         controller.addToCart(req, res);
@@ -39,6 +43,5 @@ router.delete('/:email/:product', [
         })
     }
 })
-
 
 module.exports = router;

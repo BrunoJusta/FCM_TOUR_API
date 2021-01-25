@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/orders.js')
+const controllerCart = require('../controllers/cart.js')
 const { body, validationResult, param } = require('express-validator');
 
 router.post('/:email', [param('email').notEmpty().escape()], function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         controller.addOrder(req, res);
+        controllerCart.deleteCartByUser(req, res);
     } else {
         res.status(404).json({
             errors: errors.array()
