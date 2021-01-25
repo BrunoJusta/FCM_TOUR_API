@@ -69,7 +69,12 @@ const deleteProductInCart = (req, res) => {
     }, function (err, result) {
         if (err) {
             res.status(400).send(err);
-        } 
+        } else {
+            res.status(200).json({
+                res: "Produto Removido do carrinho!",
+                state: 0
+            });
+        }
     })
 }
 
@@ -80,11 +85,6 @@ const deleteCartByUser = (req, res) => {
     }, function (err, result) {
         if (err) {
             res.status(400).send(err);
-        } else {
-            res.status(200).json({
-                res: "Carrinho Eliminado!",
-                state: 0
-            });
         }
     })
 }
