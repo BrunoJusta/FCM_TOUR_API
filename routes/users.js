@@ -10,23 +10,31 @@ const utilities = require('../middleware/utilities.js')
 const controller = require('../controllers/users.js')
 const router = express.Router();
 
-
 var multer = require('multer')
 var upload = multer({
     storage: multer.memoryStorage(),
 });
 
-
-
-
-//------------------------------------LOGIN------------------------------------
-
+/**
+ * @route POST /login
+ * @group Users
+ * @param {object} object.body - User's Credentials - eg. {"email":"admin@fcm.com", "password":"Teste123"}
+ * @returns {object} 200 - Bearer Token
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 401 - Invalid Credencials
+ */
 router.post('/login', function (req, res) {
     controller.login(req, res);
 })
 
-//------------------------------------FACEBOOK------------------------------------
-
+/**
+ * @route POST /facebook
+ * @group Users
+ * @param {object} object.body - Facebook User's Credentials - eg. {"username": "admin", "email": "admin@fcm.com", "access_token": "access_token"}
+ * @returns {object} 200 - Bearer Token
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 401 - Not Authorized
+ */
 router.post('/facebook', [
     body('username').notEmpty().escape(),
     body('email').notEmpty().escape(),
@@ -42,8 +50,14 @@ router.post('/facebook', [
     }
 })
 
-//------------------------------------GOOGLE------------------------------------
-
+/**
+ * @route POST /login/google
+ * @group Users
+ * @param {object} object.body - Google User's Credencials - {"access_token": "access_token"}
+ * @returns {object} 200 - Bearer Token
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 401 - Not Authorized
+ */
 router.post('/login/google', [
     body('token').notEmpty().escape()
 ], function (req, res) {
@@ -57,8 +71,15 @@ router.post('/login/google', [
     }
 })
 
-//------------------------------------REGISTO------------------------------------
-
+/**
+ * @route POST /register
+ * @group Users
+ * @param {object} object.body - User's Credentials - {"username":"admin", "password":"Teste123", "confirmPassword": "Teste123", "email":"admin@fcm.com"}
+ * @returns {object} 200 - Created User
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 406 - Passwords don't match
+ * @returns {Error} 406 - Duplicated User
+ */
 router.post('/register', [
     body('username').notEmpty().escape(),
     body('password').notEmpty().escape(),
@@ -76,14 +97,17 @@ router.post('/register', [
     }
 })
 
-//------------------------------------MUDAR-IMAGEM-PERFIL------------------------------------
 
-
+/**
+ * @route PUT /profile/{email}
+ * @group Users
+ * @param {string} email.path - User's Email
+ * @returns {Error} 400 - Unexpected error
+ */
 router.put('/profile/:email', upload.single('file'),
     function (req, res) {
         const erros = validationResult(req);
         if (erros.isEmpty()) {
-            console.log(req.file)
             controller.editImage(req, res);
         } else {
             res.status(404).json({
@@ -92,21 +116,36 @@ router.put('/profile/:email', upload.single('file'),
         }
     })
 
+/**
+ * @route GET /profile/{email}
+ * @group Users
+ * @param {string} email.path - User's Email
+ * @returns {string} 200 - User image
+ * @returns {Error} 400 - Unexpected error
+ */
 router.get('/profile/:email', upload.single('file'),
-function (req, res) {
-    const erros = validationResult(req);
-    if (erros.isEmpty()) {
-        console.log(req.file)
-        controller.getImage(req, res);
-    } else {
-        res.status(404).json({
-            errors: erros.array()
-        })
-    }
-})
+    function (req, res) {
+        const erros = validationResult(req);
+        if (erros.isEmpty()) {
+            controller.getImage(req, res);
+        } else {
+            res.status(404).json({
+                errors: erros.array()
+            })
+        }
+    })
 
-//------------------------------------MUDAR-PALAVRA-PASSE------------------------------------
 
+/**
+ * @route PUT /pass/{email}
+ * @group Users
+ * @param {string} email.path - User's Email
+ * @param {object} object.body - User Passwords - eg. {"oldPassword":"Teste123", "newPassword":"Teste123"}
+ * @returns {object} 200 - Password Changed
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 406 - Current and new Passwords cannot match
+ * @returns {Error} 406 - Old and new Passwords cannot match
+ */
 router.put('/pass/:email', [
     param('email').notEmpty().escape(),
     body('oldPassword').notEmpty().escape(),
@@ -122,7 +161,14 @@ router.put('/pass/:email', [
     }
 })
 
-//------------------------------ADICIONAR-PALAVRA-PASSE(GOOGLE E FACEBOOK ACCOUNTS)------------
+/**
+ * @route PUT /addPass/{email}
+ * @group Users
+ * @param {string} email.path - User's Email
+ * @param {object} object.body - User Passwords - eg. {"newPassword":"Teste123"}
+ * @returns {object} 200 - Added Password
+ * @returns {Error} 400 - Unexpected error
+ */
 router.put('/addPass/:email', [
     param('email').notEmpty().escape(),
     body('newPassword').notEmpty().escape(),
@@ -137,7 +183,13 @@ router.put('/addPass/:email', [
     }
 })
 
-//--------------------------------------------ELIMINAR-CONTA----------------------------------------
+/**
+ * @route DELETE /delete/{email}
+ * @group Users
+ * @param {string} email.path - User's Email
+ * @returns {object} 200 - Account deleted
+ * @returns {Error} 400 - Unexpected error
+ */
 router.delete('/delete/:email', [
     param('email').notEmpty().escape()
 ], function (req, res) {
@@ -152,49 +204,77 @@ router.delete('/delete/:email', [
 })
 
 
-//--------------------------------------------VERIFICA DATA PARA RODAR A ROLETA----------------------------------------
-
+/**
+ * @route GET /spin/{email}
+ * @group Users
+ * @param {string} email.path - User's Email
+ * @returns {object} 200 - Last Spin Date Verified
+ * @returns {Error} 400 - Unexpected error
+ */
 router.get('/spin/:email', [
-    param('email').notEmpty().escape(),  //campos de preenchimento obrigatorio
-], function(req, res){
+    param('email').notEmpty().escape(),
+], function (req, res) {
     const erros = validationResult(req);
-    if(erros.isEmpty()){
+    if (erros.isEmpty()) {
         controller.getSpinDate(req, res);
-    }
-    else{
-        res.status(404).json({errors: erros.array()})
+    } else {
+        res.status(404).json({
+            errors: erros.array()
+        })
     }
 })
 
-//--------------------------------------------ALTERA DATA PARA RODAR A ROLETA----------------------------------------
+/**
+ * @route PUT /spin/{email}
+ * @group Users
+ * @param {string} email.path - User's Email
+ * @returns {object} 200 - Last Spin Date Changed
+ * @returns {Error} 400 - Unexpected error
+ */
 router.put('/spin/:email', [
     param('email').notEmpty().escape(),
     body('date').notEmpty().escape(),
-], function(req, res){
+], function (req, res) {
     const erros = validationResult(req);
-    if(erros.isEmpty()){
+    if (erros.isEmpty()) {
         controller.updateSpinDate(req, res);
-    }
-    else{
-        res.status(404).json({errors: erros.array()})
+    } else {
+        res.status(404).json({
+            errors: erros.array()
+        })
     }
 })
 
-//--------------------------------------------ALTERA PONTOS DO UTILIZADORES----------------------------------------
+/**
+ * @route PUT /delete/{email}
+ * @group Users
+ * @param {string} email.path - User's Email
+ * @param {object} object.body - User Points - eg. {"points": 30}
+ * @returns {object} 200 - User Points Updated
+ * @returns {Error} 400 - Unexpected error
+ */
 router.put('/points/:email', [
     param('email').notEmpty().escape(),
     body('points').notEmpty().escape(),
-], function(req, res){
+], function (req, res) {
     const erros = validationResult(req);
-    if(erros.isEmpty()){
+    if (erros.isEmpty()) {
         controller.updatePoints(req, res);
-    }
-    else{
-        res.status(404).json({errors: erros.array()})
+    } else {
+        res.status(404).json({
+            errors: erros.array()
+        })
     }
 })
 
-
+/**
+ * @route POST /premio
+ * @group Users
+ * @param {string} email.path - User's Email
+ * @param {object} object.body - User Points - eg. {"email": "teste@fcm.com", "type":0}
+ * @returns {object} 200 - Email sent to user
+ * @returns {Error} 400 - Unexpected error
+ */
 router.post('/premio', [
     body('email').notEmpty().escape(),
     body('type').notEmpty().escape()

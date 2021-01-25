@@ -94,7 +94,6 @@ const register = (req, res) => {
     } else {
         res.status(406).send("Palavras Passes não coincidem");
     }
-
 }
 
 //------------------------------------LOGIN-NORMAL------------------------------------
@@ -132,7 +131,6 @@ const login = (req, res) => {
         } else {
             res.status(401).send("Credenciais inválidas");
         }
-
     })
 }
 
@@ -386,10 +384,8 @@ const editImage = (req, res) => {
         }
         if (user) {
             firebase.uploadImage(res, req.params.email, req.file, req.file.originalname, req.file.mimetype.substring(6))
-
         }
     })
-
 }
 
 const getImage = (req, res) => {
@@ -403,7 +399,6 @@ const getImage = (req, res) => {
             res.status(200).send(user.img)
         }
     })
-
 }
 
 //------------------------------------MUDAR-PALAVRA-PASSE------------------------------------
@@ -441,7 +436,6 @@ const editPassword = (req, res) => {
             }
         }
     })
-
 }
 
 //-------------------------ADICIONAR-PALAVRA-PASSE(FACEBOOK, GOOGLE ACCOUNTS)----------------------
@@ -535,11 +529,9 @@ const getSpinDate = (req, res) => {
             res.status(200).json(user.date)
         }
     })
-
 }
 
 //--------------------------------------------ALTERA DATA PARA RODAR A ROLETA----------------------------------------
-
 const updateSpinDate = (req, res) => {
     users.findOne({
         email: req.params.email
@@ -558,12 +550,9 @@ const updateSpinDate = (req, res) => {
             })
         }
     })
-
 }
 
 //--------------------------------------------ALTERA PONTOS DO UTILIZADOR----------------------------------------
-
-
 const updatePoints = (req, res) => {
     users.findOne({
         email: req.params.email
@@ -582,21 +571,17 @@ const updatePoints = (req, res) => {
             })
         }
     })
-
 }
 
 //--------------------------------------------EMAIL DO PREMIO PARA O UTILIZADOR----------------------------------------
-
 const sendEmail = (req, res) => {
     let subjectQuizz = "FCM Tour - Código do prêmio"
     let subjectRoulette = "FCM Tour - Encomenda da roleta de prêmios"
-
     let msgQuizz = `<img style="width: 120px; height: 120px;" src="https://firebasestorage.googleapis.com/v0/b/fcmtour-347cf.appspot.com/o/images%2Flogo.png?alt=media&token=7a03772d-5967-4a75-ab11-a230e3e44cb9%22%3E">
     <h1 style="font-family: Arial, Helvetica, sans-serif;">FCM TOUR</h1>
     <h2 style="font-family: Arial, Helvetica, sans-serif;">Prémio Quizz FCM Tour</h2>
     <p style="font-family: Arial, Helvetica, sans-serif; color: gray;">Olá, Parabéns por ter concluído o Quizz com sucesso! Apresente este email no balcão de informações para poder levantar o seu Prémio.
         Obrigado e continuação de boa visita!</p>`;
-
     let msgPrizes = `<img style="width: 120px; height: 120px;" src="https://firebasestorage.googleapis.com/v0/b/fcmtour-347cf.appspot.com/o/images%2Flogo.png?alt=media&token=7a03772d-5967-4a75-ab11-a230e3e44cb9%22%3E">
     <h1 style="font-family: Arial, Helvetica, sans-serif;">FCM TOUR</h1>
     <h2 style="font-family: Arial, Helvetica, sans-serif;">Prémio Roleta de Cupertinos</h2>
@@ -618,7 +603,7 @@ const sendEmail = (req, res) => {
         html: message
     }, function (err, result) {
         if (err) {
-            res.status(404).send(err)
+            res.status(400).send(err)
         }
         if (result) {
             res.status(200).send({
