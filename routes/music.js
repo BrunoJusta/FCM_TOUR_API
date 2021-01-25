@@ -7,15 +7,13 @@ const {
     param
 } = require('express-validator');
 
-router.route('/cupertinos')
     /**
-     * @route GET /musica
-     * @group Musics
-     * @returns {object} 200 - An array of music info
+     * @route GET /musica/cupertinos
+     * @group Music
+     * @returns {object} 200 - An array of Cuperinos info
      * @returns {Error} 400 - Unexpected error
-     * @returns {Error} 401 - Invalid Token
-     * @security Bearer
      */
+router.route('/cupertinos')
     .get(function (req, res) {
         const errors = validationResult(req);
         if (errors.isEmpty()) {
@@ -27,15 +25,13 @@ router.route('/cupertinos')
         }
     })
 
-    router.route('/ciclos')
     /**
-     * @route GET /musica
-     * @group Musics
-     * @returns {object} 200 - An array of music info
+     * @route GET /musica/ciclos
+     * @group Music
+     * @returns {object} 200 - An array of cycles info~
      * @returns {Error} 400 - Unexpected error
-     * @returns {Error} 401 - Invalid Token
-     * @security Bearer
      */
+    router.route('/ciclos')
     .get(function (req, res) {
         const errors = validationResult(req);
         if (errors.isEmpty()) {
@@ -47,16 +43,14 @@ router.route('/cupertinos')
         }
     })
 
-    
-router.route('/')
+
 /**
  * @route GET /musica
- * @group Musics
+ * @group Music
  * @returns {object} 200 - An array of music info
  * @returns {Error} 400 - Unexpected error
- * @returns {Error} 401 - Invalid Token
- * @security Bearer
  */
+router.route('/')
 .get(function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
