@@ -26,7 +26,7 @@ router.get('/', function (req, res) {
 })
 
 /**
- * @route Get /biblioteca/acervo
+ * @route Get /biblioteca/acervos
  * @group Library
  * @returns {object} 200 - An array with all data collections
  * @returns {Error} 400 - Unexpected error
