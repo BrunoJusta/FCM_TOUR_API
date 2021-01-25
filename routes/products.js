@@ -7,6 +7,14 @@ const {
     param
 } = require('express-validator');
 
+/**
+ * @route Get /produtos
+ * @group Products
+ * @returns {object} 200 - An array of all products
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 401 - Invalid Token
+ * @security Bearer
+ */
 router.get('/', function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
@@ -18,6 +26,14 @@ router.get('/', function (req, res) {
     }
 })
 
+/**
+ * @route Get /produtos/preco/alto
+ * @group Products
+ * @returns {object} 200 - An array of all products ordered by highest price
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 401 - Invalid Token
+ * @security Bearer
+ */
 router.get('/preco/alto', function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
@@ -29,6 +45,14 @@ router.get('/preco/alto', function (req, res) {
     }
 })
 
+/**
+ * @route Get /produtos/preco/baixo
+ * @group Products
+ * @returns {object} 200 - An array of all products ordered by lowest price
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 401 - Invalid Token
+ * @security Bearer
+ */
 router.get('/preco/baixo', function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
@@ -40,6 +64,16 @@ router.get('/preco/baixo', function (req, res) {
     }
 })
 
+/**
+ * @route Get /produtos/{id}/{email}
+ * @group Products
+ * @param {string} id.path - Product's id
+ * @param {string} email.path - User's email
+ * @returns {object} 200 - An array of data from specific product
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 401 - Invalid Token
+ * @security Bearer
+ */
 router.get('/:id/:email', [
     param('id').notEmpty().escape(),
     param('email').notEmpty().escape(),
@@ -54,6 +88,16 @@ router.get('/:id/:email', [
     }
 })
 
+
+/**
+ * @route Delete /produtos/{id}
+ * @group Products
+ * @param {string} id.path - Product's id
+ * @returns {object} 200 - Remove a specific product
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 401 - Invalid Token
+ * @security Bearer
+ */
 router.delete('/:id', [
     param('id').notEmpty().escape(),
 ], function (req, res) {
