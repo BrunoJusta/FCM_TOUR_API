@@ -7,6 +7,12 @@ const {
     validationResult
 } = require('express-validator');
 
+/**
+ * @route Get /museu
+ * @group Museum
+ * @returns {object} 200 - An array with all data from Museum
+ * @returns {Error} 400 - Unexpected error
+ */
 router.get('/', function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
@@ -18,6 +24,12 @@ router.get('/', function (req, res) {
     }
 })
 
+/**
+ * @route Get /museu/esculturas
+ * @group Museum
+ * @returns {object} 200 - An array with all data from Sculptures
+ * @returns {Error} 400 - Unexpected error
+ */
 router.get('/esculturas', function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
@@ -29,6 +41,13 @@ router.get('/esculturas', function (req, res) {
     }
 })
 
+/**
+ * @route Get /museu/temporarias/{id}
+ * @group Museum
+ * @param {string} id.path - Temporary exhibitions id
+ * @returns {object} 200 - An array with data from a specific temporary exhibitions
+ * @returns {Error} 400 - Unexpected error
+ */
 router.get('/temporarias/:id', [
     param('id').notEmpty().escape()
 ], function (req, res) {
@@ -42,6 +61,13 @@ router.get('/temporarias/:id', [
     }
 })
 
+/**
+ * @route Get /museu/permanente/{id}
+ * @group Museum
+ * @param {string} id.path - Permanent exhibitions id
+ * @returns {object} 200 - An array with data from a specific permanent exhibitions
+ * @returns {Error} 400 - Unexpected error
+ */
 router.get('/permanente/:id', [
     param('id').notEmpty().escape()
 ], function (req, res) {
@@ -55,6 +81,13 @@ router.get('/permanente/:id', [
     }
 })
 
+/**
+ * @route Get /museu/quadros/{id}
+ * @group Museum
+ * @param {string} id.path - Frame id
+ * @returns {object} 200 - An array with data from a specific frame
+ * @returns {Error} 400 - Unexpected error
+ */
 router.get('/quadros/:id', [
     param('id').notEmpty().escape()
 ], function (req, res) {

@@ -7,6 +7,13 @@ const {
     param
 } = require('express-validator');
 
+/**
+ * @route Get /biblioteca
+ * @group Library
+ * @returns {object} 200 - An array with data about Library
+ * @returns {Error} 400 - Unexpected error
+ */
+
 router.get('/', function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
@@ -18,6 +25,12 @@ router.get('/', function (req, res) {
     }
 })
 
+/**
+ * @route Get /biblioteca/acervo
+ * @group Library
+ * @returns {object} 200 - An array with all data collections
+ * @returns {Error} 400 - Unexpected error
+ */
 router.get('/acervos', function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
@@ -29,6 +42,13 @@ router.get('/acervos', function (req, res) {
     }
 })
 
+/**
+ * @route Get /biblioteca/acervos/{id}
+ * @group Library
+ * @param {string} id.path - Collection id
+ * @returns {object} 200 - An array with data from specific collection
+ * @returns {Error} 400 - Unexpected error
+ */
 router.get('/acervos/:id', [
     param('id').notEmpty().escape()
 ], function (req, res) {
