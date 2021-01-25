@@ -6,9 +6,6 @@ const addOrder = (req, res) => {
     order.find(function (err, orders) {
         let info = req.body[0]
         let list = req.body[1]
-        console.log("INFO: " + info)
-        console.log("LIST: " + list)
-
         if (err) {
             res.status(400).send(err);
         }
