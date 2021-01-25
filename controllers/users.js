@@ -588,20 +588,33 @@ const updatePoints = (req, res) => {
 //--------------------------------------------EMAIL DO PREMIO PARA O UTILIZADOR----------------------------------------
 
 const sendEmail = (req, res) => {
-    let msgQuizz = `<h1>Email de QUIZZ</h1>
-    <h2> ${req.body.email}</h2>`;
-    let msgPrizes = `<h1>Email da ROLETA</h1>
-    <h2> ${req.body.email}</h2>`;
+    let subjectQuizz = "FCM Tour - Código do prêmio"
+    let subjectRoulette = "FCM Tour - Encomenda da roleta de prêmios"
+
+    let msgQuizz = `<img style="width: 120px; height: 120px;" src="https://firebasestorage.googleapis.com/v0/b/fcmtour-347cf.appspot.com/o/images%2Flogo.png?alt=media&token=7a03772d-5967-4a75-ab11-a230e3e44cb9%22%3E">
+    <h1 style="font-family: Arial, Helvetica, sans-serif;">FCM TOUR</h1>
+    <h2 style="font-family: Arial, Helvetica, sans-serif;">Prémio Quizz FCM Tour</h2>
+    <p style="font-family: Arial, Helvetica, sans-serif; color: gray;">Olá, Parabéns por ter concluído o Quizz com sucesso! Apresente este email no balcão de informações para poder levantar o seu Prémio.
+        Obrigado e continuação de boa visita!</p>`;
+
+    let msgPrizes = `<img style="width: 120px; height: 120px;" src="https://firebasestorage.googleapis.com/v0/b/fcmtour-347cf.appspot.com/o/images%2Flogo.png?alt=media&token=7a03772d-5967-4a75-ab11-a230e3e44cb9%22%3E">
+    <h1 style="font-family: Arial, Helvetica, sans-serif;">FCM TOUR</h1>
+    <h2 style="font-family: Arial, Helvetica, sans-serif;">Prémio Roleta de Cupertinos</h2>
+    <p style="font-family: Arial, Helvetica, sans-serif; color: gray;">Olá, a sua encomenda feita através da Roleta será processada entre 2-3 dias úteis. Obrigado.
+    Enviaremos email assim que a sua encomenda for processada!</p>`;
     let message = "";
+    let subjectTxt = "";
     if (req.body.type == 0) {
         message = msgQuizz;
-    } else if(req.body.type == 1){
+        subjectTxt = subjectQuizz;
+    } else if (req.body.type == 1) {
+        subjectTxt = subjectRoulette
         message = msgPrizes
     }
     transporter.sendMail({
         to: req.body.email,
         from: "fcmESMAPP@outlook.com",
-        subject: "FCM Tour - Código do prêmio",
+        subject: subjectTxt,
         html: message
     }, function (err, result) {
         if (err) {
