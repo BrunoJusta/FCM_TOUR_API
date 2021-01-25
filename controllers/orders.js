@@ -4,6 +4,7 @@ const order = require('../models/orders.js')
 const addOrder = (req, res) => {
 
     order.find(function (err, orders) {
+        console.log("BODYYYY: " + req.body)
         if (err) {
             res.status(400).send(err);
         }
