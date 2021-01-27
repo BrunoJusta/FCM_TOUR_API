@@ -53,7 +53,7 @@ const getItems = (req, res) => {
                         number:prizes[i].number,
                         img:prizes[i].img,
                         name:prizes[i].name_en,
-                        price:prizes[i].number
+                        price:prizes[i].price
                     })
                 }
                 else{
@@ -61,7 +61,7 @@ const getItems = (req, res) => {
                         number:prizes[i].number,
                         img:prizes[i].img,
                         name:prizes[i].name,
-                        price:prizes[i].number
+                        price:prizes[i].price
                     })
                 }
             }
