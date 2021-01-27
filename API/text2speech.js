@@ -2,7 +2,7 @@ const textToSpeech = require('@google-cloud/text-to-speech');
 const projectId = 'theta-dialect-296815'
 const uuid = require('uuid-v4');
 const keyFilename = './API/theta.json'
-const keyFilename2 = './API/fcmtour-347cf-firebase-adminsdk-qmqn9-d61fffd41e.json'
+const keyFilename2 = './API/fcmtour-347cf-firebase-adminsdk-qmqn9-ea3fd2d083.json'
 const {Storage} = require('@google-cloud/storage');
 const client = new textToSpeech.TextToSpeechClient({
     projectId,
