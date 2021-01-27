@@ -68,7 +68,7 @@ const getTempByID = (req, res) => {
                             name: temporary[i].name,
                             description: temporary[i].description_en
                         })
-                    } else if (temporary[i].audio != '') {
+                    } else if (language == "PT" && temporary[i].audio != '') {
                         res.status(200).json({
                             number: temporary[i].number,
                             audio: temporary[i].audio,
@@ -151,7 +151,7 @@ const getPermaByID = (req, res) => {
                             name: permanent[i].name,
                             description: permanent[i].description_en
                         })
-                    } else if (permanent[i].audio != '') {
+                    } else if (language == "PT" && permanent[i].audio != '') {
                         res.status(200).json({
                             number: permanent[i].number,
                             audio: permanent[i].audio,
@@ -233,7 +233,7 @@ const getPaintingByID = (req, res) => {
                     name: paintings.name,
                     description: paintings.description_en
                 })
-            } else if (paintings.audio != '') {
+            } else if (language == "PT" && paintings.audio != '') {
                 res.status(200).json({
                     number: paintings.number,
                     audio: paintings.audio,

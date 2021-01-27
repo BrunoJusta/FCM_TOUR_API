@@ -51,7 +51,7 @@ const getRoomsByNumber = (req, res) => {
                     description: rooms[0].description_en
                 })
             }
-            else if( rooms[0].audio != '' ){
+            else if( language == "PT" && rooms[0].audio != '' ){
                 res.status(200).json({
                     audio: rooms[0].audio,
                     imgs: rooms[0].imgs,

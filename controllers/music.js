@@ -32,7 +32,7 @@ const getCupertinos = (req, res) => {
                     text: cupertinos.text,
                     description: cupertinos.description_en
                 })
-            } else if ( cupertinos.audio != '') {
+            } else if (language == "PT" && cupertinos.audio != '') {
                 res.status(200).json({
                     audio: cupertinos.audio,
                     img: cupertinos.img,
@@ -63,7 +63,7 @@ const getCupertinos = (req, res) => {
                                         description: results.cupertinos.description_en
                                     })
                                 }
-                                else{
+                                else if (language == "PT") {
                                     results.cupertinos.audio = result
                                     results.markModified("audio")
                                     results.save();
@@ -106,7 +106,7 @@ const getCiclos = (req, res) => {
                     text: ciclos.text,
                     description: ciclos.description_en
                 })
-            } else if (ciclos.audio != '') {
+            } else if (language == "PT" && ciclos.audio != '') {
                 res.status(200).json({
                     audio: ciclos.audio,
                     img: ciclos.img,
@@ -137,7 +137,7 @@ const getCiclos = (req, res) => {
                                         description: results.ciclos.description_en
                                     })
                                 }
-                                else {
+                                else if(language == "PT") {
                                     results.ciclos.audio = result
                                     results.markModified("audio")
                                     results.save();
