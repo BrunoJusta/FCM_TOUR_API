@@ -86,7 +86,7 @@ const getItemsByNumber = (req, res) => {
                             number:items[i].number,
                             img:items[i].img,
                             name:items[i].name_en,
-                            price:items[i].number
+                            price:items[i].price
                         })
                     }
                     else{
@@ -94,7 +94,7 @@ const getItemsByNumber = (req, res) => {
                             number:items[i].number,
                             img:items[i].img,
                             name:items[i].name,
-                            price:items[i].number
+                            price:items[i].price
                         })
                     }
                 }
